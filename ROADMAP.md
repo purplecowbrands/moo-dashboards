@@ -225,7 +225,7 @@ Priority ranking (high to low):
 
 | Feature | Priority | Complexity | Dependencies | Status |
 |---------|----------|------------|--------------|--------|
-| CRM file loader | P0 | Low | None | Not started |
+| CRM file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
 | Kitchen file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
 | Monitoring file loader | P0 | Low | None | Not started |
 | Time log parser | P0 | Medium | None | Not started |
@@ -629,6 +629,18 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 
 **Random brainstorming - no priority assigned yet:**
 
+### Data Management & UX (New Ideas 2026-02-23)
+- **Manual data refresh button** - Force refresh without page reload (clear cache + reload current dashboard)
+- **CRM contact search/filter** - With 116K+ contacts, need search by name/company/tag/relationship
+- **Interaction timeline view** - Visual timeline of all interactions with a contact
+- **Interaction filtering** - Filter by type (call/email/meeting/text), date range, contact
+- **Bulk contact actions** - Tag multiple contacts, batch export, cleanup tools
+- **Contact deduplication** - Find and merge duplicate entries (many from Google import)
+- **Relationship strength indicator** - Visual score based on interaction frequency, recency, depth
+- **Last contact date highlighting** - Color-code contacts by how long since last touch (red = >30 days, yellow = 7-30, green = <7)
+
+### Original Ideas
+
 - **Habit tracking** - Daily push-ups, dog walks, meal prep, sleep quality
 - **Energy level tracking** - Correlate with productivity patterns
 - **Focus mode** - Block distracting websites during deep work sessions
@@ -814,6 +826,13 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 ---
 
 ## Changelog
+
+**2026-02-23 (7:29 AM):**
+- CRM dashboard connected to live workspace data (116K+ contacts loaded)
+- Successfully loading contacts.json, interactions.json, introductions.json
+- Data transformation layer: calculates recent interactions (last 7 days), top contacts by interaction count
+- Fixed data-loader.js to handle array-based JSON files (not just object-wrapped)
+- Phase 2.1 progress: 2 of 10 local file integrations complete (Kitchen + CRM)
 
 **2026-02-23 (12:29 AM):**
 - Kitchen dashboard connected to live workspace data

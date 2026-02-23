@@ -313,6 +313,65 @@ export function generateBNIJson(formData) {
 }
 
 // =========================
+// FINANCIAL DATA
+// =========================
+
+export async function getFinancialData() {
+    const cached = getCached('financial');
+    if (cached) return cached;
+
+    const financialData = await fetchJSON('/data/financial.json');
+    if (!financialData) return null;
+
+    const data = {
+        ...financialData,
+        isLive: true
+    };
+
+    setCache('financial', data);
+    return data;
+}
+
+// Save Financial data (returns JSON string for manual update)
+export function generateFinancialJson(formData) {
+    const monthlyRevenue = [];
+    
+    // Parse monthlyRevenue entries (dynamically from form)
+    for (let i = 0; i < 12; i++) {
+        const month = formData[`month_${i}`];
+        const revenue = formData[`revenue_${i}`];
+        if (month && revenue) {
+            monthlyRevenue.push({
+                month: month,
+                revenue: parseInt(revenue)
+            });
+        }
+    }
+
+    return JSON.stringify({
+        revenue: {
+            current: parseInt(formData.revenueCurrent),
+            target: parseInt(formData.revenueTarget),
+            percentage: parseFloat(((parseInt(formData.revenueCurrent) / parseInt(formData.revenueTarget)) * 100).toFixed(1))
+        },
+        mrr: {
+            current: parseInt(formData.mrrCurrent),
+            target: parseInt(formData.mrrTarget),
+            percentage: parseFloat(((parseInt(formData.mrrCurrent) / parseInt(formData.mrrTarget)) * 100).toFixed(1))
+        },
+        monthlyRevenue: monthlyRevenue,
+        expenses: {
+            payroll: parseInt(formData.expensePayroll),
+            tools: parseInt(formData.expenseTools),
+            marketing: parseInt(formData.expenseMarketing),
+            overhead: parseInt(formData.expenseOverhead)
+        },
+        lastUpdated: new Date().toISOString(),
+        notes: formData.notes || ''
+    }, null, 2);
+}
+
+// =========================
 // HELPER: Check if data is live
 // =========================
 

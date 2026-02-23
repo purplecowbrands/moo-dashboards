@@ -7,7 +7,7 @@ import { renderClients } from './dashboards/clients.js';
 import { renderMonitoring } from './dashboards/monitoring.js';
 import { renderTime } from './dashboards/time.js';
 import { renderBNI, initBNI } from './dashboards/bni.js';
-import { renderFinancial } from './dashboards/financial.js';
+import { renderFinancial, initFinancial } from './dashboards/financial.js';
 import { renderTasks } from './dashboards/tasks.js';
 import { renderKitchen } from './dashboards/kitchen.js';
 import { renderRoadmap } from './dashboards/roadmap.js';
@@ -64,6 +64,9 @@ async function router() {
     // Initialize page-specific features
     if (page === 'bni') {
         initBNI();
+    }
+    if (page === 'financial') {
+        initFinancial();
     }
 }
 

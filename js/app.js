@@ -10,6 +10,7 @@ import { renderBNI } from './dashboards/bni.js';
 import { renderFinancial } from './dashboards/financial.js';
 import { renderTasks } from './dashboards/tasks.js';
 import { renderKitchen } from './dashboards/kitchen.js';
+import { renderRoadmap } from './dashboards/roadmap.js';
 
 // Page renderers map
 const pages = {
@@ -23,7 +24,8 @@ const pages = {
     bni: renderBNI,
     financial: renderFinancial,
     tasks: renderTasks,
-    kitchen: renderKitchen
+    kitchen: renderKitchen,
+    roadmap: renderRoadmap
 };
 
 // Router

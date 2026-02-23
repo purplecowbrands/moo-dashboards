@@ -1,15 +1,61 @@
 // BNI Metrics Dashboard
 import { sampleData } from '../../data/sample-data.js';
+import { getBNIData, generateBNIJson, isLiveData } from '../data-loader.js';
 
-export function renderBNI() {
-    const { bni } = sampleData;
+export async function renderBNI() {
+    // Try loading live data, fall back to sample data
+    let bni = null;
+    let dataStatus = 'sample';
+    
+    try {
+        const liveData = await getBNIData();
+        if (liveData && isLiveData(liveData)) {
+            bni = liveData;
+            dataStatus = 'live';
+        }
+    } catch (error) {
+        console.error('Error loading BNI data:', error);
+    }
+    
+    // Fallback to sample data if live data unavailable
+    if (!bni) {
+        bni = sampleData.bni;
+    }
+
     const oneOnOneProgress = (bni.oneOnOnes.thisWeek / bni.oneOnOnes.target) * 100;
+    const lastUpdated = bni.lastUpdated 
+        ? new Date(bni.lastUpdated).toLocaleString('en-US', { 
+            month: 'short', 
+            day: 'numeric', 
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
+          })
+        : 'Never';
 
     return `
-        <div class="page-header">
-            <h2>BNI Metrics</h2>
-            <p>${bni.chapter} Chapter - member count, visitor tracking, referral pipeline, attendance</p>
+        <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h2>BNI Metrics</h2>
+                <p>${bni.chapter} Chapter - member count, visitor tracking, referral pipeline, attendance</p>
+            </div>
+            <button id="editBniBtn" class="btn btn-primary">
+                <i data-lucide="edit-3" style="width: 16px; height: 16px;"></i>
+                Edit Metrics
+            </button>
         </div>
+
+        ${dataStatus === 'live' ? `
+            <div style="background: var(--success-bg); color: var(--success); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius); margin-bottom: var(--spacing-md); font-size: 0.875rem; display: flex; align-items: center; gap: var(--spacing-sm);">
+                <i data-lucide="database" style="width: 16px; height: 16px;"></i>
+                <span><strong>Live Data</strong> - Last updated: ${lastUpdated}</span>
+            </div>
+        ` : `
+            <div style="background: var(--warning-bg); color: var(--warning); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius); margin-bottom: var(--spacing-md); font-size: 0.875rem; display: flex; align-items: center; gap: var(--spacing-sm);">
+                <i data-lucide="alert-circle" style="width: 16px; height: 16px;"></i>
+                <span><strong>Sample Data</strong> - Click "Edit Metrics" to set up live tracking</span>
+            </div>
+        `}
 
         <div class="stats-grid">
             <div class="stat-card">
@@ -161,8 +207,166 @@ export function renderBNI() {
                         <span>Meeting Day</span>
                         <strong>Tuesday 7:00 AM</strong>
                     </li>
+                    ${bni.notes ? `
+                        <li class="list-item" style="flex-direction: column; align-items: flex-start;">
+                            <span>Notes</span>
+                            <div style="color: var(--text-secondary); font-size: 0.875rem; margin-top: var(--spacing-xs);">${bni.notes}</div>
+                        </li>
+                    ` : ''}
                 </ul>
             </div>
         </div>
+
+        <!-- Edit Form Modal (hidden by default) -->
+        <div id="bniEditModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; padding: var(--spacing-lg); overflow-y: auto;">
+            <div style="max-width: 600px; margin: 0 auto; background: var(--card-bg); border-radius: var(--radius); padding: var(--spacing-xl); box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+                    <h3 style="margin: 0;">Edit BNI Metrics</h3>
+                    <button id="closeBniModal" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.5rem; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">×</button>
+                </div>
+
+                <form id="bniEditForm">
+                    <div style="display: grid; gap: var(--spacing-md);">
+                        <div>
+                            <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Chapter Name</label>
+                            <input type="text" name="chapter" value="${bni.chapter}" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Total Members</label>
+                                <input type="number" name="memberCount" value="${bni.memberCount}" min="0" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Visitors This Month</label>
+                                <input type="number" name="visitorCount" value="${bni.visitorCount}" min="0" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Attendance This Month (%)</label>
+                                <input type="number" name="attendanceThisMonth" value="${bni.attendance.thisMonth}" min="0" max="100" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Attendance Last Month (%)</label>
+                                <input type="number" name="attendanceLastMonth" value="${bni.attendance.lastMonth}" min="0" max="100" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">121s This Week</label>
+                                <input type="number" name="oneOnOnesThisWeek" value="${bni.oneOnOnes.thisWeek}" min="0" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">121s Target</label>
+                                <input type="number" name="oneOnOnesTarget" value="${bni.oneOnOnes.target}" min="0" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-md);">
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Referrals Given</label>
+                                <input type="number" name="referralsGiven" value="${bni.referralsGiven}" min="0" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Referrals Received</label>
+                                <input type="number" name="referralsReceived" value="${bni.referralsReceived}" min="0" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Pending Follow-up</label>
+                                <input type="number" name="referralsPending" value="${bni.referralsPending}" min="0" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text);">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="display: block; margin-bottom: var(--spacing-xs); font-weight: 500;">Notes (Optional)</label>
+                            <textarea name="notes" rows="3" style="width: 100%; padding: var(--spacing-sm); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); resize: vertical;">${bni.notes || ''}</textarea>
+                        </div>
+
+                        <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-lg);">
+                            <button type="button" id="saveBniBtn" class="btn btn-primary" style="flex: 1;">
+                                <i data-lucide="save" style="width: 16px; height: 16px;"></i>
+                                Generate Update JSON
+                            </button>
+                            <button type="button" id="cancelBniBtn" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- JSON Output (hidden until generated) -->
+                <div id="bniJsonOutput" style="display: none; margin-top: var(--spacing-lg); padding: var(--spacing-md); background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm);">
+                        <strong>Updated JSON:</strong>
+                        <button type="button" id="copyBniJsonBtn" class="btn btn-sm btn-secondary">
+                            <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                            Copy to Clipboard
+                        </button>
+                    </div>
+                    <pre id="bniJsonContent" style="background: var(--code-bg); padding: var(--spacing-md); border-radius: var(--radius); overflow-x: auto; font-size: 0.875rem; margin: 0;"></pre>
+                    <p style="margin-top: var(--spacing-md); color: var(--text-secondary); font-size: 0.875rem;">
+                        <strong>Instructions:</strong> Copy this JSON and save it to <code>data/bni-metrics.json</code> in the repo, then commit and push to GitHub. The dashboard will update automatically.
+                    </p>
+                </div>
+            </div>
+        </div>
     `;
+}
+
+// Initialize event listeners after render
+export function initBNI() {
+    const editBtn = document.getElementById('editBniBtn');
+    const modal = document.getElementById('bniEditModal');
+    const closeBtn = document.getElementById('closeBniModal');
+    const cancelBtn = document.getElementById('cancelBniBtn');
+    const saveBtn = document.getElementById('saveBniBtn');
+    const form = document.getElementById('bniEditForm');
+    const jsonOutput = document.getElementById('bniJsonOutput');
+    const jsonContent = document.getElementById('bniJsonContent');
+    const copyBtn = document.getElementById('copyBniJsonBtn');
+
+    if (!editBtn || !modal) return;
+
+    // Open modal
+    editBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+        jsonOutput.style.display = 'none';
+    });
+
+    // Close modal
+    const closeModal = () => {
+        modal.style.display = 'none';
+        jsonOutput.style.display = 'none';
+    };
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Generate JSON
+    saveBtn.addEventListener('click', () => {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const json = generateBNIJson(data);
+        
+        jsonContent.textContent = json;
+        jsonOutput.style.display = 'block';
+    });
+
+    // Copy to clipboard
+    copyBtn.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(jsonContent.textContent);
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied!';
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                lucide.createIcons();
+            }, 2000);
+        } catch (err) {
+            alert('Failed to copy to clipboard. Please select and copy manually.');
+        }
+    });
 }

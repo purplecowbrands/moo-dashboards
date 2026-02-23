@@ -106,6 +106,12 @@
 - Phases should become architecture categories (not sequential stages) - e.g. "Live Data Connections" shows what's connected
 - Features should live independently, not locked to phases - can work on input UI before all data connections are done
 
+### New Dashboard: Moo Status
+- Live view of all active subagents (what's running, how long, what task)
+- Summary of completed/recent subagents
+- All cron jobs with: last run time, next run time, status (success/fail), description of purpose
+- Basically a window into Moo's brain so Ben can see what's happening behind the scenes
+
 ### General
 - Need clear indicators on each dashboard showing what's live data vs sample data
 - All sample data should be replaced with real data ASAP

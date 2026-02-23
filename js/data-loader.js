@@ -266,6 +266,48 @@ export async function getClientHealthData() {
 }
 
 // =========================
+// BNI METRICS DATA
+// =========================
+
+export async function getBNIData() {
+    const cached = getCached('bni');
+    if (cached) return cached;
+
+    const bniData = await fetchJSON('/data/bni-metrics.json');
+    if (!bniData) return null;
+
+    const data = {
+        ...bniData,
+        isLive: true
+    };
+
+    setCache('bni', data);
+    return data;
+}
+
+// Save BNI data (returns JSON string for manual update)
+export function generateBNIJson(formData) {
+    return JSON.stringify({
+        chapter: formData.chapter,
+        memberCount: parseInt(formData.memberCount),
+        visitorCount: parseInt(formData.visitorCount),
+        attendance: {
+            thisMonth: parseInt(formData.attendanceThisMonth),
+            lastMonth: parseInt(formData.attendanceLastMonth)
+        },
+        oneOnOnes: {
+            thisWeek: parseInt(formData.oneOnOnesThisWeek),
+            target: parseInt(formData.oneOnOnesTarget)
+        },
+        referralsGiven: parseInt(formData.referralsGiven),
+        referralsReceived: parseInt(formData.referralsReceived),
+        referralsPending: parseInt(formData.referralsPending),
+        lastUpdated: new Date().toISOString(),
+        notes: formData.notes || ''
+    }, null, 2);
+}
+
+// =========================
 // HELPER: Check if data is live
 // =========================
 

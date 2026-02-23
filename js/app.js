@@ -6,7 +6,7 @@ import { renderCRM } from './dashboards/crm.js';
 import { renderClients } from './dashboards/clients.js';
 import { renderMonitoring } from './dashboards/monitoring.js';
 import { renderTime } from './dashboards/time.js';
-import { renderBNI } from './dashboards/bni.js';
+import { renderBNI, initBNI } from './dashboards/bni.js';
 import { renderFinancial } from './dashboards/financial.js';
 import { renderTasks } from './dashboards/tasks.js';
 import { renderKitchen } from './dashboards/kitchen.js';
@@ -59,6 +59,11 @@ async function router() {
     // Initialize charts if Chart.js is loaded
     if (window.Chart && page !== 'home') {
         setTimeout(initCharts, 100);
+    }
+    
+    // Initialize page-specific features
+    if (page === 'bni') {
+        initBNI();
     }
 }
 

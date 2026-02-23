@@ -1,13 +1,18 @@
 // Time Tracking Dashboard
 import { sampleData } from '../../data/sample-data.js';
+import { loadData } from '../data-loader.js';
 
-export function renderTime() {
-    const { time } = sampleData;
+export async function renderTime() {
+    // Try to load live data, fallback to sample data
+    const liveData = await loadData('/data/time-data.json');
+    const time = liveData || sampleData.time;
+    const isLive = !!liveData;
 
     return `
         <div class="page-header">
             <h2>Time Tracking</h2>
             <p>Daily logs visualized by category, trends</p>
+            ${isLive ? '<div class="badge success">Live Data</div>' : '<div class="badge warning">Sample Data</div>'}
         </div>
 
         <div class="stats-grid">
@@ -63,7 +68,8 @@ export function renderTime() {
                                     'rgba(99, 102, 241, 0.8)',
                                     'rgba(16, 185, 129, 0.8)',
                                     'rgba(245, 158, 11, 0.8)',
-                                    'rgba(59, 130, 246, 0.8)'
+                                    'rgba(59, 130, 246, 0.8)',
+                                    'rgba(236, 72, 153, 0.8)'
                                 ],
                                 borderWidth: 2
                             }]

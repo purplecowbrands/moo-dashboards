@@ -151,9 +151,9 @@ export async function getCRMData() {
     if (!contacts) return null;
 
     const data = {
-        contacts: contacts.contacts || [],
-        interactions: interactions?.interactions || [],
-        introductions: introductions?.introductions || [],
+        contacts: Array.isArray(contacts) ? contacts : [],
+        interactions: Array.isArray(interactions) ? interactions : [],
+        introductions: Array.isArray(introductions) ? introductions : [],
         isLive: true
     };
 

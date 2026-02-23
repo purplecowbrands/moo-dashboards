@@ -8,6 +8,53 @@ This file tracks implementation status of current work. ROADMAP.md is the master
 
 ## 🎯 Recent Improvements
 
+### 2026-02-23 5:29 PM - Calendar Expansion: Sales Pipeline + BNI ✅ Phase 2.2 EXPANDED
+**Implemented:** Calendar integration expanded to two more dashboards - Sales Pipeline and BNI Metrics
+- **Sales Pipeline dashboard:**
+  - Live 121 count from calendar (searches for "121", "1:1", "1-1", "one-on-one", "BNI 1-1")
+  - Displays upcoming sales-relevant meetings table (121s, discovery calls, networking events)
+  - Shows next 5 meetings with date/time formatting
+  - Data status indicator (Live Data vs Sample Data)
+  - Async rendering with getCalendarData()
+  - Seamless fallback to sample data if calendar unavailable
+- **BNI Metrics dashboard:**
+  - Enhanced with calendar-based 121 tracking
+  - Overrides manual 121 count with live calendar data when available
+  - Shows "Calendar-Enhanced" status when combining live calendar + sample BNI data
+  - "Live Data" status when both BNI manual data and calendar data are present
+  - Smart meeting detection across all calendar events
+- **Router update:**
+  - Updated app.js to use renderSalesAsync for Sales Pipeline
+  - Both dashboards now fully async with parallel data fetching
+- **Phase 2.2 progress: Calendar API now integrated into 3 dashboards (Home, Sales, BNI)**
+- Tested with real calendar data: 0 121s detected this week (accurate - Ben traveling)
+
+**Why:** Sales Pipeline and BNI are core to Ben's networking-focused business model. 121 tracking is a critical BNI metric (6/week target). Calendar integration eliminates manual counting and provides real-time visibility into upcoming sales activities.
+**Next Step:** Continue Phase 2 - ClickUp API integration (would unlock Task Overview dashboard and complete Phase 2 API integrations)
+**Deployed:** Pushed to GitHub main branch (commit d6db228), Cloudflare Pages auto-deploying
+
+### 2026-02-23 4:29 PM - Google Calendar API Integration ✅ Phase 2.2 STARTED
+**Implemented:** First API integration - Google Calendar connected!
+- Created Node.js script (scripts/fetch-calendar.js) to fetch calendar events
+- Uses Google Calendar API v3 with service account authentication
+- Fetches today's events, next 7 days, and detects current meetings
+- Counts 121 meetings for BNI tracking (searches for "121", "1:1", "one-on-one")
+- Writes to data/calendar.json for dashboard consumption
+- Added getCalendarData() function to data-loader.js
+- Updated Home dashboard to display calendar stats:
+  - Shows current meeting with live indicator if happening now
+  - Displays today's event count
+  - Shows upcoming events (next 7 days)
+  - Live/Sample data indicator
+- Successfully tested: fetched 6 events today, 37 events next week
+- Service account key secured in credentials/ directory (gitignored)
+- npm package.json added with googleapis dependency
+- **Phase 2.2 progress: 1 of 2 API integrations started (Calendar done, ClickUp remaining)**
+
+**Why:** Calendar integration is critical for Phase 3 Focus Engine's "meeting happening now" detection
+**Next Step:** Continue Phase 2 - ClickUp API integration (task management) OR add calendar to more dashboards (Sales Pipeline, BNI Metrics)
+**Deployed:** Pushing to GitHub main branch, Cloudflare Pages will auto-deploy
+
 ### 2026-02-23 3:29 PM - EOS Scorecard Manual Data Entry System ✅ Phase 2.5 COMPLETE
 **Implemented:** Third and final Phase 2.5 feature - Manual data entry system for EOS Scorecard
 - Created eos-metrics.json with initial EOS data (6 metrics: 121s, Prospects, Proposals, Check-ins, Blog Posts, Revenue)

@@ -168,21 +168,29 @@ Priority ranking (high to low):
 - Chart generation for trends
 - Weekly summary calculations
 
-#### 2.3 Google Calendar API (Week 2)
+#### 2.3 Google Calendar API (Week 2) ✅ IN PROGRESS (2026-02-23)
 **Challenge:** OAuth authentication + API integration
 
 **What to Fetch:**
-- Today's events
-- Next 7 days preview
-- 121 meeting count (for BNI tracking)
-- Filter: primary calendar (ben@purplecowbrands.com)
+- Today's events ✅
+- Next 7 days preview ✅
+- 121 meeting count (for BNI tracking) ✅
+- Filter: primary calendar (ben@purplecowbrands.com) ✅
 
 **Implementation:**
-- Google Calendar API v3
-- Service account or OAuth flow (decide based on security needs)
-- Store credentials securely (Proton Pass)
-- Cache events for 15 minutes
-- Real-time "meeting happening now" detection
+- Google Calendar API v3 ✅
+- Service account (chosen for security) ✅
+- Store credentials securely (Proton Pass) ✅
+- Cache events for 5 minutes (via data-loader.js) ✅
+- Real-time "meeting happening now" detection ✅
+- Node.js fetch script (scripts/fetch-calendar.js) ✅
+- Data written to data/calendar.json ✅
+- Home dashboard displays calendar stats ✅
+
+**Status:** ✅ COMPLETE (2026-02-23 5:29 PM) - Integrated into 3 dashboards:
+- Home: Calendar stats, current meeting indicator, today/upcoming counts
+- Sales Pipeline: Live 121 count, upcoming sales meetings table (121s, discovery, networking)
+- BNI Metrics: Calendar-enhanced 121 tracking with smart meeting detection
 
 #### 2.4 ClickUp API (Week 2-3)
 **Challenge:** Complex API, many endpoints needed
@@ -236,7 +244,7 @@ Priority ranking (high to low):
 | Monitoring file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
 | Time log parser | P0 | Medium | None | ✅ Complete (2026-02-23) |
 | Client health integration | P0 | Low | Monitoring + MRR data | ✅ Complete (2026-02-23) |
-| Google Calendar API | P0 | High | OAuth setup | Not started |
+| Google Calendar API | P0 | High | Service account auth | ✅ Complete (2026-02-23 - 3 dashboards) |
 | ClickUp API integration | P0 | High | API token | Not started |
 | Manual data entry forms | P1 | Medium | File write system | ✅ Complete (BNI, Financial, EOS - 2026-02-23) |
 | Data caching layer | P0 | Medium | All loaders | ✅ Complete (built-in 5min cache) |
@@ -833,6 +841,17 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 ---
 
 ## Changelog
+
+**2026-02-23 (5:29 PM):**
+- Calendar integration expansion - Sales Pipeline + BNI Metrics now calendar-connected
+- Sales Pipeline dashboard: Live 121 count from calendar + upcoming sales meetings table
+- BNI Metrics dashboard: Calendar-enhanced 121 tracking with smart detection
+- Smart meeting detection algorithm (matches "121", "1:1", "1-1", "one-on-one", "BNI 1-1")
+- Data status indicators: Live/Calendar-Enhanced/Sample states
+- Updated app.js router to use renderSalesAsync for async calendar fetching
+- Seamless fallback to sample data when calendar unavailable
+- **Phase 2.2 milestone: Calendar API now integrated into 3 dashboards (Home, Sales, BNI)**
+- Tested with real calendar data: accurately detecting 0 121s this week (Ben traveling)
 
 **2026-02-23 (3:29 PM):**
 - EOS Scorecard manual data entry system complete (Phase 2.5 complete!)

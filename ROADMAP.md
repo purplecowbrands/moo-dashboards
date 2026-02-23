@@ -829,6 +829,16 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 
 ## Changelog
 
+**2026-02-23 (1:29 PM):**
+- Home/Overview dashboard connected to live data (Phase 2 aggregation)
+- Aggregates data from all 5 live sources: CRM, Monitoring, Client Health, Kitchen, BNI, Time Tracking
+- Shows live vs sample data indicators on each stat card
+- Data status banner shows "X/Y sources connected" at page top
+- Recent interactions pulled from live CRM data (sorted by date, top 3)
+- Parallel data fetching using Promise.all for fast loading
+- Graceful fallback to sample data for disconnected sources
+- Phase 2 progress: 6 of 11 dashboards using live data (Home, CRM, Monitoring, Client Health, Kitchen, BNI, Time Tracking)
+
 **2026-02-23 (12:29 PM):**
 - BNI Metrics manual data entry system complete (Phase 2.5)
 - Created bni-metrics.json with Champions Dallas chapter data

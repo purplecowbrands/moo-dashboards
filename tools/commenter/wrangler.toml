@@ -1,0 +1,21 @@
+# Cloudflare Workers configuration
+# Run: wrangler deploy
+
+name = "commenter"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# KV namespace binding
+# After creating your KV namespace, add the ID here:
+# [[kv_namespaces]]
+# binding = "COMMENTER_KV"
+# id = "your-kv-namespace-id"
+
+# Environment variables (optional)
+# [vars]
+# WORKER_URL = "https://commenter.yourworker.workers.dev"
+
+# Routes (if you want to use a custom domain)
+# routes = [
+#   { pattern = "commenter.yourdomain.com/*", zone_name = "yourdomain.com" }
+# ]

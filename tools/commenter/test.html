@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commenter Tool Test Page</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    header h1 { font-size: 48px; margin-bottom: 16px; }
+    header p { font-size: 20px; opacity: 0.9; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    .section {
+      margin-bottom: 60px;
+    }
+    .section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #667eea;
+    }
+    .section p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .card {
+      background: #f7fafc;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #2d3748;
+    }
+    .card p {
+      font-size: 16px;
+      color: #4a5568;
+    }
+    footer {
+      background: #2d3748;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .banner {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 40px 0;
+    }
+    .banner h3 {
+      color: #92400e;
+      margin-bottom: 8px;
+    }
+    .banner p {
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Website Commenter Tool</h1>
+    <p>Test page for the commenting system</p>
+  </header>
+
+  <div class="container">
+    <div class="section">
+      <h2>How to Test</h2>
+      <p>This is a test page to demonstrate the website commenter tool. Here's how to use it:</p>
+      <ol style="font-size: 18px; line-height: 2; margin-left: 30px;">
+        <li>Click the 💬 button in the bottom-right corner</li>
+        <li>Click anywhere on this page to place a comment</li>
+        <li>Fill out the comment form and submit</li>
+        <li>Visit the admin dashboard to see your comment with screenshot</li>
+      </ol>
+    </div>
+
+    <div class="banner">
+      <h3>🎯 Try Commenting on These Elements</h3>
+      <p>Click the comment button and then click on the header, these cards, or any text to leave feedback. The tool will capture exactly where you clicked!</p>
+    </div>
+
+    <div class="section">
+      <h2>Features to Test</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>📍 Pin Placement</h3>
+          <p>Click anywhere on the page to place a comment pin. The exact coordinates are captured and displayed in the admin dashboard.</p>
+        </div>
+        <div class="card">
+          <h3>📸 Screenshot Capture</h3>
+          <p>When you submit a comment, a screenshot is automatically captured. Admins can see exactly what the page looked like.</p>
+        </div>
+        <div class="card">
+          <h3>📎 File Attachments</h3>
+          <p>You can attach images or files to your comments. Try uploading a screenshot or photo when commenting.</p>
+        </div>
+        <div class="card">
+          <h3>🎨 Color-Coded Status</h3>
+          <p>Comments are color-coded: red for open, green for resolved, gray for closed. Hover over pins to see them scale up.</p>
+        </div>
+        <div class="card">
+          <h3>🔒 Domain Restriction</h3>
+          <p>The script supports domain filtering. You can show the tool only on staging URLs, not production sites.</p>
+        </div>
+        <div class="card">
+          <h3>💼 Admin Dashboard</h3>
+          <p>View all comments, filter by site/status, update statuses, delete comments, and export to CSV.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Sample Content Areas</h2>
+      <p>These sections are here to give you different areas to test commenting on. Try leaving comments about different parts of the page:</p>
+      
+      <div style="background: #e0f2fe; padding: 30px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="color: #0369a1;">Light Blue Section</h3>
+        <p style="color: #075985;">This is a light blue section. Try commenting on this to see how the pin looks against a colored background.</p>
+      </div>
+
+      <div style="background: #dcfce7; padding: 30px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="color: #166534;">Green Section</h3>
+        <p style="color: #15803d;">This is a green section. Notice how the red comment pins stand out against different background colors.</p>
+      </div>
+
+      <div style="background: #fef3c7; padding: 30px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="color: #92400e;">Yellow Section</h3>
+        <p style="color: #78350f;">This is a yellow section. The screenshot will capture these colors exactly as they appear.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Scrolling Test</h2>
+      <p>Scroll down this page and place a comment below. The screenshot will capture your scroll position, and the admin can see exactly where on the scrolled page you left the comment.</p>
+      <div style="height: 600px; background: linear-gradient(180deg, #fef3c7 0%, #fecaca 100%); display: flex; align-items: center; justify-content: center; border-radius: 8px; margin: 20px 0;">
+        <div style="text-align: center; padding: 40px;">
+          <h3 style="font-size: 36px; margin-bottom: 16px;">Scrolled Section</h3>
+          <p style="font-size: 20px;">Leave a comment somewhere in this tall section to test scroll position capture.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Purple Cow Brands - Website Commenter Tool</p>
+    <p style="margin-top: 12px; opacity: 0.8;">Built with Cloudflare Workers + KV</p>
+  </footer>
+
+  <!-- Commenter Tool Embed -->
+  <!-- REPLACE WITH YOUR WORKER URL AFTER DEPLOYMENT -->
+  <!-- <script src="https://your-worker-url.workers.dev/embed.js"></script> -->
+  
+  <!-- For local testing, uncomment and use your deployed worker URL -->
+  <!-- <script src="https://commenter.yourworker.workers.dev/embed.js" data-allowed-domains="localhost,127.0.0.1"></script> -->
+</body>
+</html>

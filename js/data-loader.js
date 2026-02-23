@@ -18,6 +18,11 @@ function setCache(key, data) {
     DATA_CACHE.set(key, { data, timestamp: Date.now() });
 }
 
+// Generic data loader (public)
+export async function loadData(url) {
+    return fetchJSON(url);
+}
+
 // Generic fetch with error handling
 async function fetchJSON(url) {
     try {

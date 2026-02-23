@@ -1,0 +1,47 @@
+{
+  "sites": [
+    {"name": "purplecowbrands", "url": "https://purplecowbrands.com", "platform": "framer"},
+    {"name": "wacohealingroom", "url": "https://wacohealingroom.com", "platform": "framer"},
+    {"name": "watsonsroofingdfw", "url": "https://watsonsroofingdfw.com", "platform": "framer"},
+    {"name": "spartangroupus", "url": "https://spartangroupus.com", "platform": "framer"},
+    {"name": "spartanprojectsllc", "url": "https://spartanprojectsllc.com", "platform": "framer"},
+    {"name": "wellnestcounseling", "url": "https://wellnestcounseling.com", "platform": "framer"},
+    {"name": "homeenergydoctors", "url": "https://homeenergydoctors.com", "platform": "framer"},
+    {"name": "fulkruminsulation", "url": "https://fulkruminsulation.com", "platform": "framer"},
+    {"name": "hatdaddy", "url": "https://hatdaddy.shop", "platform": "framer"},
+    {"name": "hatdaddy-store", "url": "https://store.hatdaddy.shop", "platform": "framer"},
+    {"name": "lyonsinvestmentgroup", "url": "https://lyonsinvestmentgroup.com", "platform": "framer"},
+    {"name": "hdnbc", "url": "http://hdnbc.org", "platform": "framer"},
+    {"name": "meadowsgaragedoors-ads", "url": "https://ads.meadowsgaragedoors.com", "platform": "framer"},
+    {"name": "smcworldwide", "url": "https://smcworldwide.net", "platform": "shopify"},
+    {"name": "fhdm-church", "url": "https://fhdm.church", "platform": "framer"},
+    {"name": "portlandlumberservices", "url": "https://portlandlumberservices.com", "platform": "framer"},
+    {"name": "cornerstonecareercenter", "url": "https://cornerstonecareercenter.org", "platform": "framer"},
+    {"name": "flourishmassagedtx", "url": "https://www.flourishmassagedtx.com", "platform": "framer"},
+    {"name": "dirtdoctor", "url": "https://dirtdoctor.pro", "platform": "framer"},
+    {"name": "zenalogistics", "url": "https://zenalogistics.com", "platform": "framer"},
+    {"name": "arpinamerica", "url": "https://arpinamerica.com", "platform": "wordpress"},
+    {"name": "texaswateringsolutions", "url": "https://texaswateringsolutions.com", "platform": "wordpress"},
+    {"name": "thehealerschannel", "url": "https://thehealerschannel.org", "platform": "wordpress"},
+    {"name": "republicoftexasnation", "url": "https://republicoftexasnation.com", "platform": "wordpress"},
+    {"name": "cateringdonewisely", "url": "https://cateringdonewisely.com", "platform": "wordpress"},
+    {"name": "dallascsifoundation", "url": "https://dallascsifoundation.org", "platform": "wordpress"},
+    {"name": "dfwclinicalresearch", "url": "https://dfwclinicalresearch.com", "platform": "wordpress"},
+    {"name": "lonestarliquorallen", "url": "https://lonestarliquorallen.com", "platform": "wordpress"},
+    {"name": "timthecleancomic", "url": "https://timthecleancomic.com", "platform": "wordpress"},
+    {"name": "shippersselect", "url": "https://shippersselect.com", "platform": "wordpress"},
+    {"name": "sugarbeetkitchen", "url": "https://sugarbeetkitchen.com", "platform": "wordpress"},
+    {"name": "heatherdavilacoaching", "url": "https://heatherdavilacoaching.com", "platform": "wordpress"}
+  ],
+  "viewports": {
+    "desktop": {"width": 1280, "height": 800},
+    "mobile": {"width": 375, "height": 812}
+  },
+  "settings": {
+    "diffThresholdPercent": 1.0,
+    "pageLoadWaitMs": 3000,
+    "scrollDelayMs": 1000,
+    "deviceScaleFactor": 1,
+    "screenshotFormat": "png"
+  }
+}

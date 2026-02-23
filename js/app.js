@@ -29,15 +29,19 @@ const pages = {
 };
 
 // Router
-function router() {
+async function router() {
     const hash = window.location.hash.slice(1) || '/';
     const page = hash === '/' ? 'home' : hash.slice(1);
     
     const container = document.getElementById('page-container');
     const renderFn = pages[page] || pages.home;
     
-    // Render page
-    container.innerHTML = renderFn();
+    // Show loading state
+    container.innerHTML = '<div style="padding: 2rem; text-align: center;">Loading...</div>';
+    
+    // Render page (handle both sync and async renderers)
+    const content = await renderFn();
+    container.innerHTML = content;
     
     // Update active nav
     document.querySelectorAll('.nav-menu a').forEach(link => {

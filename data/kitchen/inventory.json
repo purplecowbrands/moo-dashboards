@@ -1,0 +1,993 @@
+﻿{
+    "lastUpdated":  "2026-02-22",
+    "pantry":  [
+                   {
+                       "item":  "Cinnamon sticks (Korintje, organic)",
+                       "quantity":  "~1 lb",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Sushi nori sheets",
+                       "quantity":  "~10 sheets",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Wakame flakes (organic)",
+                       "quantity":  "~4-5 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Gochugaru (Korean chili pepper powder)",
+                       "quantity":  "1 bag",
+                       "track":  false,
+                       "note":  "For kimchi making"
+                   },
+                   {
+                       "item":  "Roasted seaweed snacks (Costco organic)",
+                       "quantity":  "2 packs",
+                       "track":  false,
+                       "note":  "Snack item"
+                   },
+                   {
+                       "item":  "Cacao paste (pure organic)",
+                       "quantity":  "~1 lb 3 oz",
+                       "track":  false,
+                       "note":  "1 full bag + ~3oz from second"
+                   },
+                   {
+                       "item":  "Extra virgin olive oil (Costco organic)",
+                       "quantity":  "~1.5 liters",
+                       "track":  true,
+                       "note":  "1 full + 1 half-used 1L bottle"
+                   },
+                   {
+                       "item":  "Sweet chili sauce",
+                       "quantity":  "29 oz",
+                       "track":  false,
+                       "note":  "Unopened. Not very healthy, possible Asian recipe use"
+                   },
+                   {
+                       "item":  "Flaxseed meal (organic)",
+                       "quantity":  "~0.5 lb",
+                       "track":  false,
+                       "note":  "For smoothies, could use in recipes"
+                   },
+                   {
+                       "item":  "Baking soda",
+                       "quantity":  "4 lbs",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Lemon juice (organic)",
+                       "quantity":  "17 oz",
+                       "track":  false,
+                       "note":  "Unopened bottle"
+                   },
+                   {
+                       "item":  "Pasta sauce - roasted garlic (organic)",
+                       "quantity":  "25 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Pizza sauce (organic)",
+                       "quantity":  "14 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Sunflower kernels (organic, raw)",
+                       "quantity":  "3 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Panko breadcrumbs (gluten-free)",
+                       "quantity":  "~1 cup / 2 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Thai rice noodles (thin)",
+                       "quantity":  "~4 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Garlic (bulk, Costco)",
+                       "quantity":  "~18 bulbs",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Garbanzo beans (canned, organic, no salt)",
+                       "quantity":  "2 cans (15 oz each)",
+                       "track":  true,
+                       "note":  "Good for hummus"
+                   },
+                   {
+                       "item":  "Honey (raw, unfiltered, organic, Costco)",
+                       "quantity":  "~2 lb 7 oz total",
+                       "track":  true,
+                       "note":  "Used ~1 tbsp for curry 2026-02-22. 1 unopened 1.5lb + ~1lb from opened"
+                   },
+                   {
+                       "item":  "Peanut butter (organic, only peanuts)",
+                       "quantity":  "28 oz",
+                       "track":  true,
+                       "note":  "Unopened"
+                   },
+                   {
+                       "item":  "Popping corn",
+                       "quantity":  "~1-2 lbs",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Corn tortillas",
+                       "quantity":  "~20-25",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Dates",
+                       "quantity":  "~8 oz / 15 dates",
+                       "track":  false,
+                       "note":  "Snack item"
+                   },
+                   {
+                       "item":  "Tomato ketchup (organic)",
+                       "quantity":  "2 lb bottle",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Worcestershire sauce (organic)",
+                       "quantity":  "10 oz",
+                       "track":  false,
+                       "note":  "Unopened"
+                   },
+                   {
+                       "item":  "Nutritional yeast flakes (organic)",
+                       "quantity":  "~2 lbs",
+                       "track":  false,
+                       "note":  "For cheesy flavor without dairy"
+                   },
+                   {
+                       "item":  "Dark brown sugar",
+                       "quantity":  "~8 oz",
+                       "track":  false,
+                       "note":  "Primarily for water kefir"
+                   },
+                   {
+                       "item":  "Evaporated milk",
+                       "quantity":  "12 fl oz can",
+                       "track":  false,
+                       "note":  "Consider discarding. Not healthy. Use in a recipe or toss."
+                   },
+                   {
+                       "item":  "Chickpea pasta",
+                       "quantity":  "5 boxes (8 oz each = 40 oz total)",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Rolled oats (organic)",
+                       "quantity":  "~4 lbs",
+                       "track":  true,
+                       "note":  "From 5lb bulk bag"
+                   },
+                   {
+                       "item":  "Baking powder",
+                       "quantity":  "~4 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Cocoa powder (organic)",
+                       "quantity":  "~4 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Cornstarch (organic)",
+                       "quantity":  "~3 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "GF Bisquick pancake/baking mix",
+                       "quantity":  "1 lb (unopened)",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Potato starch",
+                       "quantity":  "~3.5 lbs",
+                       "track":  false,
+                       "note":  "2 unopened bags + 1 partial. Leftover from DIY flour mix days."
+                   },
+                   {
+                       "item":  "GF measure-for-measure flour",
+                       "quantity":  "~5.5 lbs",
+                       "track":  true,
+                       "note":  "For bread and general baking. Purchased 3 lb bag from Costco on 2026-02-21."
+                   },
+                   {
+                       "item":  "Powdered sugar (organic)",
+                       "quantity":  "~1 lb 8 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Mackerel (canned, wild caught)",
+                       "quantity":  "1 can (15 oz)",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Sardines (canned, wild caught, in water)",
+                       "quantity":  "4 tins (3.75 oz each)",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Instant mashed potato flakes",
+                       "quantity":  "~26 oz (2 boxes, 13 oz each)",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Enchilada sauce (red, organic)",
+                       "quantity":  "14 oz jar",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Tomato sauce (organic)",
+                       "quantity":  "0 (used for chili 2026-02-22)",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Molasses",
+                       "quantity":  "~6 fl oz (half of 12 oz jar)",
+                       "track":  false
+                   },
+                   {
+                       "item":  "White sugar",
+                       "quantity":  "~1-1.5 lbs",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Vanilla extract",
+                       "quantity":  "~0.5 liter",
+                       "track":  false,
+                       "note":  "Two bottles, both open"
+                   },
+                   {
+                       "item":  "Psyllium husk (whole, superfine)",
+                       "quantity":  "~5-6 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Almond flour (superfine)",
+                       "quantity":  "~2 lbs",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Dark brown sugar (full bag)",
+                       "quantity":  "1 lb 8 oz",
+                       "track":  false,
+                       "note":  "In addition to the ~2 oz partial mentioned earlier. Total ~1 lb 10 oz."
+                   },
+                   {
+                       "item":  "Xanthan gum",
+                       "quantity":  "~2 oz",
+                       "track":  false,
+                       "note":  "For GF baking. Rarely used now."
+                   },
+                   {
+                       "item":  "Coconut milk (full-fat, organic, canned)",
+                       "quantity":  "6 cans (14 oz each)",
+                       "track":  true,
+                       "note":  "Used 2 for curry 2026-02-22. Was 8 (purchased 6-pack from Costco on 2026-02-21)"
+                   },
+                   {
+                       "item":  "Rice (organic Sona Masoori white)",
+                       "quantity":  "~10-15 lbs",
+                       "track":  true,
+                       "note":  "From 20 lb bulk bag"
+                   },
+                   {
+                       "item":  "Diced tomatoes (organic, Costco)",
+                       "quantity":  "0 cans (used all 3 for chili 2026-02-22)",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Tomato paste (organic)",
+                       "quantity":  "9 cans (6 oz each = 54 oz total)",
+                       "track":  true,
+                       "note":  "Used 2 for chili 2026-02-22. Was 11."
+                   },
+                   {
+                       "item":  "Cassava flour",
+                       "quantity":  "32 oz (unopened)",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Tapioca flour",
+                       "quantity":  "~9 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Kirkland organic cashews",
+                       "quantity":  "2.5 lbs",
+                       "track":  true,
+                       "note":  "Purchased from Costco on 2026-02-21"
+                   }
+               ],
+    "freezerTop":  {
+                       "proteins":  [
+                                        {
+                                            "item":  "Chicken sausage (fully cooked)",
+                                            "quantity":  "~1.3 lbs",
+                                            "track":  true
+                                        },
+                                        {
+                                            "item":  "Organ pate (liver + kidney, blended with onions/tallow/coconut cream/spices)",
+                                            "quantity":  "8 packets x 8 oz (64 oz total)",
+                                            "track":  true,
+                                            "note":  "Mega batch made 2026-02-22. Used all remaining liver (~2.9 lbs) and kidney (~2.5 lbs)."
+                                        }
+                                    ],
+                       "fats":  [
+                                    {
+                                        "item":  "Beef tallow",
+                                        "quantity":  "~1 lb",
+                                        "track":  true
+                                    }
+                                ],
+                       "vegetables":  [
+                                          {
+                                              "item":  "Chopped kale",
+                                              "quantity":  "a little",
+                                              "track":  false,
+                                              "note":  "Smoothies"
+                                          },
+                                          {
+                                              "item":  "Chopped spinach",
+                                              "quantity":  "1 bag",
+                                              "track":  false,
+                                              "note":  "Smoothies"
+                                          },
+                                          {
+                                              "item":  "Frozen green peas",
+                                              "quantity":  "1 bag (minus 1 cup)",
+                                              "track":  false,
+                                              "note":  "Used 1 cup for curry 2026-02-22. Easy to forget! Use in recipes."
+                                          },
+                                          {
+                                              "item":  "Shredded potatoes (for hash browns)",
+                                              "quantity":  "~8 oz",
+                                              "track":  false
+                                          },
+                                          {
+                                              "item":  "Frozen basil",
+                                              "quantity":  "a bunch",
+                                              "track":  false,
+                                              "note":  "Also has live basil plant producing more"
+                                          }
+                                      ],
+                       "fruit":  [
+                                     {
+                                         "item":  "Frozen blueberries",
+                                         "quantity":  "~2 lbs",
+                                         "track":  false,
+                                         "note":  "For kefir 2nd ferment"
+                                     },
+                                     {
+                                         "item":  "Mixed berries",
+                                         "quantity":  "~1.5 lbs",
+                                         "track":  false,
+                                         "note":  "For kefir"
+                                     },
+                                     {
+                                         "item":  "Frozen watermelon",
+                                         "quantity":  "~2 lbs",
+                                         "track":  false,
+                                         "note":  "For kefir"
+                                     },
+                                     {
+                                         "item":  "Frozen raspberries",
+                                         "quantity":  "~2 oz",
+                                         "track":  false,
+                                         "note":  "For kefir"
+                                     },
+                                     {
+                                         "item":  "Frozen banana",
+                                         "quantity":  "1",
+                                         "track":  false,
+                                         "note":  "Smoothies"
+                                     }
+                                 ],
+                       "preparedMeals":  [
+                                             {
+                                                 "meal":  "Turmeric meatballs",
+                                                 "servings":  1
+                                             },
+                                             {
+                                                 "meal":  "Mexican shredded beef",
+                                                 "servings":  2
+                                             },
+                                             {
+                                                 "meal":  "Tuna salad",
+                                                 "servings":  3
+                                             },
+                                             {
+                                                 "meal":  "Asian beef \u0026 mushrooms \u0026 vegetables",
+                                                 "servings":  "8-12",
+                                                 "note":  "3 containers, ~4 servings each. Half a week\u0027s worth."
+                                             },
+                                             {
+                                                 "meal":  "Mexican shredded beef (no rice, frozen block)",
+                                                 "servings":  4,
+                                                 "note":  "All frozen in one solid block"
+                                             },
+                                             {
+                                                 "meal":  "Pizza Sausage Beef Bowl",
+                                                 "servings":  2,
+                                                 "datePrepped":  "2026-02-15",
+                                                 "note":  "2 remaining for Ben. Sheenah has pizza toppings in fridge."
+                                             },
+                                             {
+                                                 "meal":  "Chicken Adobo",
+                                                 "servings":  0.5,
+                                                 "datePrepped":  "2026-02-15",
+                                                 "note":  "Almost gone. 3 lbs chicken = 6 servings original batch."
+                                             },
+                                             {
+                                                 "meal":  "Egg roll in a bowl",
+                                                 "servings":  1,
+                                                 "datePrepped":  "2026-02-13",
+                                                 "note":  "Moved from fridge to freezer. 2 eaten, 1 remaining."
+                                             },
+                                             {
+                                                 "meal":  "Cooked white rice",
+                                                 "servings":  5,
+                                                 "note":  "Moved from fridge to freezer."
+                                             }
+                                         ],
+                       "other":  [
+                                     {
+                                         "item":  "Mozzarella cheese",
+                                         "quantity":  "~6 oz",
+                                         "note":  "DAIRY - Sheenah or pizza nights only"
+                                     },
+                                     {
+                                         "item":  "Frozen salad greens",
+                                         "quantity":  "some",
+                                         "note":  "Smoothies"
+                                     },
+                                     {
+                                         "item":  "Pita bread",
+                                         "quantity":  "some",
+                                         "note":  "Sheenah\u0027s, but valid for pizza nights"
+                                     },
+                                     {
+                                         "item":  "Gluten bread (2 slices)",
+                                         "quantity":  "2 slices",
+                                         "note":  "NOT GF - Sheenah only"
+                                     }
+                                 ]
+                   },
+    "freezerChest":  {
+                         "proteins":  [
+                                          {
+                                              "item":  "Ground beef (1 lb packs)",
+                                              "quantity":  "~22 lbs",
+                                              "track":  true,
+                                              "note":  "From quarter cow - NO organ meat mixed in (unlike the half cow order)"
+                                          },
+                                          {
+                                              "item":  "Diced chicken (breast + thigh mix, raw)",
+                                              "quantity":  "6.5 lbs (3 bags: 2x2 lbs + 1x2.5 lbs)",
+                                              "track":  true,
+                                              "note":  "Butchered and bagged 2026-02-22"
+                                          },
+                                          {
+                                              "item":  "Whole chickens (organic fryers)",
+                                              "quantity":  "0 (all 4 butchered 2026-02-22)",
+                                              "track":  true,
+                                              "note":  "Yield: ~4 lbs thighs for curry, 6.5 lbs diced, 8 drumsticks, ~5 lbs wings, carcasses for stock, skin for rendering"
+                                          },
+                                          {
+                                              "item":  "Chicken wings (buffalo-style cut)",
+                                              "quantity":  "~5 lbs",
+                                              "track":  true,
+                                              "note":  "Added wings from butchered chickens 2026-02-22. Was 4 lbs."
+                                          },
+                                          {
+                                              "item":  "Chicken drumsticks",
+                                              "quantity":  "8 pieces (1 bag)",
+                                              "track":  true,
+                                              "note":  "From butchered chickens 2026-02-22"
+                                          },
+                                          {
+                                              "item":  "Chicken skin (raw, for rendering)",
+                                              "quantity":  "1 bag",
+                                              "track":  false,
+                                              "note":  "From butchered chickens 2026-02-22. Render into schmaltz."
+                                          },
+                                          {
+                                              "item":  "Chicken sausage (full bag)",
+                                              "quantity":  "3 lbs",
+                                              "track":  true,
+                                              "note":  "In addition to the 1.3 lbs in top freezer"
+                                          },
+                                          {
+                                              "item":  "Beef skirt steak",
+                                              "quantity":  "1.6 lbs",
+                                              "track":  true,
+                                              "note":  "Across 2 cows, only got 1.6 lbs total. Ben unsure how to meal-prep this."
+                                          },
+                                          {
+                                              "item":  "Pork sausage (mild)",
+                                              "quantity":  "1 lb",
+                                              "track":  true
+                                          },
+                                          {
+                                              "item":  "Salmon fillet",
+                                              "quantity":  "1 fillet",
+                                              "track":  true
+                                          },
+                                          {
+                                              "item":  "Lamb roast",
+                                              "quantity":  "5 lbs",
+                                              "track":  true,
+                                              "note":  "Already purchased, ready for lamb roast recipe"
+                                          },
+                                          {
+                                              "item":  "Dino-style beef ribs (bone-in)",
+                                              "quantity":  "4 lbs",
+                                              "track":  true,
+                                              "note":  "2 packages"
+                                          },
+                                          {
+                                              "item":  "Beef cutlets (~0.25 lb each)",
+                                              "quantity":  "~4 lbs (14-16 cutlets)",
+                                              "track":  true,
+                                              "note":  "Recommended for chicken-fried steak but that requires deep frying - a lot of work. Saved for someday."
+                                          },
+                                          {
+                                              "item":  "Ribeye steaks",
+                                              "quantity":  "~2.3 lbs",
+                                              "track":  true,
+                                              "note":  "0.5 lb + 1.2 lb (2-pack) + 0.6 lb"
+                                          },
+                                          {
+                                              "item":  "Beef tenderloin steaks",
+                                              "quantity":  "~0.8 lbs",
+                                              "track":  true,
+                                              "note":  "0.5 lb + 0.3 lb"
+                                          },
+                                          {
+                                              "item":  "Beef sirloin steak",
+                                              "quantity":  "0.9 lbs",
+                                              "track":  true
+                                          },
+                                          {
+                                              "item":  "Kansas City strip steaks",
+                                              "quantity":  "~2.8 lbs",
+                                              "track":  true,
+                                              "note":  "0.4 + 0.5 + 0.5 + 1.0 (2-pack) + 0.5 = ~2.9 lbs"
+                                          }
+                                      ],
+                         "bones":  [
+                                       {
+                                           "item":  "Beef bones",
+                                           "quantity":  "1.7 lbs",
+                                           "track":  true,
+                                           "note":  "Building up from bone-in dishes, ready for broth"
+                                       },
+                                       {
+                                           "item":  "Chicken carcasses/bones",
+                                           "quantity":  "~3-4 lbs",
+                                           "track":  true,
+                                           "note":  "0.6 lbs prior + carcasses from 4 butchered chickens (2026-02-22). Ready for stock batch."
+                                       }
+                                   ],
+                         "vegetables":  [
+                                            {
+                                                "item":  "Vegetable scraps (ends, skins, for broth)",
+                                                "quantity":  "3.4 lbs",
+                                                "track":  false,
+                                                "note":  "Ready for chicken stock batch"
+                                            }
+                                        ]
+                     },
+    "fridge":  [
+                   {
+                       "item":  "Sesame oil",
+                       "quantity":  "~10 oz",
+                       "track":  true
+                   },
+                   {
+                       "item":  "Fish sauce (Thai, Red Boat brand)",
+                       "quantity":  "~23 oz",
+                       "track":  true,
+                       "note":  "Used ~2 tbsp for curry 2026-02-22. Purchased new bottle from Tom Thumb on 2026-02-21"
+                   },
+                   {
+                       "item":  "Maple syrup",
+                       "quantity":  "~10 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Botana sauce",
+                       "quantity":  "some",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Creamy jalapeno sauce",
+                       "quantity":  "some",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Lemon juice (opened)",
+                       "quantity":  "some",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Lime juice",
+                       "quantity":  "~3.5 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Ketchup (opened)",
+                       "quantity":  "~4 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Dijon mustard",
+                       "quantity":  "~8 oz",
+                       "track":  false,
+                       "note":  "Mostly full"
+                   },
+                   {
+                       "item":  "Almond milk (organic, just almonds/water/salt)",
+                       "quantity":  "~58 oz",
+                       "track":  true,
+                       "note":  "1 full 48oz + ~10oz partial"
+                   },
+                   {
+                       "item":  "Pickled jalapeno peppers",
+                       "quantity":  "~8 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Sriracha/hot sauce",
+                       "quantity":  "~25 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Coconut aminos",
+                       "quantity":  "~28 oz",
+                       "track":  true,
+                       "note":  "Pretty full"
+                   },
+                   {
+                       "item":  "Harissa (Moroccan red pepper sauce)",
+                       "quantity":  "~8 oz",
+                       "track":  false,
+                       "note":  "Pretty full"
+                   },
+                   {
+                       "item":  "Eggs (pasture raised)",
+                       "quantity":  "40",
+                       "track":  true,
+                       "note":  "Purchased 24-count from Costco on 2026-02-21"
+                   },
+                   {
+                       "item":  "Tallow (fridge portion)",
+                       "quantity":  "~4 oz",
+                       "track":  false,
+                       "note":  "More in freezer"
+                   },
+                   {
+                       "item":  "Tallow (deep-fry flavored)",
+                       "quantity":  "~3 oz",
+                       "track":  false,
+                       "note":  "Only for frying or strong-flavor situations"
+                   },
+                   {
+                       "item":  "Chicken schmaltz",
+                       "quantity":  "~8 oz",
+                       "track":  false,
+                       "note":  "Rendered from carcasses/skin"
+                   },
+                   {
+                       "item":  "Sauerkraut",
+                       "quantity":  "a little",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Apple butter",
+                       "quantity":  "~1 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Instant yeast (rapid-rise)",
+                       "quantity":  "~3 oz",
+                       "track":  false
+                   },
+                   {
+                       "item":  "Clementine oranges",
+                       "quantity":  "4",
+                       "track":  false,
+                       "note":  "Fresh fruit, rotates weekly"
+                   },
+                   {
+                       "item":  "Ginger root (fresh)",
+                       "quantity":  "0 (used for curry 2026-02-22)",
+                       "track":  true,
+                       "note":  "Used 2\" piece for curry. Was 0.13 lb."
+                   },
+                   {
+                       "item":  "Organic bella mushrooms (fresh)",
+                       "quantity":  "0 (used 1.5 lbs for chili 2026-02-22)",
+                       "track":  true,
+                       "note":  "Used entire container for chili"
+                   },
+                   {
+                       "item":  "Yellow onion",
+                       "quantity":  "2",
+                       "track":  true,
+                       "note":  "Used ~5 for chili (3) + curry (2) on 2026-02-22. Also used 4 for pate earlier. 2 remaining."
+                   },
+                   {
+                       "item":  "Organic raspberries (fresh)",
+                       "quantity":  "1 container",
+                       "track":  true,
+                       "note":  "Purchased from Costco on 2026-02-21. Use within 3-4 days."
+                   },
+                   {
+                       "item":  "Organic bananas (fresh)",
+                       "quantity":  "~3 lbs",
+                       "track":  true,
+                       "note":  "Purchased from Costco on 2026-02-21"
+                   },
+                   {
+                       "item":  "Organic gala apples (fresh)",
+                       "quantity":  "3 lbs",
+                       "track":  true,
+                       "note":  "Purchased from Costco on 2026-02-21"
+                   },
+                   {
+                       "item":  "Oat milk (homemade)",
+                       "quantity":  "~4 cups",
+                       "track":  false,
+                       "note":  "Made 2026-02-22. Strained through cheesecloth."
+                   }
+               ],
+    "fridgeDoNotUse":  [
+                           {
+                               "item":  "Butter",
+                               "quantity":  "~1.5 sticks",
+                               "note":  "DAIRY - do not use in Ben\u0027s meal prep"
+                           },
+                           {
+                               "item":  "Ghee",
+                               "quantity":  "~2-3 oz",
+                               "note":  "DAIRY - do not use in Ben\u0027s meal prep"
+                           },
+                           {
+                               "item":  "Stir fry sauce",
+                               "quantity":  "pretty full",
+                               "note":  "NOT GLUTEN-FREE - Sheenah only"
+                           },
+                           {
+                               "item":  "Black soy sauce",
+                               "quantity":  "pretty full",
+                               "note":  "NOT GLUTEN-FREE - Sheenah only"
+                           },
+                           {
+                               "item":  "Chocolate syrup",
+                               "quantity":  "~6 oz",
+                               "note":  "Not for meal prep"
+                           }
+                       ],
+    "perpetualStock":  [
+                           "Tallow (primary cooking fat)",
+                           "Tamari",
+                           "Fish Sauce (Red Boat)",
+                           "Sesame Oil",
+                           "Salt",
+                           "White sugar"
+                       ],
+    "doNotTrack":  [
+                       "Udon noodles (Sheenah only - contains gluten)",
+                       "Marshmallows (not for meal prep)",
+                       "Cream of wheat (Sheenah only - contains gluten)",
+                       "Plastic utensils"
+                   ],
+    "equipment":  {
+                      "major":  [
+                                    "Instant Pot Ultra (8-quart, largest model)",
+                                    "Stand mixer (max ~4 lbs dough) with flour mill attachment",
+                                    "Food processor (Ninja)",
+                                    "Blender",
+                                    "Hand mixer",
+                                    "Air fryer (small, best for reheating)",
+                                    "Bread machine",
+                                    "Waffle iron",
+                                    "Griddle (for pancakes etc.)",
+                                    "Mandolin slicer",
+                                    "Milk frother",
+                                    "Electric water kettle",
+                                    "Microwave",
+                                    "Oven (fits 2+ casserole pans/sheet pans)",
+                                    "Glass stovetop (no gas)",
+                                    "Dishwasher",
+                                    "Meat thermometer"
+                                ],
+                      "cookware":  [
+                                       "16-17 quart stock pot (the big boy)",
+                                       "6 quart Dutch oven",
+                                       "4 quart cooking pot",
+                                       "3 quart stock pot",
+                                       "~3 quart saucepan",
+                                       "1.5 quart saucepan",
+                                       "1 quart saucepan",
+                                       "12 inch cast iron skillet",
+                                       "10 inch carbon steel pan",
+                                       "12-13 inch stainless steel pan",
+                                       "10 inch stainless steel pan",
+                                       "Flat-bottom wok (not great for bulk - ~6oz meat capacity per batch)"
+                                   ],
+                      "bakeware":  [
+                                       "2 baking/cookie sheets",
+                                       "3 x 9x13 glass casserole dishes",
+                                       "3 muffin pans",
+                                       "9-inch round cake pan",
+                                       "9-inch square cake pan",
+                                       "Glass pie dish"
+                                   ],
+                      "storage":  [
+                                      "Glass Tupperware (various sizes)",
+                                      "Pint jars (several)",
+                                      "Quart jars (a couple)",
+                                      "Half-gallon jars (several)",
+                                      "Ziploc bags (for pre-diced freezer veg)",
+                                      "16oz bottles (for water kefir)"
+                                  ],
+                      "tools":  [
+                                    "Cutting boards (multiple)",
+                                    "Knives (full set)",
+                                    "Scissors",
+                                    "Measuring cups (1, 2, 4 cup Pyrex + standard set)",
+                                    "Measuring spoons (full set)",
+                                    "Metal mixing bowls (various sizes)",
+                                    "Strainers and colanders",
+                                    "Can openers",
+                                    "Graters",
+                                    "Tongs, spatulas, fish turners",
+                                    "Bamboo spoons, stainless steel spoons",
+                                    "Skimmer",
+                                    "Ladles",
+                                    "Hot pads",
+                                    "Kitchen scale (for heavier items)",
+                                    "Precision scale (milligram accuracy)",
+                                    "Turkey baster (stainless steel, high-temp safe)",
+                                    "Ice cream scoop (all metal - also used for meatballs)",
+                                    "Meat tenderizing hammer",
+                                    "Potato masher",
+                                    "Basting brushes",
+                                    "Whisk (stainless steel)",
+                                    "Pizza cutter",
+                                    "Toothpicks",
+                                    "Plastic wrap",
+                                    "Parchment paper",
+                                    "Aluminum foil",
+                                    "Disposable gloves"
+                                ]
+                  },
+    "spices":  [
+                   "Allspice",
+                   "Basil",
+                   "Bay leaves",
+                   "Cayenne pepper",
+                   "Celery seed",
+                   "Chili powder",
+                   "Chinese 5 spice",
+                   "Cinnamon (ground)",
+                   "Cloves",
+                   "Cocoa powder",
+                   "Cumin",
+                   "Coriander",
+                   "Dill",
+                   "Fennel",
+                   "Garlic powder",
+                   "Ground ginger",
+                   "Italian seasoning",
+                   "Mustard powder",
+                   "Onion powder",
+                   "Oregano",
+                   "Paprika (organic)",
+                   "Smoked paprika",
+                   "Parsley / parsley flakes",
+                   "White pepper",
+                   "Black pepper (whole + ground)",
+                   "Red pepper (crushed/flakes, organic)",
+                   "Rosemary",
+                   "Sage",
+                   "Thyme",
+                   "Turmeric",
+                   "Sesame seeds",
+                   "Whole cardamom pods",
+                   "Crushed chipotle chilies",
+                   "Plain salt",
+                   "Himalayan salt",
+                   "Kosher salt",
+                   "Curry powder (tiny amount)",
+                   "Adobo seasoning",
+                   "Old Bay seasoning",
+                   "Lemon pepper seasoning",
+                   "Cajun seasoning",
+                   "Cinnamon sugar",
+                   "Cream of tartar",
+                   "Nutmeg",
+                   "Taco seasoning (bulk container)",
+                   "Star anise (8 oz bulk - a lot)"
+               ],
+    "oilsAndVinegars":  [
+                            {
+                                "item":  "Balsamic vinegar of Modena",
+                                "quantity":  "~16 oz",
+                                "note":  "Almost full"
+                            },
+                            {
+                                "item":  "Organic rice vinegar",
+                                "quantity":  "~17 oz total",
+                                "note":  "4 oz opened + 13 oz unopened"
+                            },
+                            {
+                                "item":  "Organic red wine vinegar",
+                                "quantity":  "~1 oz"
+                            },
+                            {
+                                "item":  "Organic distilled white vinegar",
+                                "quantity":  "~2 oz",
+                                "note":  "Used ~3 oz for adobo Feb 15"
+                            },
+                            {
+                                "item":  "Apple cider vinegar",
+                                "quantity":  "~5 oz"
+                            }
+                        ],
+    "preparedMeals":  [
+                          {
+                              "meal":  "Sheenah pizza toppings (mushrooms, onions, balls)",
+                              "servings":  2,
+                              "note":  "Sheenah only - for pita pizzas"
+                          }
+                      ],
+    "shoppingList":  [
+
+                     ],
+    "notes":  [
+                  "Inventory tracking approach: Track major consumables (proteins, bulk items like garlic, oats, pasta). Minor items (spices, baking staples) just track presence - Ben will flag when running low.",
+                  "PERPETUAL STOCK IS MINIMAL: Only items listed are truly always on hand. Voice notes from Feb 13 are the source of truth. Gemini\u0027s original list had items Ben doesn\u0027t actually stock (green olives, golden raisins, salsa, ginger, onions, carrots, potatoes, etc). If not inventoried in voice notes, don\u0027t assume it\u0027s available.",
+                  "Ben prefers BLACK olives over green olives.",
+                  "Onions: 4 on hand (bought 1 on Feb 21, had 3 from prior purchase). Olives + pepperoni also bought Feb 15.",
+                  "Ben is willing to pre-dice and freeze vegetables in Ziploc bags if it helps with bulk prep.",
+                  "Air fryer best for reheating, not cooking.",
+                  "Wok is impractical for bulk prep (tiny capacity, no gas stove).",
+                  "Spices inventory complete - 46 spices/seasonings cataloged. Paprika and red pepper flakes restocked on 2026-02-21.",
+                  "Oils/vinegars inventoried - cooking wines trashed (old/processed), rice vinegar well stocked.",
+                  "Fridge inventoried - fats (tallow, schmaltz), sauces, almond milk, eggs.",
+                  "Butter/ghee in fridge but DO NOT use in Ben\u0027s recipes (dairy-free).",
+                  "Stir fry sauce + black soy sauce are Sheenah\u0027s (not GF).",
+                  "Fresh fruit rotates weekly - not tracked, just noted as available.",
+                  "Water kefir is a daily task - Ben makes it with brown sugar + white sugar + salt.",
+                  "Freezer inventory coming in next voice note.",
+                  "1 avocado in fridge (perishable, use soon)",
+                  "Freezer-top inventory complete. Chest freezer coming next.",
+                  "Frozen peas are easy to forget - proactively suggest in recipes.",
+                  "Liver pate (1.5 lbs) is pre-blended with onions - milder, more versatile than raw liver.",
+                  "Live basil plant = ongoing fresh basil supply.",
+                  "8-12 servings Asian beef in freezer = don\u0027t need to cook beef this week.",
+                  "Pizza: Ben is dairy-free now but pita bread available for base.",
+                  "CHEST FREEZER COMPLETE. Full kitchen inventory done.",
+                  "Cow ordering history: 1st order = half cow (split with friend, customized, organs mixed into ground beef). 2nd order = quarter cow (no customization, no organs in ground). Next order will be half cow again.",
+                  "Total ground beef: ~27 lbs (no organs mixed in). Used 4 lbs for pizza sausage Feb 15.",
+                  "Steaks inventory: ~6.8 lbs total (ribeye, tenderloin, sirloin, KC strip)",
+                  "Skirt steak (1.6 lbs): Ben doesn\u0027t know how to meal-prep this. Suggest a recipe.",
+                  "Beef cutlets (4 lbs): Saved for chicken-fried steak but requires deep frying. Find alternative prep method?",
+                  "BBQ grill available outside (not for regular meal prep, fun occasional use)",
+                  "Fresh basil plant = ongoing supply",
+                  "Ben avoids plastic kitchen tools when possible - prefers stainless steel, silicone, wood, glass",
+                  "Feb 21, 2026 grocery haul: Tom Thumb ($16.38) + Costco ($160.05) = $176.43 total. Major restocks: 4 whole chickens, eggs, coconut milk, GF flour, cashews, fresh produce (mushrooms, bananas, apples, raspberries), spices (paprika, red pepper), ginger, fish sauce.",
+                  "ORGAN STATUS: All raw organs used up as of 2026-02-22. Made into 64 oz organ pate (8 x 8-oz packets). Ready to order next half cow."
+              ]
+}

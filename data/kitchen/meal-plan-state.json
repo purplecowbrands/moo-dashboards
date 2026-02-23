@@ -1,0 +1,67 @@
+{
+    "lastUpdated": "2026-02-20",
+    "recentRecipes": [
+        {"name": "Korean-Style Ground Beef", "date": "2026-01-12", "week": 3},
+        {"name": "Arroz Caldo", "date": "2026-01-12", "week": 3},
+        {"name": "Rosemary Garlic Chicken & Potatoes", "date": "2026-01-19", "week": 4},
+        {"name": "Turmeric Meatballs in Broth", "date": "2026-01-19", "week": 4, "note": "CUT - didn't like it"},
+        {"name": "Beef Biryani Casserole", "date": "2026-01-26", "week": 5},
+        {"name": "Chicken Cacciatore", "date": "2026-01-26", "week": 5},
+        {"name": "Restorative Chicken Soup", "date": "2026-02-01", "week": 6},
+        {"name": "Beef Broccoli Mushroom & Carrot Stir-Fry", "date": "2026-02-01", "week": 6},
+        {"name": "Instant Pot Shredded Mexi Salsa Beef", "date": "2026-02-08", "week": 7},
+        {"name": "Egg Roll in a Bowl", "date": "2026-02-08", "week": 7},
+        {"name": "Chicken Adobo", "date": "2026-02-15", "week": 8},
+        {"name": "Pizza Sausage Beef Bowl", "date": "2026-02-15", "week": 8},
+        {"name": "No-Bean Chili", "date": "2026-02-22", "week": 9, "note": "planned"},
+        {"name": "Coconut Lime Chicken Curry", "date": "2026-02-22", "week": 9, "note": "planned"},
+        {"name": "Organ Pate (mega batch)", "date": "2026-02-22", "week": 9, "note": "planned, not a meal - freezer pate for mixing"}
+    ],
+    "thisWeekPicks": [
+        {
+            "name": "No-Bean Chili",
+            "effort": "easy",
+            "reasoning": "5 lbs ground beef, organ-friendly (liver pate), mushrooms, tomato base. Texas-style, no beans."
+        },
+        {
+            "name": "Coconut Lime Chicken Curry",
+            "effort": "easy",
+            "reasoning": "4 lbs chicken thighs from whole chickens. Coconut milk + lime + ginger. Uses frozen peas."
+        }
+    ],
+    "tentativeNextWeek": [
+        {
+            "name": "Taco Beef Bowls",
+            "effort": "easy",
+            "reasoning": "Ground beef + taco seasoning + rice. Never made before. Bulk taco seasoning on hand. Organ-friendly. Ben approved Feb 20."
+        },
+        {
+            "name": "Greek Beef & Potato Skillet",
+            "effort": "normal",
+            "reasoning": "Ground beef, potatoes, oregano, tomatoes. Never made before. Different flavor profile. Ben approved Feb 20."
+        }
+    ],
+    "partialIngredients": [
+        {
+            "item": "Fresh ginger",
+            "reason": "Buying large piece this week for curry. Ginger keeps 2-3 weeks in fridge or freezes well. Korean Ground Beef next week also uses ginger."
+        },
+        {
+            "item": "Yellow onions",
+            "reason": "Buying 10 this week. If any remain after chili + curry + pate, they carry into next week for Korean beef + Cacciatore."
+        },
+        {
+            "item": "Fish sauce",
+            "reason": "Buying full bottle this week. Korean beef and Cacciatore don't need it, but it'll be restocked for future recipes."
+        },
+        {
+            "item": "Organ pate packets",
+            "reason": "~20-22 packets from mega batch. Korean Ground Beef next week will use 4-5 oz (for ~2.5 lbs beef at 2 oz/lb)."
+        },
+        {
+            "item": "Diced tomatoes",
+            "reason": "3 cans on hand, chili uses 2. 1 can carries over for Chicken Cacciatore next week (may need 1 more)."
+        }
+    ],
+    "notes": "Week 9: No-Bean Chili + Coconut Lime Chicken Curry + Organ Pate mega batch. Shopping list and cooking tasks created in ClickUp Feb 20. Week 10: Taco Beef Bowls (easy) + Greek Beef & Potato Skillet (normal). Both approved by Ben Feb 20. No Korean beef - too similar to Asian stir-fry in freezer."
+}

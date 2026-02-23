@@ -1,0 +1,35 @@
+﻿[
+    {
+        "id":  "dfc9e19b-7972-4c7b-943c-943d7f8bf558",
+        "type":  "text",
+        "direction":  "outbound",
+        "notes":  "Personalized outreach text referencing Vicki Gouge recommendation and Preston Center visit. BNI followup.",
+        "time":  "4:16 PM",
+        "date":  "2026-02-19",
+        "channel":  "sms",
+        "phone":  "346-244-8617",
+        "contactName":  "Mantas Auk"
+    },
+    {
+        "id":  "585f7234-3ea9-4577-8577-b7165dfccdf9",
+        "type":  "text",
+        "direction":  "outbound",
+        "notes":  "Personalized outreach text referencing his presentation at Preston Center. Mentioned wanting to discuss US phone for VA + referrals.",
+        "time":  "4:16 PM",
+        "date":  "2026-02-19",
+        "channel":  "sms",
+        "phone":  "214-612-7080",
+        "contactName":  "Anthony Omini"
+    },
+    {
+        "id":  "1aaca2ce-04a9-4f32-a910-b0c0af0e91bd",
+        "type":  "text",
+        "direction":  "outbound",
+        "notes":  "Personalized outreach text referencing PRG placemat. Pitched fellow web designer referral exchange + BNI tips.",
+        "time":  "4:16 PM",
+        "date":  "2026-02-19",
+        "channel":  "sms",
+        "phone":  "469-810-3860",
+        "contactName":  "John Laverde"
+    }
+]

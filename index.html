@@ -4,25 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moo Dashboards</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🐮 Moo Dashboards</h1>
-            <p class="subtitle">Hello World</p>
-        </div>
-        <div class="content">
-            <div class="card">
-                <h2>Welcome</h2>
-                <p>Auto-deploy test at 2026-02-22 13:10:32 - deployment working! for Moo's internal dashboards and analytics platform.</p>
-                <p>Powered by Cloudflare Pages + GitHub</p>
+    <div id="app">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h1>🐮 Moo</h1>
+                <button id="theme-toggle" class="icon-btn" title="Toggle Dark Mode">
+                    <i data-lucide="moon"></i>
+                </button>
             </div>
-            <div class="status">
-                <span class="status-indicator"></span>
-                <span>System Online</span>
+            
+            <ul class="nav-menu">
+                <li><a href="#/" data-page="home"><i data-lucide="home"></i><span>Home</span></a></li>
+                <li><a href="#/sales" data-page="sales"><i data-lucide="trending-up"></i><span>Sales Pipeline</span></a></li>
+                <li><a href="#/eos" data-page="eos"><i data-lucide="target"></i><span>EOS Scorecard</span></a></li>
+                <li><a href="#/crm" data-page="crm"><i data-lucide="users"></i><span>CRM</span></a></li>
+                <li><a href="#/clients" data-page="clients"><i data-lucide="briefcase"></i><span>Client Health</span></a></li>
+                <li><a href="#/monitoring" data-page="monitoring"><i data-lucide="activity"></i><span>Site Monitoring</span></a></li>
+                <li><a href="#/time" data-page="time"><i data-lucide="clock"></i><span>Time Tracking</span></a></li>
+                <li><a href="#/bni" data-page="bni"><i data-lucide="handshake"></i><span>BNI Metrics</span></a></li>
+                <li><a href="#/financial" data-page="financial"><i data-lucide="dollar-sign"></i><span>Financial</span></a></li>
+                <li><a href="#/tasks" data-page="tasks"><i data-lucide="check-square"></i><span>Tasks</span></a></li>
+                <li><a href="#/kitchen" data-page="kitchen"><i data-lucide="chef-hat"></i><span>Kitchen</span></a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button id="menu-toggle" class="icon-btn">
+                    <i data-lucide="chevron-left"></i>
+                </button>
             </div>
-        </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+            <div id="page-container"></div>
+        </main>
     </div>
+
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

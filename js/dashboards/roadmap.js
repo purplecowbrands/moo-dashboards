@@ -31,7 +31,16 @@ function updateFeatureFeedback(featureId, updates) {
         updatedAt: new Date().toISOString()
     };
     saveFeedback(feedback);
-    renderRoadmap();
+    
+    // Re-render the page (direct innerHTML update since this is a re-render, not initial load)
+    const container = document.getElementById('page-container');
+    if (container) {
+        container.innerHTML = renderRoadmap();
+        // Re-init Lucide icons after re-render
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    }
 }
 
 // Get priority badge HTML
@@ -277,10 +286,7 @@ function renderFilters() {
 
 // Main render function
 function renderRoadmap() {
-    const container = document.getElementById('page-container');
-    if (!container) return;
-    
-    container.innerHTML = `
+    return `
         <div class="page-header">
             <h2>Product Roadmap</h2>
             <p>Interactive feature planning and prioritization for Moo Dashboards</p>
@@ -525,11 +531,6 @@ function renderRoadmap() {
             }
         </style>
     `;
-    
-    // Re-init Lucide icons
-    if (window.lucide) {
-        window.lucide.createIcons();
-    }
 }
 
 // Global functions for onclick handlers

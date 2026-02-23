@@ -1,6 +1,6 @@
 // BNI Metrics Dashboard
 import { sampleData } from '../../data/sample-data.js';
-import { getBNIData, generateBNIJson, isLiveData } from '../data-loader.js';
+import { getBNIData, generateBNIJson, isLiveData, getCalendarData } from '../data-loader.js';
 
 export async function renderBNI() {
     // Try loading live data, fall back to sample data
@@ -20,6 +20,31 @@ export async function renderBNI() {
     // Fallback to sample data if live data unavailable
     if (!bni) {
         bni = sampleData.bni;
+    }
+
+    // Enhance with calendar data for 121 tracking
+    const calendarData = await getCalendarData();
+    if (calendarData) {
+        // Count 121 meetings from calendar
+        const isOneOnOneMeeting = (title) => {
+            const normalized = title.toLowerCase();
+            return normalized.includes('121') || 
+                   normalized.includes('1:1') || 
+                   normalized.includes('1-1') ||
+                   normalized.includes('one-on-one') ||
+                   normalized.includes('bni 1-1') ||
+                   (normalized.includes('bni') && normalized.includes('1'));
+        };
+
+        const oneOnOneMeetingsThisWeek = calendarData.upcoming.nextSevenDays
+            .filter(event => isOneOnOneMeeting(event.title))
+            .length;
+
+        // Override 121 count with calendar data
+        bni.oneOnOnes.thisWeek = oneOnOneMeetingsThisWeek;
+        if (dataStatus === 'sample') {
+            dataStatus = 'calendar-enhanced';
+        }
     }
 
     const oneOnOneProgress = (bni.oneOnOnes.thisWeek / bni.oneOnOnes.target) * 100;
@@ -48,7 +73,12 @@ export async function renderBNI() {
         ${dataStatus === 'live' ? `
             <div style="background: var(--success-bg); color: var(--success); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius); margin-bottom: var(--spacing-md); font-size: 0.875rem; display: flex; align-items: center; gap: var(--spacing-sm);">
                 <i data-lucide="database" style="width: 16px; height: 16px;"></i>
-                <span><strong>Live Data</strong> - Last updated: ${lastUpdated}</span>
+                <span><strong>Live Data</strong> - Last updated: ${lastUpdated} | 121s tracked from calendar</span>
+            </div>
+        ` : dataStatus === 'calendar-enhanced' ? `
+            <div style="background: var(--info-bg); color: var(--info); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius); margin-bottom: var(--spacing-md); font-size: 0.875rem; display: flex; align-items: center; gap: var(--spacing-sm);">
+                <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                <span><strong>Sample Data + Calendar</strong> - 121s tracked from calendar, other metrics are sample data</span>
             </div>
         ` : `
             <div style="background: var(--warning-bg); color: var(--warning); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius); margin-bottom: var(--spacing-md); font-size: 0.875rem; display: flex; align-items: center; gap: var(--spacing-sm);">

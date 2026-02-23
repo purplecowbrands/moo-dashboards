@@ -1,6 +1,6 @@
 // Main App - Router & Navigation
 import { renderHome } from './dashboards/home.js';
-import { renderSales } from './dashboards/sales.js';
+import { renderSalesAsync } from './dashboards/sales.js';
 import { renderEOS, initEOS } from './dashboards/eos.js';
 import { renderCRM } from './dashboards/crm.js';
 import { renderClients } from './dashboards/clients.js';
@@ -15,7 +15,7 @@ import { renderRoadmap } from './dashboards/roadmap.js';
 // Page renderers map
 const pages = {
     home: renderHome,
-    sales: renderSales,
+    sales: renderSalesAsync,
     eos: renderEOS,
     crm: renderCRM,
     clients: renderClients,

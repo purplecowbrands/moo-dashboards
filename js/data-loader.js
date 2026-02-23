@@ -56,11 +56,11 @@ export async function getMonitoringData() {
     const sitesData = await fetchJSON('/data/monitoring/sites.json');
     if (!sitesData) return null;
 
-    // Load monitoring index (status data)
+    // Load monitoring index (page metadata)
     const indexData = await fetchJSON('/data/monitoring/index.json');
     
-    // Load alert file (may not exist)
-    const alertText = await fetchText('/data/monitoring/ALERT_PENDING.txt');
+    // Load status data (parsed from latest monitoring log)
+    const statusData = await fetchJSON('/data/monitoring/status.json');
 
     // Parse and aggregate data
     const sites = sitesData.sites || [];
@@ -70,19 +70,29 @@ export async function getMonitoringData() {
         platformCounts[site.platform] = (platformCounts[site.platform] || 0) + 1;
     });
 
-    // Build site status list
+    // Build site status list with real monitoring data
     const siteStatuses = sites.map(site => {
         const siteData = indexData?.sites?.[site.name];
         const monitoredPages = siteData?.pages?.filter(p => p.monitored) || [];
+        const siteStatus = statusData?.sites?.[site.name];
+        
+        // Determine status: use real status if available, otherwise default to 'up'
+        let status = 'up';
+        let responseTime = null;
+        
+        if (siteStatus) {
+            status = siteStatus.status;
+            responseTime = siteStatus.responseTime;
+        }
         
         return {
             name: site.name,
             url: site.url,
             platform: site.platform,
             pagesMonitored: monitoredPages.length,
-            status: 'up', // Default - would need to check actual status from monitoring runs
-            responseTime: null,
-            lastCheck: indexData?.lastUpdated || null
+            status: status,
+            responseTime: responseTime,
+            lastCheck: statusData?.lastUpdated || indexData?.lastUpdated || null
         };
     });
 
@@ -102,12 +112,12 @@ export async function getMonitoringData() {
         warning: siteStatuses.filter(s => s.status === 'warning').length
     };
 
-    // Parse alerts if any
+    // Parse alerts from status data
     const alerts = [];
-    if (alertText) {
+    if (statusData?.hasAlerts && statusData.alertContent) {
         // Parse ALERT_PENDING.txt format
         // Format: "SITE_NAME: Issue description"
-        const lines = alertText.trim().split('\n');
+        const lines = statusData.alertContent.trim().split('\n');
         lines.forEach(line => {
             const match = line.match(/^(\S+):\s*(.+)$/);
             if (match) {
@@ -126,7 +136,7 @@ export async function getMonitoringData() {
         status: statusCounts,
         sites: siteStatuses,
         alerts,
-        lastCheck: indexData?.lastUpdated || null,
+        lastCheck: statusData?.lastUpdated || indexData?.lastUpdated || null,
         isLive: true
     };
 

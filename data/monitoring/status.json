@@ -1,0 +1,152 @@
+﻿{
+    "hasAlerts":  false,
+    "lastUpdated":  "2026-02-22T08:05:30.7534307-06:00",
+    "sites":  {
+                  "homeenergydoctors":  {
+                                            "detail":  "557ms",
+                                            "status":  "up",
+                                            "responseTime":  557
+                                        },
+                  "hdnbc":  {
+                                "detail":  "350ms",
+                                "status":  "up",
+                                "responseTime":  350
+                            },
+                  "sugarbeetkitchen":  {
+                                           "detail":  "6262ms",
+                                           "status":  "up",
+                                           "responseTime":  6262
+                                       },
+                  "fulkruminsulation":  {
+                                            "detail":  "457ms",
+                                            "status":  "up",
+                                            "responseTime":  457
+                                        },
+                  "heatherdavilacoaching":  {
+                                                "detail":  "501ms",
+                                                "status":  "up",
+                                                "responseTime":  501
+                                            },
+                  "arpinamerica":  {
+                                       "detail":  "5720ms",
+                                       "status":  "up",
+                                       "responseTime":  5720
+                                   },
+                  "texaswateringsolutions":  {
+                                                 "detail":  "512ms",
+                                                 "status":  "up",
+                                                 "responseTime":  512
+                                             },
+                  "timthecleancomic":  {
+                                           "detail":  "543ms",
+                                           "status":  "up",
+                                           "responseTime":  543
+                                       },
+                  "thehealerschannel":  {
+                                            "detail":  "604ms",
+                                            "status":  "up",
+                                            "responseTime":  604
+                                        },
+                  "purplecowbrands":  {
+                                          "detail":  "766ms",
+                                          "status":  "up",
+                                          "responseTime":  766
+                                      },
+                  "portlandlumberservices":  {
+                                                 "detail":  "527ms",
+                                                 "status":  "up",
+                                                 "responseTime":  527
+                                             },
+                  "smcworldwide":  {
+                                       "detail":  "1196ms",
+                                       "status":  "up",
+                                       "responseTime":  1196
+                                   },
+                  "zenalogistics":  {
+                                        "detail":  "351ms",
+                                        "status":  "up",
+                                        "responseTime":  351
+                                    },
+                  "hatdaddy":  {
+                                   "detail":  "302ms",
+                                   "status":  "up",
+                                   "responseTime":  302
+                               },
+                  "wellnestcounseling":  {
+                                             "detail":  "510ms",
+                                             "status":  "up",
+                                             "responseTime":  510
+                                         },
+                  "lyonsinvestmentgroup":  {
+                                               "detail":  "495ms",
+                                               "status":  "up",
+                                               "responseTime":  495
+                                           },
+                  "republicoftexasnation":  {
+                                                "detail":  "733ms",
+                                                "status":  "up",
+                                                "responseTime":  733
+                                            },
+                  "spartangroupus":  {
+                                         "detail":  "591ms",
+                                         "status":  "up",
+                                         "responseTime":  591
+                                     },
+                  "dirtdoctor":  {
+                                     "detail":  "731ms",
+                                     "status":  "up",
+                                     "responseTime":  731
+                                 },
+                  "cornerstonecareercenter":  {
+                                                  "detail":  "571ms",
+                                                  "status":  "up",
+                                                  "responseTime":  571
+                                              },
+                  "wacohealingroom":  {
+                                          "detail":  "414ms",
+                                          "status":  "up",
+                                          "responseTime":  414
+                                      },
+                  "shippersselect":  {
+                                         "detail":  "526ms",
+                                         "status":  "up",
+                                         "responseTime":  526
+                                     },
+                  "cateringdonewisely":  {
+                                             "detail":  "798ms",
+                                             "status":  "up",
+                                             "responseTime":  798
+                                         },
+                  "watsonsroofingdfw":  {
+                                            "detail":  "637ms",
+                                            "status":  "up",
+                                            "responseTime":  637
+                                        },
+                  "spartanprojectsllc":  {
+                                             "detail":  "652ms",
+                                             "status":  "up",
+                                             "responseTime":  652
+                                         },
+                  "dallascsifoundation":  {
+                                              "detail":  "478ms",
+                                              "status":  "up",
+                                              "responseTime":  478
+                                          },
+                  "dfwclinicalresearch":  {
+                                              "detail":  "545ms",
+                                              "status":  "up",
+                                              "responseTime":  545
+                                          },
+                  "lonestarliquorallen":  {
+                                              "detail":  "493ms",
+                                              "status":  "up",
+                                              "responseTime":  493
+                                          },
+                  "flourishmassagedtx":  {
+                                             "detail":  "446ms",
+                                             "status":  "up",
+                                             "responseTime":  446
+                                         }
+              },
+    "logDate":  "2026-02-22"
+}

@@ -227,7 +227,7 @@ Priority ranking (high to low):
 |---------|----------|------------|--------------|--------|
 | CRM file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
 | Kitchen file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
-| Monitoring file loader | P0 | Low | None | Not started |
+| Monitoring file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
 | Time log parser | P0 | Medium | None | Not started |
 | Google Calendar API | P0 | High | OAuth setup | Not started |
 | ClickUp API integration | P0 | High | API token | Not started |
@@ -826,6 +826,14 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 ---
 
 ## Changelog
+
+**2026-02-23 (8:29 AM):**
+- Site Monitoring dashboard connected to live workspace data
+- Created sync-monitoring-status.ps1 to parse monitoring logs
+- Extracts real site status (up/down) and response times from latest monitoring run
+- Dashboard now shows actual monitoring data for all 32 client sites
+- Sites correctly sorted by status (down/warning first, then alphabetical)
+- Phase 2.1 progress: 3 of 10 local file integrations complete (Kitchen, CRM, Monitoring)
 
 **2026-02-23 (7:29 AM):**
 - CRM dashboard connected to live workspace data (116K+ contacts loaded)

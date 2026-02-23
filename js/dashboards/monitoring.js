@@ -1,5 +1,5 @@
 // Site Monitoring Dashboard
-import { sampleData } from '../data/sample-data.js';
+import { sampleData } from '../../data/sample-data.js';
 
 export function renderMonitoring() {
     const { monitoring } = sampleData;

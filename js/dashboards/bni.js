@@ -1,5 +1,5 @@
 // BNI Metrics Dashboard
-import { sampleData } from '../data/sample-data.js';
+import { sampleData } from '../../data/sample-data.js';
 
 export function renderBNI() {
     const { bni } = sampleData;

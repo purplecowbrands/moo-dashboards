@@ -1,5 +1,5 @@
 // Kitchen/Meal Prep Dashboard
-import { sampleData } from '../data/sample-data.js';
+import { sampleData } from '../../data/sample-data.js';
 
 export function renderKitchen() {
     const { kitchen } = sampleData;

@@ -228,11 +228,12 @@ Priority ranking (high to low):
 | CRM file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
 | Kitchen file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
 | Monitoring file loader | P0 | Low | None | ✅ Complete (2026-02-23) |
-| Time log parser | P0 | Medium | None | Not started |
+| Time log parser | P0 | Medium | None | ✅ Complete (2026-02-23) |
+| Client health integration | P0 | Low | Monitoring + MRR data | ✅ Complete (2026-02-23) |
 | Google Calendar API | P0 | High | OAuth setup | Not started |
 | ClickUp API integration | P0 | High | API token | Not started |
 | Manual data entry forms | P1 | Medium | File write system | Not started |
-| Data caching layer | P0 | Medium | All loaders | Not started |
+| Data caching layer | P0 | Medium | All loaders | ✅ Complete (built-in 5min cache) |
 | Error handling UI | P1 | Low | All loaders | Not started |
 
 ---
@@ -826,6 +827,15 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 ---
 
 ## Changelog
+
+**2026-02-23 (11:29 AM):**
+- Client Health dashboard connected to live workspace data
+- Created client-mrr.json with MRR for all 32 sites ($8,800 total)
+- Added getClientHealthData() to data-loader.js
+- Health status calculated from monitoring status + MRR (healthy/at-risk/critical)
+- Displays 6 upsell opportunities with potential $1,500/month revenue
+- Platform distribution shows 13 Framer, 12 WordPress, 1 Shopify sites
+- Phase 2.1 progress: 5 of 10 local file integrations complete (Kitchen, CRM, Monitoring, Time Tracking, Client Health)
 
 **2026-02-23 (8:29 AM):**
 - Site Monitoring dashboard connected to live workspace data

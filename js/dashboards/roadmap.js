@@ -1,632 +1,703 @@
-// Roadmap Dashboard - Interactive Feature Planning
-import { roadmapData } from '../../data/roadmap-data.js';
+// Roadmap Dashboard - Kanban Board for Feature Planning
+import { roadmapFeatures, architectureCategories } from '../../data/roadmap-data.js';
 
-// Load user feedback from localStorage
-function loadFeedback() {
-    const stored = localStorage.getItem('moo-roadmap-feedback');
-    return stored ? JSON.parse(stored) : {};
-}
-
-// Save user feedback to localStorage
-function saveFeedback(feedback) {
-    localStorage.setItem('moo-roadmap-feedback', JSON.stringify(feedback));
-}
-
-// Get feedback for a specific feature
-function getFeatureFeedback(featureId) {
-    const feedback = loadFeedback();
-    return feedback[featureId] || {
-        priority: null,
-        decision: null,
-        notes: ''
-    };
-}
-
-// Update feedback for a feature
-function updateFeatureFeedback(featureId, updates) {
-    const feedback = loadFeedback();
-    feedback[featureId] = {
-        ...getFeatureFeedback(featureId),
-        ...updates,
-        updatedAt: new Date().toISOString()
-    };
-    saveFeedback(feedback);
-    
-    // Re-render the page (direct innerHTML update since this is a re-render, not initial load)
-    const container = document.getElementById('page-container');
-    if (container) {
-        container.innerHTML = renderRoadmap();
-        // Re-init Lucide icons after re-render
-        if (window.lucide) {
-            window.lucide.createIcons();
+// Load state from localStorage
+function loadState() {
+    const stored = localStorage.getItem('moo-roadmap-state');
+    if (stored) {
+        try {
+            return JSON.parse(stored);
+        } catch (e) {
+            console.error('Failed to parse roadmap state:', e);
         }
     }
+    // Initialize with default statuses from data
+    const state = {};
+    roadmapFeatures.forEach(f => {
+        state[f.id] = {
+            status: f.status,
+            notes: '',
+            rejected: false
+        };
+    });
+    return state;
 }
 
-// Get priority badge HTML
-function getPriorityBadge(priority, userPriority = null) {
-    const displayPriority = userPriority || priority;
-    const badges = {
-        critical: '<span class="badge error">Critical</span>',
-        high: '<span class="badge warning">High</span>',
-        medium: '<span class="badge info">Medium</span>',
-        low: '<span class="badge neutral">Low</span>',
-        'very-high': '<span class="badge error">Very High</span>'
-    };
-    return badges[displayPriority] || badges.medium;
+// Save state to localStorage
+function saveState(state) {
+    localStorage.setItem('moo-roadmap-state', JSON.stringify(state));
 }
 
-// Get complexity badge HTML
-function getComplexityBadge(complexity) {
-    const badges = {
-        low: '<span class="badge success">Low</span>',
-        medium: '<span class="badge info">Medium</span>',
-        high: '<span class="badge warning">High</span>',
-        'very-high': '<span class="badge error">Very High</span>'
-    };
-    return badges[complexity] || badges.medium;
+// Get current view mode
+function getViewMode() {
+    return localStorage.getItem('moo-roadmap-view') || 'production';
 }
 
-// Get status badge HTML
-function getStatusBadge(status) {
-    const badges = {
-        complete: '<span class="badge success">Complete</span>',
-        'in-progress': '<span class="badge warning">In Progress</span>',
-        planned: '<span class="badge info">Planned</span>',
-        idea: '<span class="badge neutral">Idea</span>'
-    };
-    return badges[status] || badges.idea;
+// Set view mode
+function setViewMode(mode) {
+    localStorage.setItem('moo-roadmap-view', mode);
 }
 
-// Get decision badge HTML
-function getDecisionBadge(decision) {
-    const badges = {
-        approved: '<span class="badge success">✓ Approved</span>',
-        rejected: '<span class="badge error">✗ Rejected</span>',
-        skip: '<span class="badge neutral">~ Skipped</span>'
+// Get category filter
+function getCategoryFilter() {
+    return localStorage.getItem('moo-roadmap-category-filter') || '';
+}
+
+// Set category filter
+function setCategoryFilter(category) {
+    localStorage.setItem('moo-roadmap-category-filter', category);
+}
+
+// Get Complete column collapsed state
+function getCompleteCollapsed() {
+    return localStorage.getItem('moo-roadmap-complete-collapsed') === 'true';
+}
+
+// Set Complete column collapsed state
+function setCompleteCollapsed(collapsed) {
+    localStorage.setItem('moo-roadmap-complete-collapsed', collapsed.toString());
+}
+
+// Move feature to new status
+function moveFeature(featureId, newStatus) {
+    const state = loadState();
+    state[featureId] = {
+        ...state[featureId],
+        status: newStatus,
+        updatedAt: new Date().toISOString()
     };
-    return badges[decision] || '';
+    saveState(state);
+    renderPage();
+}
+
+// Reject feature
+function rejectFeature(featureId) {
+    const state = loadState();
+    state[featureId] = {
+        ...state[featureId],
+        rejected: true,
+        updatedAt: new Date().toISOString()
+    };
+    saveState(state);
+    renderPage();
+}
+
+// Update feature notes
+function updateNotes(featureId, notes) {
+    const state = loadState();
+    state[featureId] = {
+        ...state[featureId],
+        notes: notes.trim(),
+        updatedAt: new Date().toISOString()
+    };
+    saveState(state);
+}
+
+// Get category badge
+function getCategoryBadge(category) {
+    const categoryName = architectureCategories[category] || 'Unknown';
+    const colors = {
+        foundation: 'var(--text-tertiary)',
+        dataConnections: '#3b82f6',
+        focusEngine: '#8b5cf6',
+        dashboardUI: '#10b981',
+        inputFeedback: '#f59e0b',
+        writeCapabilities: '#ef4444',
+        polish: '#ec4899'
+    };
+    const color = colors[category] || 'var(--text-secondary)';
+    return `<span class="category-badge" style="background: ${color}20; color: ${color}; border: 1px solid ${color}40;">${categoryName}</span>`;
 }
 
 // Render feature card
-function renderFeatureCard(feature, phaseId) {
-    const feedback = getFeatureFeedback(feature.id);
-    const hasFeedback = feedback.priority || feedback.decision || feedback.notes;
+function renderCard(feature) {
+    const state = loadState();
+    const featureState = state[feature.id] || {};
+    
+    if (featureState.rejected) return '';
+    
+    const currentStatus = featureState.status || feature.status;
     
     return `
-        <div class="roadmap-feature ${hasFeedback ? 'has-feedback' : ''}" data-feature-id="${feature.id}">
-            <div class="feature-header">
-                <div class="feature-title">
-                    <strong>${feature.name}</strong>
-                    ${feedback.decision ? getDecisionBadge(feedback.decision) : ''}
-                </div>
-                <div class="feature-badges">
-                    ${getPriorityBadge(feature.priority, feedback.priority)}
-                    ${getComplexityBadge(feature.complexity)}
-                    ${getStatusBadge(feature.status)}
-                </div>
+        <div class="kanban-card" data-feature-id="${feature.id}">
+            <div class="card-header-row">
+                <strong class="card-title">${feature.name}</strong>
+                ${getCategoryBadge(feature.category)}
             </div>
-            
-            <div class="feature-description">
-                ${feature.description}
+            <p class="card-desc">${feature.description}</p>
+            <div class="card-actions">
+                <button class="btn-build ${currentStatus === 'buildingNext' ? 'active' : ''}" 
+                        onclick="window.roadmapBuildNow('${feature.id}')"
+                        title="Move to Building Next">
+                    <i data-lucide="zap"></i> Build Now
+                </button>
+                <button class="btn-reject" 
+                        onclick="window.roadmapReject('${feature.id}')"
+                        title="Reject/Veto this feature">
+                    <i data-lucide="x"></i> Reject
+                </button>
             </div>
-            
-            ${feature.dependencies && feature.dependencies.length > 0 ? `
-                <div class="feature-dependencies">
-                    <strong>Dependencies:</strong> ${feature.dependencies.join(', ')}
+            <textarea 
+                class="card-notes" 
+                placeholder="Add notes or feedback..."
+                onblur="window.roadmapUpdateNotes('${feature.id}', this.value)"
+            >${featureState.notes || ''}</textarea>
+        </div>
+    `;
+}
+
+// Render Kanban column
+function renderColumn(columnId, title, features, collapsible = false) {
+    const collapsed = collapsible && getCompleteCollapsed();
+    const count = features.length;
+    
+    return `
+        <div class="kanban-column ${collapsed ? 'collapsed' : ''}" data-column="${columnId}">
+            <div class="column-header" ${collapsible ? `onclick="window.roadmapToggleComplete()"` : ''}>
+                <div class="column-title-row">
+                    <h3>${title}</h3>
+                    <span class="column-count">${count}</span>
                 </div>
-            ` : ''}
-            
-            <div class="feature-controls">
-                <div class="control-group">
-                    <label>Priority:</label>
-                    <div class="btn-group">
-                        <button class="btn btn-sm ${feedback.priority === 'critical' ? 'active' : ''}" 
-                                onclick="updatePriority('${feature.id}', 'critical')">Critical</button>
-                        <button class="btn btn-sm ${feedback.priority === 'high' ? 'active' : ''}" 
-                                onclick="updatePriority('${feature.id}', 'high')">High</button>
-                        <button class="btn btn-sm ${feedback.priority === 'medium' ? 'active' : ''}" 
-                                onclick="updatePriority('${feature.id}', 'medium')">Medium</button>
-                        <button class="btn btn-sm ${feedback.priority === 'low' ? 'active' : ''}" 
-                                onclick="updatePriority('${feature.id}', 'low')">Low</button>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <label>Decision:</label>
-                    <div class="btn-group">
-                        <button class="btn btn-sm ${feedback.decision === 'approved' ? 'active btn-success' : ''}" 
-                                onclick="updateDecision('${feature.id}', 'approved')">✓ Approve</button>
-                        <button class="btn btn-sm ${feedback.decision === 'skip' ? 'active' : ''}" 
-                                onclick="updateDecision('${feature.id}', 'skip')">~ Skip</button>
-                        <button class="btn btn-sm ${feedback.decision === 'rejected' ? 'active btn-error' : ''}" 
-                                onclick="updateDecision('${feature.id}', 'rejected')">✗ Reject</button>
-                    </div>
-                </div>
+                ${collapsible ? '<i data-lucide="chevron-down" class="toggle-icon"></i>' : ''}
             </div>
-            
-            <div class="feature-notes">
-                <label>Notes:</label>
-                <textarea 
-                    placeholder="Add your feedback or notes..."
-                    onblur="updateNotes('${feature.id}', this.value)"
-                >${feedback.notes || ''}</textarea>
+            <div class="column-body">
+                ${features.map(renderCard).join('')}
+                ${count === 0 ? '<div class="empty-column">No features</div>' : ''}
             </div>
         </div>
     `;
 }
 
-// Render phase section
-function renderPhase(phase) {
-    const phaseClass = phase.status === 'complete' ? 'phase-complete' : 
-                       phase.status === 'idea' ? 'phase-idea' : 'phase-active';
+// Render Production View (Kanban)
+function renderProductionView() {
+    const state = loadState();
+    const categoryFilter = getCategoryFilter();
+    
+    // Filter features by category if needed
+    let features = roadmapFeatures.filter(f => {
+        const featureState = state[f.id] || {};
+        if (featureState.rejected) return false;
+        if (categoryFilter && f.category !== categoryFilter) return false;
+        return true;
+    });
+    
+    // Group by status
+    const columns = {
+        idea: features.filter(f => (state[f.id]?.status || f.status) === 'idea'),
+        backlog: features.filter(f => (state[f.id]?.status || f.status) === 'backlog'),
+        buildingNext: features.filter(f => (state[f.id]?.status || f.status) === 'buildingNext'),
+        blocked: features.filter(f => (state[f.id]?.status || f.status) === 'blocked'),
+        complete: features.filter(f => (state[f.id]?.status || f.status) === 'complete')
+    };
     
     return `
-        <div class="roadmap-phase ${phaseClass}">
-            <div class="phase-header" onclick="togglePhase('${phase.id}')">
-                <div class="phase-title">
-                    <h3>${phase.name}</h3>
-                    ${getStatusBadge(phase.status)}
-                    <span class="phase-count">${phase.features.length} features</span>
-                </div>
-                <i data-lucide="chevron-down" class="phase-toggle"></i>
-            </div>
-            
-            <div class="phase-content" id="phase-${phase.id}">
-                <div class="features-grid">
-                    ${phase.features.map(f => renderFeatureCard(f, phase.id)).join('')}
-                </div>
-            </div>
+        <div class="kanban-board">
+            ${renderColumn('idea', 'Idea', columns.idea)}
+            ${renderColumn('backlog', 'Backlog', columns.backlog)}
+            ${renderColumn('buildingNext', 'Building Next', columns.buildingNext)}
+            ${renderColumn('blocked', 'Blocked', columns.blocked)}
+            ${renderColumn('complete', 'Complete', columns.complete, true)}
         </div>
     `;
 }
 
-// Render Ben's feedback summary
-function renderFeedbackSummary() {
-    const feedback = loadFeedback();
-    const feedbackItems = Object.entries(feedback).filter(([_, data]) => 
-        data.priority || data.decision || data.notes
-    );
+// Render Architecture View
+function renderArchitectureView() {
+    const state = loadState();
     
-    if (feedbackItems.length === 0) {
-        return `
-            <div class="empty-state">
-                <i data-lucide="clipboard"></i>
-                <p>No feedback yet. Start reviewing features below!</p>
-            </div>
-        `;
-    }
+    // Filter out rejected features
+    const features = roadmapFeatures.filter(f => {
+        const featureState = state[f.id] || {};
+        return !featureState.rejected;
+    });
     
-    // Find feature details for each feedback item
-    const allFeatures = roadmapData.phases.flatMap(p => 
-        p.features.map(f => ({ ...f, phaseName: p.name }))
-    );
+    // Group by architecture category
+    const categories = {};
+    Object.keys(architectureCategories).forEach(key => {
+        categories[key] = features.filter(f => f.category === key);
+    });
     
     return `
-        <div class="feedback-list">
-            ${feedbackItems.map(([featureId, data]) => {
-                const feature = allFeatures.find(f => f.id === featureId);
-                if (!feature) return '';
-                
-                return `
-                    <div class="feedback-item">
-                        <div class="feedback-header">
-                            <strong>${feature.name}</strong>
-                            <span class="badge neutral">${feature.phaseName}</span>
-                        </div>
-                        ${data.decision ? `<div>Decision: ${getDecisionBadge(data.decision)}</div>` : ''}
-                        ${data.priority ? `<div>Priority updated to: ${getPriorityBadge(null, data.priority)}</div>` : ''}
-                        ${data.notes ? `<div class="feedback-notes">${data.notes}</div>` : ''}
-                        <div class="feedback-meta">Updated: ${new Date(data.updatedAt).toLocaleDateString()}</div>
+        <div class="architecture-view">
+            ${Object.entries(categories).map(([key, categoryFeatures]) => `
+                <div class="architecture-category">
+                    <div class="category-header">
+                        <h3>${architectureCategories[key]}</h3>
+                        <span class="category-count">${categoryFeatures.length} features</span>
                     </div>
-                `;
-            }).join('')}
+                    <div class="category-breakdown">
+                        ${renderStatusBreakdown(categoryFeatures, state)}
+                    </div>
+                    <div class="category-features">
+                        ${categoryFeatures.map(renderCard).join('')}
+                    </div>
+                </div>
+            `).join('')}
         </div>
     `;
 }
 
-// Render filters
-function renderFilters() {
+// Render status breakdown for Architecture view
+function renderStatusBreakdown(features, state) {
+    const statusCounts = {
+        complete: 0,
+        buildingNext: 0,
+        backlog: 0,
+        idea: 0,
+        blocked: 0
+    };
+    
+    features.forEach(f => {
+        const status = state[f.id]?.status || f.status;
+        statusCounts[status] = (statusCounts[status] || 0) + 1;
+    });
+    
+    const total = features.length;
+    
     return `
-        <div class="roadmap-filters">
-            <div class="filter-group">
-                <label>Search:</label>
-                <input type="text" id="roadmap-search" placeholder="Search features..." 
-                       oninput="filterFeatures()">
+        <div class="status-breakdown">
+            ${statusCounts.complete > 0 ? `<span class="status-pill complete">${statusCounts.complete} complete</span>` : ''}
+            ${statusCounts.buildingNext > 0 ? `<span class="status-pill building">${statusCounts.buildingNext} building</span>` : ''}
+            ${statusCounts.backlog > 0 ? `<span class="status-pill backlog">${statusCounts.backlog} backlog</span>` : ''}
+            ${statusCounts.idea > 0 ? `<span class="status-pill idea">${statusCounts.idea} idea</span>` : ''}
+            ${statusCounts.blocked > 0 ? `<span class="status-pill blocked">${statusCounts.blocked} blocked</span>` : ''}
+        </div>
+    `;
+}
+
+// Render controls
+function renderControls() {
+    const viewMode = getViewMode();
+    const categoryFilter = getCategoryFilter();
+    
+    return `
+        <div class="roadmap-controls">
+            <div class="view-toggle">
+                <button class="btn ${viewMode === 'production' ? 'active' : ''}" 
+                        onclick="window.roadmapSetView('production')">
+                    <i data-lucide="trello"></i> Production View
+                </button>
+                <button class="btn ${viewMode === 'architecture' ? 'active' : ''}" 
+                        onclick="window.roadmapSetView('architecture')">
+                    <i data-lucide="layers"></i> Architecture View
+                </button>
             </div>
             
-            <div class="filter-group">
-                <label>Status:</label>
-                <select id="filter-status" onchange="filterFeatures()">
-                    <option value="">All</option>
-                    <option value="complete">Complete</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="planned">Planned</option>
-                    <option value="idea">Idea</option>
-                </select>
-            </div>
-            
-            <div class="filter-group">
-                <label>Priority:</label>
-                <select id="filter-priority" onchange="filterFeatures()">
-                    <option value="">All</option>
-                    <option value="critical">Critical</option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
-            </div>
-            
-            <div class="filter-group">
-                <label>Phase:</label>
-                <select id="filter-phase" onchange="filterFeatures()">
-                    <option value="">All</option>
-                    ${roadmapData.phases.map(p => `
-                        <option value="${p.id}">${p.name}</option>
+            <div class="category-filter">
+                <label>Filter by category:</label>
+                <select onchange="window.roadmapSetCategory(this.value)">
+                    <option value="">All Categories</option>
+                    ${Object.entries(architectureCategories).map(([key, name]) => `
+                        <option value="${key}" ${categoryFilter === key ? 'selected' : ''}>${name}</option>
                     `).join('')}
                 </select>
             </div>
             
-            <div class="filter-group">
-                <label>Decision:</label>
-                <select id="filter-decision" onchange="filterFeatures()">
-                    <option value="">All</option>
-                    <option value="approved">Approved</option>
-                    <option value="skip">Skipped</option>
-                    <option value="rejected">Rejected</option>
-                    <option value="pending">Pending Review</option>
-                </select>
-            </div>
-            
-            <button class="btn btn-secondary" onclick="clearFilters()">Clear Filters</button>
-            <button class="btn btn-secondary" onclick="exportFeedback()">Export Feedback</button>
+            <button class="btn btn-secondary" onclick="window.roadmapExport()">
+                <i data-lucide="download"></i> Export State
+            </button>
         </div>
     `;
 }
 
 // Main render function
 function renderRoadmap() {
+    const viewMode = getViewMode();
+    
     return `
         <div class="page-header">
             <h2>Product Roadmap</h2>
-            <p>Interactive feature planning and prioritization for Moo Dashboards</p>
+            <p>Kanban board for feature planning and prioritization</p>
         </div>
         
-        <div class="card" style="margin-bottom: 2rem;">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <i data-lucide="message-square"></i>
-                    Ben's Feedback Summary
-                </h3>
-            </div>
-            <div class="card-body">
-                ${renderFeedbackSummary()}
-            </div>
-        </div>
+        ${renderControls()}
         
-        ${renderFilters()}
-        
-        <div class="roadmap-container">
-            ${roadmapData.phases.map(renderPhase).join('')}
-        </div>
+        ${viewMode === 'production' ? renderProductionView() : renderArchitectureView()}
         
         <style>
-            .roadmap-filters {
-                display: flex;
-                gap: 1rem;
-                margin-bottom: 2rem;
-                flex-wrap: wrap;
-                align-items: flex-end;
-            }
-            
-            .roadmap-phase {
-                margin-bottom: 2rem;
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                overflow: hidden;
-            }
-            
-            .phase-header {
-                padding: 1.5rem;
-                background: var(--bg-secondary);
-                cursor: pointer;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                transition: background 0.2s;
-            }
-            
-            .phase-header:hover {
-                background: var(--bg-tertiary);
-            }
-            
-            .phase-title {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            }
-            
-            .phase-title h3 {
-                margin: 0;
-                font-size: 1.25rem;
-            }
-            
-            .phase-count {
-                color: var(--text-secondary);
-                font-size: 0.875rem;
-            }
-            
-            .phase-content {
-                padding: 1.5rem;
-                background: var(--bg-primary);
-            }
-            
-            .phase-content.collapsed {
-                display: none;
-            }
-            
-            .features-grid {
-                display: grid;
-                gap: 1rem;
-            }
-            
-            .roadmap-feature {
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 1.5rem;
-                background: var(--bg-primary);
-                transition: all 0.2s;
-            }
-            
-            .roadmap-feature.has-feedback {
-                border-color: var(--accent);
-                box-shadow: 0 0 0 1px var(--accent);
-            }
-            
-            .roadmap-feature.hidden {
-                display: none;
-            }
-            
-            .feature-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                margin-bottom: 1rem;
-                gap: 1rem;
-            }
-            
-            .feature-title {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-            }
-            
-            .feature-badges {
-                display: flex;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-            }
-            
-            .feature-description {
-                color: var(--text-secondary);
-                margin-bottom: 1rem;
-                line-height: 1.6;
-            }
-            
-            .feature-dependencies {
-                font-size: 0.875rem;
-                color: var(--text-tertiary);
-                margin-bottom: 1rem;
-            }
-            
-            .feature-controls {
+            .roadmap-controls {
                 display: flex;
                 gap: 2rem;
-                margin-bottom: 1rem;
+                align-items: center;
+                margin-bottom: 2rem;
+                padding: 1rem;
+                background: var(--bg-secondary);
+                border-radius: 8px;
                 flex-wrap: wrap;
             }
             
-            .control-group {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .control-group label {
-                font-size: 0.875rem;
-                font-weight: 600;
-                color: var(--text-secondary);
-            }
-            
-            .btn-group {
+            .view-toggle {
                 display: flex;
                 gap: 0.5rem;
             }
             
-            .btn-sm {
+            .view-toggle .btn {
                 padding: 0.5rem 1rem;
-                font-size: 0.875rem;
-            }
-            
-            .btn-group .btn {
-                background: var(--bg-secondary);
-                color: var(--text-primary);
                 border: 1px solid var(--border);
+                background: var(--bg-primary);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
             }
             
-            .btn-group .btn:hover {
-                background: var(--bg-tertiary);
-            }
-            
-            .btn-group .btn.active {
+            .view-toggle .btn.active {
                 background: var(--accent);
                 color: white;
                 border-color: var(--accent);
             }
             
-            .btn-group .btn-success.active {
-                background: var(--success);
-                border-color: var(--success);
+            .category-filter {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
             }
             
-            .btn-group .btn-error.active {
-                background: var(--error);
-                border-color: var(--error);
+            .category-filter label {
+                font-size: 0.875rem;
+                color: var(--text-secondary);
             }
             
-            .feature-notes textarea {
-                width: 100%;
-                min-height: 60px;
-                padding: 0.75rem;
+            .category-filter select {
+                padding: 0.5rem;
                 border: 1px solid var(--border);
                 border-radius: 6px;
                 background: var(--bg-primary);
                 color: var(--text-primary);
-                font-family: inherit;
-                font-size: 0.9rem;
-                resize: vertical;
             }
             
-            .feature-notes label {
-                display: block;
-                margin-bottom: 0.5rem;
-                font-size: 0.875rem;
+            /* Kanban Board */
+            .kanban-board {
+                display: flex;
+                gap: 1rem;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+            
+            .kanban-column {
+                min-width: 280px;
+                flex-shrink: 0;
+                background: var(--bg-secondary);
+                border-radius: 8px;
+                border: 1px solid var(--border);
+                display: flex;
+                flex-direction: column;
+                max-height: calc(100vh - 300px);
+            }
+            
+            .kanban-column.collapsed .column-body {
+                display: none;
+            }
+            
+            .column-header {
+                padding: 0.75rem 1rem;
+                border-bottom: 2px solid var(--border);
+                background: var(--bg-tertiary);
+                border-radius: 8px 8px 0 0;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .column-title-row {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .column-header h3 {
+                margin: 0;
+                font-size: 0.95rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            
+            .column-count {
+                background: var(--bg-primary);
+                padding: 0.125rem 0.5rem;
+                border-radius: 12px;
+                font-size: 0.75rem;
                 font-weight: 600;
                 color: var(--text-secondary);
             }
             
-            .feedback-list {
-                display: grid;
-                gap: 1rem;
+            .column-body {
+                padding: 0.75rem;
+                overflow-y: auto;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
             }
             
-            .feedback-item {
-                padding: 1rem;
+            .empty-column {
+                text-align: center;
+                padding: 2rem 1rem;
+                color: var(--text-tertiary);
+                font-size: 0.875rem;
+            }
+            
+            /* Kanban Cards */
+            .kanban-card {
+                background: var(--bg-primary);
                 border: 1px solid var(--border);
                 border-radius: 6px;
-                background: var(--bg-secondary);
+                padding: 0.75rem;
+                font-size: 0.875rem;
+                transition: box-shadow 0.2s;
             }
             
-            .feedback-header {
+            .kanban-card:hover {
+                box-shadow: 0 2px 8px var(--shadow);
+            }
+            
+            .card-header-row {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-start;
+                gap: 0.5rem;
                 margin-bottom: 0.5rem;
             }
             
-            .feedback-notes {
-                margin-top: 0.5rem;
-                padding: 0.5rem;
-                background: var(--bg-primary);
-                border-radius: 4px;
-                font-style: italic;
+            .card-title {
+                font-size: 0.875rem;
+                font-weight: 600;
+                line-height: 1.3;
+                flex: 1;
             }
             
-            .feedback-meta {
-                margin-top: 0.5rem;
+            .category-badge {
+                padding: 0.125rem 0.5rem;
+                border-radius: 4px;
+                font-size: 0.7rem;
+                font-weight: 600;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            
+            .card-desc {
+                color: var(--text-secondary);
+                font-size: 0.8rem;
+                line-height: 1.4;
+                margin-bottom: 0.75rem;
+            }
+            
+            .card-actions {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .card-actions button {
+                flex: 1;
+                padding: 0.375rem 0.5rem;
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                background: var(--bg-secondary);
+                color: var(--text-primary);
                 font-size: 0.75rem;
-                color: var(--text-tertiary);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.25rem;
+                transition: all 0.2s;
+            }
+            
+            .card-actions button svg {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .btn-build:hover {
+                background: var(--accent);
+                color: white;
+                border-color: var(--accent);
+            }
+            
+            .btn-build.active {
+                background: var(--accent);
+                color: white;
+                border-color: var(--accent);
+            }
+            
+            .btn-reject:hover {
+                background: var(--error);
+                color: white;
+                border-color: var(--error);
+            }
+            
+            .card-notes {
+                width: 100%;
+                min-height: 50px;
+                padding: 0.5rem;
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+                font-size: 0.75rem;
+                font-family: inherit;
+                resize: vertical;
+            }
+            
+            .card-notes:focus {
+                outline: none;
+                border-color: var(--accent);
+            }
+            
+            /* Architecture View */
+            .architecture-view {
+                display: grid;
+                gap: 2rem;
+            }
+            
+            .architecture-category {
+                background: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 1.5rem;
+            }
+            
+            .category-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid var(--border);
+            }
+            
+            .category-header h3 {
+                margin: 0;
+                font-size: 1.25rem;
+            }
+            
+            .category-count {
+                color: var(--text-secondary);
+                font-size: 0.875rem;
+            }
+            
+            .category-breakdown {
+                margin-bottom: 1rem;
+            }
+            
+            .status-breakdown {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .status-pill {
+                padding: 0.25rem 0.75rem;
+                border-radius: 12px;
+                font-size: 0.75rem;
+                font-weight: 600;
+            }
+            
+            .status-pill.complete {
+                background: rgba(16, 185, 129, 0.2);
+                color: var(--success);
+            }
+            
+            .status-pill.building {
+                background: rgba(139, 92, 246, 0.2);
+                color: #8b5cf6;
+            }
+            
+            .status-pill.backlog {
+                background: rgba(59, 130, 246, 0.2);
+                color: var(--info);
+            }
+            
+            .status-pill.idea {
+                background: rgba(107, 114, 128, 0.2);
+                color: var(--text-secondary);
+            }
+            
+            .status-pill.blocked {
+                background: rgba(239, 68, 68, 0.2);
+                color: var(--error);
+            }
+            
+            .category-features {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1rem;
+            }
+            
+            /* Responsive */
+            @media (max-width: 768px) {
+                .kanban-board {
+                    flex-direction: column;
+                }
+                
+                .kanban-column {
+                    min-width: 100%;
+                }
             }
         </style>
     `;
 }
 
-// Global functions for onclick handlers
-window.updatePriority = function(featureId, priority) {
-    const current = getFeatureFeedback(featureId);
-    updateFeatureFeedback(featureId, { 
-        priority: current.priority === priority ? null : priority 
-    });
-};
-
-window.updateDecision = function(featureId, decision) {
-    const current = getFeatureFeedback(featureId);
-    updateFeatureFeedback(featureId, { 
-        decision: current.decision === decision ? null : decision 
-    });
-};
-
-window.updateNotes = function(featureId, notes) {
-    updateFeatureFeedback(featureId, { notes: notes.trim() });
-};
-
-window.togglePhase = function(phaseId) {
-    const content = document.getElementById(`phase-${phaseId}`);
-    if (content) {
-        content.classList.toggle('collapsed');
-        const toggle = content.previousElementSibling.querySelector('.phase-toggle');
-        if (toggle) {
-            toggle.setAttribute('data-lucide', 
-                content.classList.contains('collapsed') ? 'chevron-right' : 'chevron-down'
-            );
-            if (window.lucide) window.lucide.createIcons();
+// Re-render page
+function renderPage() {
+    const container = document.getElementById('page-container');
+    if (container) {
+        container.innerHTML = renderRoadmap();
+        if (window.lucide) {
+            window.lucide.createIcons();
         }
+    }
+}
+
+// Global functions for onclick handlers
+window.roadmapBuildNow = function(featureId) {
+    const state = loadState();
+    const currentStatus = state[featureId]?.status || roadmapFeatures.find(f => f.id === featureId)?.status;
+    
+    // Toggle: if already in buildingNext, move back to backlog
+    if (currentStatus === 'buildingNext') {
+        moveFeature(featureId, 'backlog');
+    } else {
+        moveFeature(featureId, 'buildingNext');
     }
 };
 
-window.filterFeatures = function() {
-    const searchTerm = document.getElementById('roadmap-search')?.value.toLowerCase() || '';
-    const statusFilter = document.getElementById('filter-status')?.value || '';
-    const priorityFilter = document.getElementById('filter-priority')?.value || '';
-    const phaseFilter = document.getElementById('filter-phase')?.value || '';
-    const decisionFilter = document.getElementById('filter-decision')?.value || '';
-    
-    const feedback = loadFeedback();
-    
-    document.querySelectorAll('.roadmap-feature').forEach(card => {
-        const featureId = card.dataset.featureId;
-        
-        // Find feature data
-        let feature = null;
-        let phaseId = null;
-        for (const phase of roadmapData.phases) {
-            feature = phase.features.find(f => f.id === featureId);
-            if (feature) {
-                phaseId = phase.id;
-                break;
-            }
-        }
-        
-        if (!feature) return;
-        
-        const featureFeedback = feedback[featureId] || {};
-        const text = `${feature.name} ${feature.description}`.toLowerCase();
-        
-        // Apply filters
-        const matchesSearch = !searchTerm || text.includes(searchTerm);
-        const matchesStatus = !statusFilter || feature.status === statusFilter;
-        const matchesPriority = !priorityFilter || 
-            (featureFeedback.priority || feature.priority) === priorityFilter;
-        const matchesPhase = !phaseFilter || phaseId === phaseFilter;
-        const matchesDecision = !decisionFilter || 
-            (decisionFilter === 'pending' ? !featureFeedback.decision : featureFeedback.decision === decisionFilter);
-        
-        if (matchesSearch && matchesStatus && matchesPriority && matchesPhase && matchesDecision) {
-            card.classList.remove('hidden');
-        } else {
-            card.classList.add('hidden');
-        }
-    });
+window.roadmapReject = function(featureId) {
+    if (confirm('Are you sure you want to reject this feature? It will be hidden from the roadmap.')) {
+        rejectFeature(featureId);
+    }
 };
 
-window.clearFilters = function() {
-    document.getElementById('roadmap-search').value = '';
-    document.getElementById('filter-status').value = '';
-    document.getElementById('filter-priority').value = '';
-    document.getElementById('filter-phase').value = '';
-    document.getElementById('filter-decision').value = '';
-    filterFeatures();
+window.roadmapUpdateNotes = function(featureId, notes) {
+    updateNotes(featureId, notes);
 };
 
-window.exportFeedback = function() {
-    const feedback = loadFeedback();
-    const blob = new Blob([JSON.stringify(feedback, null, 2)], { type: 'application/json' });
+window.roadmapSetView = function(view) {
+    setViewMode(view);
+    setCategoryFilter(''); // Clear category filter when switching views
+    renderPage();
+};
+
+window.roadmapSetCategory = function(category) {
+    setCategoryFilter(category);
+    renderPage();
+};
+
+window.roadmapToggleComplete = function() {
+    const collapsed = getCompleteCollapsed();
+    setCompleteCollapsed(!collapsed);
+    renderPage();
+};
+
+window.roadmapExport = function() {
+    const state = loadState();
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `moo-roadmap-feedback-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `moo-roadmap-state-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
 };

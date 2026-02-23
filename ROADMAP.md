@@ -815,7 +815,18 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 
 ## Changelog
 
-**2026-02-22:**
+**2026-02-22 (11:29 PM):**
+- Site Monitoring page redesigned per Ben's feedback
+- Changed layout from two-column to big list + compact sidebar
+- Sites table now the primary focus (full-width, prominent)
+- Platform chart moved to compact sidebar (secondary)
+- Sites sorted by status (warnings/down at top, healthy below)
+- Improved hover effects and visual hierarchy
+- Condensed spacing for less scrolling
+- KPI cards kept at top (Ben specifically approved these)
+- Live data integration structure ready via data-loader.js
+
+**2026-02-22 (earlier):**
 - Initial roadmap created
 - Defined 6-phase implementation plan
 - Documented vision, architecture, and feature priorities

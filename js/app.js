@@ -1,7 +1,7 @@
 // Main App - Router & Navigation
 import { renderHome } from './dashboards/home.js';
 import { renderSales } from './dashboards/sales.js';
-import { renderEOS } from './dashboards/eos.js';
+import { renderEOS, initEOS } from './dashboards/eos.js';
 import { renderCRM } from './dashboards/crm.js';
 import { renderClients } from './dashboards/clients.js';
 import { renderMonitoring } from './dashboards/monitoring.js';
@@ -67,6 +67,9 @@ async function router() {
     }
     if (page === 'financial') {
         initFinancial();
+    }
+    if (page === 'eos') {
+        initEOS();
     }
 }
 

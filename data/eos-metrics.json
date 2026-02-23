@@ -1,0 +1,42 @@
+{
+  "metrics": [
+    {
+      "name": "Weekly 121s",
+      "target": 6,
+      "actual": 4,
+      "status": "warning"
+    },
+    {
+      "name": "New Prospects",
+      "target": 3,
+      "actual": 5,
+      "status": "success"
+    },
+    {
+      "name": "Proposals Sent",
+      "target": 2,
+      "actual": 1,
+      "status": "error"
+    },
+    {
+      "name": "Client Check-ins",
+      "target": 5,
+      "actual": 6,
+      "status": "success"
+    },
+    {
+      "name": "Blog Posts",
+      "target": 1,
+      "actual": 0,
+      "status": "error"
+    },
+    {
+      "name": "Revenue ($k)",
+      "target": 24,
+      "actual": 19,
+      "status": "warning"
+    }
+  ],
+  "lastUpdated": "2026-02-23T21:30:00.000Z",
+  "notes": "Initial EOS scorecard data - replace with actual weekly metrics"
+}

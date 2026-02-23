@@ -372,6 +372,62 @@ export function generateFinancialJson(formData) {
 }
 
 // =========================
+// EOS SCORECARD DATA
+// =========================
+
+export async function getEOSData() {
+    const cached = getCached('eos');
+    if (cached) return cached;
+
+    const eosData = await fetchJSON('/data/eos-metrics.json');
+    if (!eosData) return null;
+
+    const data = {
+        ...eosData,
+        isLive: true
+    };
+
+    setCache('eos', data);
+    return data;
+}
+
+// Save EOS data (returns JSON string for manual update)
+export function generateEOSJson(formData) {
+    const metrics = [];
+    
+    // Parse metrics entries (dynamically from form)
+    let i = 0;
+    while (formData[`metric_name_${i}`]) {
+        const name = formData[`metric_name_${i}`];
+        const target = parseInt(formData[`metric_target_${i}`]);
+        const actual = parseInt(formData[`metric_actual_${i}`]);
+        
+        // Calculate status based on target vs actual
+        let status = 'success';
+        const percentage = (actual / target) * 100;
+        if (percentage < 70) {
+            status = 'error';
+        } else if (percentage < 100) {
+            status = 'warning';
+        }
+        
+        metrics.push({
+            name,
+            target,
+            actual,
+            status
+        });
+        i++;
+    }
+
+    return JSON.stringify({
+        metrics: metrics,
+        lastUpdated: new Date().toISOString(),
+        notes: formData.notes || ''
+    }, null, 2);
+}
+
+// =========================
 // HELPER: Check if data is live
 // =========================
 

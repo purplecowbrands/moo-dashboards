@@ -197,6 +197,75 @@ export async function getKitchenData() {
 }
 
 // =========================
+// CLIENT HEALTH DATA
+// =========================
+
+export async function getClientHealthData() {
+    const cached = getCached('clientHealth');
+    if (cached) return cached;
+
+    // Load monitoring data for sites list and status
+    const monitoringData = await getMonitoringData();
+    if (!monitoringData) return null;
+
+    // Load MRR and upsell data
+    const mrrData = await fetchJSON('/data/client-mrr.json');
+    if (!mrrData) return null;
+
+    const { sites } = monitoringData;
+    const mrrMap = mrrData.mrr || {};
+
+    // Build client health records
+    const clientHealth = sites.map(site => {
+        const mrr = mrrMap[site.name] || 0;
+        
+        // Determine health status based on site status and MRR
+        let healthStatus = 'healthy';
+        if (site.status === 'down') {
+            healthStatus = 'critical';
+        } else if (site.status === 'warning' || mrr === 0) {
+            healthStatus = 'at-risk';
+        }
+
+        // Last update: use monitoring last check or default to "Recently"
+        const lastUpdate = site.lastCheck 
+            ? new Date(site.lastCheck).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+            : 'Recently';
+
+        return {
+            name: site.name,
+            url: site.url,
+            platform: site.platform,
+            status: healthStatus,
+            siteStatus: site.status, // up/down/warning
+            lastUpdate,
+            mrr,
+            pagesMonitored: site.pagesMonitored || 0
+        };
+    });
+
+    // Calculate totals
+    const totalClients = clientHealth.length;
+    const totalMRR = clientHealth.reduce((sum, c) => sum + c.mrr, 0);
+    const upsellOpportunities = mrrData.upsellOpportunities || [];
+
+    // Platform distribution (already have this from monitoring)
+    const platformCounts = monitoringData.platforms;
+
+    const data = {
+        total: totalClients,
+        totalMRR,
+        health: clientHealth,
+        byPlatform: platformCounts,
+        upsellOpportunities,
+        isLive: true
+    };
+
+    setCache('clientHealth', data);
+    return data;
+}
+
+// =========================
 // HELPER: Check if data is live
 // =========================
 

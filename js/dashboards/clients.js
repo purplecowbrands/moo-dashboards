@@ -1,14 +1,29 @@
 // Client Health Dashboard
+import { getClientHealthData, isLiveData } from '../data-loader.js';
 import { sampleData } from '../../data/sample-data.js';
 
-export function renderClients() {
-    const { clients } = sampleData;
+let cachedData = null;
+
+async function loadData() {
+    // Try to load live data
+    const liveData = await getClientHealthData();
+    if (liveData) {
+        cachedData = liveData;
+        return liveData;
+    }
+    
+    // Fallback to sample data
+    return { ...sampleData.clients, isLive: false };
+}
+
+export async function renderClients() {
+    const clients = await loadData();
     const totalMRR = clients.health.reduce((sum, c) => sum + c.mrr, 0);
 
     return `
         <div class="page-header">
             <h2>Client Health</h2>
-            <p>All client accounts status, upsell opportunities</p>
+            <p>${clients.total} active clients - ${clients.isLive ? '✅ Live Data' : '⚠️ Sample Data'}</p>
         </div>
 
         <div class="stats-grid">
@@ -109,15 +124,21 @@ export function renderClients() {
                             </tr>
                         </thead>
                         <tbody>
-                            ${clients.health.map(client => `
-                                <tr>
-                                    <td><strong>${client.name}</strong></td>
-                                    <td><span class="badge neutral">${client.platform}</span></td>
-                                    <td><span class="badge ${client.status === 'healthy' ? 'success' : 'warning'}">${client.status}</span></td>
-                                    <td>${client.lastUpdate}</td>
-                                    <td>$${client.mrr}</td>
-                                </tr>
-                            `).join('')}
+                            ${clients.health.map(client => {
+                                let statusBadge = 'success';
+                                if (client.status === 'critical') statusBadge = 'error';
+                                else if (client.status === 'at-risk') statusBadge = 'warning';
+                                
+                                return `
+                                    <tr>
+                                        <td><strong>${client.name}</strong></td>
+                                        <td><span class="badge neutral">${client.platform}</span></td>
+                                        <td><span class="badge ${statusBadge}">${client.status}</span></td>
+                                        <td>${client.lastUpdate}</td>
+                                        <td>$${client.mrr}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
                         </tbody>
                     </table>
                 </div>

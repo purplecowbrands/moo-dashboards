@@ -1,5 +1,11 @@
 # Moo Dashboards - TODO
 
+**See ROADMAP.md for the comprehensive feature plan, architecture overview, and long-term vision.**
+
+This file tracks implementation status of current work. ROADMAP.md is the master plan.
+
+---
+
 ## ✅ Completed (Full Site Build)
 
 ### Framework & Structure

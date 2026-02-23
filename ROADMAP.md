@@ -1,0 +1,823 @@
+# Moo Dashboards - Product Roadmap
+
+## Vision Statement
+
+**"What Should I Be Doing Right Now?"**
+
+Moo Dashboards is Ben Porter's unified productivity command center. The core mission is to eliminate decision fatigue by providing intelligent, context-aware guidance on what deserves attention at any given moment. Instead of juggling multiple systems (Google Calendar, ClickUp, CRM, email, monitoring alerts), Ben gets a single, clear answer backed by AI intelligence that understands his business priorities, networking goals, and personal life balance.
+
+The system doesn't just display data - it actively decides what matters most right now and presents it in a bold, clean interface that demands action, not analysis.
+
+### Design Philosophy
+
+**Learned from Task Randomizer:**
+- Big, bold, clean presentation (no clutter)
+- Minimal decision fatigue - the system chooses, Ben executes
+- Simple UI for logging completion and moving forward
+- Fast, lightweight, no friction
+
+**What Moo Dashboards Improves:**
+- Context-aware intelligence (not random - prioritized by AI)
+- Multi-source data integration (calendar, tasks, CRM, monitoring)
+- Business-first priorities (sales > admin, urgent > important)
+- One app for everything (no tool-switching)
+- Eventually write-capable (create tasks, events, updates from one place)
+
+### Success Metrics
+
+Ben should be able to:
+1. Open the app and know exactly what to do next in < 3 seconds
+2. Complete or defer an action in < 30 seconds
+3. Review all critical systems (calendar, tasks, monitoring, CRM) in < 2 minutes
+4. Never miss a meeting, deadline, or high-value followup
+5. Reduce time spent "figuring out what to work on" by 80%
+
+---
+
+## Architecture Overview
+
+### Data Flow
+
+```
+External Systems          Backend Layer              Frontend
+----------------         ---------------            ---------
+Google Calendar    -->   Moo (OpenClaw)      -->   Dashboard UI
+ClickUp API        -->   Data Aggregation    -->   Focus View
+CRM Files          -->   Priority Engine     -->   Status Cards
+Monitoring Data    -->   Decision Logic      -->   Quick Actions
+Time Logs          -->   Context Builder     -->   Analytics Views
+Email/Notifications -->  Alert Processor
+```
+
+### Components
+
+**1. Data Sources (Read)**
+- Google Calendar API (meetings, events)
+- ClickUp API (tasks, deals, projects)
+- Local CRM files (`crm/contacts.json`, `crm/interactions.json`)
+- Site monitoring data (`monitoring/sites.json`, `monitoring/index.json`)
+- Time tracking logs (`memory/timelog/*.md`)
+- Kitchen inventory & meal plans (`kitchen/*.json`)
+- Financial tracking (manual/config-based initially)
+
+**2. Moo Intelligence Layer (OpenClaw Agent)**
+- Fetches data from all sources on demand
+- Applies business rules and priority logic
+- Generates "What Should I Do Now?" recommendations
+- Handles natural language queries
+- Manages background monitoring and alerts
+- Eventually: creates/updates data across systems
+
+**3. Priority Engine Logic**
+Priority ranking (high to low):
+1. Active meeting happening RIGHT NOW (with dismiss option)
+2. Monitoring alerts (client sites down)
+3. Overdue tasks (especially sales followups)
+4. Due today tasks (sales > client work > admin)
+5. Upcoming meetings (next 2 hours)
+6. BNI 121 targets (if below weekly goal)
+7. Email/notification triage (unread important messages)
+8. Time logging reminders (if gaps in daily log)
+9. Proactive work (prospecting, blog posts, system improvements)
+
+**4. Frontend Dashboard**
+- Single-page app (vanilla JS, lightweight)
+- Hash-based routing (no server required)
+- Chart.js for visualizations
+- Lucide icons for consistency
+- Dark mode support
+- Mobile-responsive PWA
+
+**5. Deployment**
+- Cloudflare Pages (auto-deploy from GitHub main branch)
+- Public URL: https://moo-dashboards.pages.dev
+- No authentication initially (internal use only)
+- Eventually: auth layer for security
+
+---
+
+## Feature Phases
+
+### Phase 1: Foundation ✅ COMPLETE
+**Status:** Fully built, deployed, using sample data
+
+**What's Built:**
+- Complete SPA shell with sidebar navigation
+- 11 dashboard pages with realistic UI
+- Sample data matching real schemas
+- Responsive design (mobile + desktop)
+- Dark mode theming
+- Chart.js visualizations
+- Cloudflare Pages deployment pipeline
+
+**Dashboards:**
+- Home/Overview - Summary cards linking to all dashboards
+- Sales Pipeline - 121 tracking, weekly scorecard, pipeline stages
+- EOS Scorecard - Weekly metrics tracker with progress bars
+- CRM Overview - Contacts browser, interaction history, top contacts
+- Client Health - All clients status, platform distribution, upsell opportunities
+- Site Monitoring - Site status, alerts, response times
+- Time Tracking - Daily logs by category, weekly breakdown, trends
+- BNI Metrics - Member count, visitors, referrals, attendance, 121s
+- Financial Overview - Revenue vs target, MRR tracking, expenses
+- Task Overview - ClickUp task summary by status and category
+- Kitchen/Meal Prep - Current week's plan, inventory, shopping list
+
+---
+
+### Phase 2: Live Data Connections (Read-Only)
+**Goal:** Replace sample data with real data from APIs and local files  
+**Timeline:** 2-3 weeks  
+**Priority:** HIGH
+
+#### 2.1 Local File Integration (Week 1)
+**Easy wins - files already in correct format:**
+
+| Data Source | File Path | Implementation |
+|-------------|-----------|----------------|
+| CRM Contacts | `crm/contacts.json` | Direct JSON load |
+| CRM Interactions | `crm/interactions.json` | Direct JSON load |
+| CRM Introductions | `crm/introductions.json` | Direct JSON load |
+| Kitchen Meal Plans | `kitchen/meal-plan-state.json` | Direct JSON load |
+| Kitchen Inventory | `kitchen/inventory.json` | Direct JSON load |
+| Site List | `monitoring/sites.json` | Direct JSON load |
+| Site Status | `monitoring/index.json` | Direct JSON load |
+| Monitoring Alerts | `monitoring/ALERT_PENDING.txt` | Text file parse |
+
+**Implementation:**
+- Create `js/data-loader.js` module
+- Fetch local files via relative paths (works on Cloudflare Pages)
+- Add error handling for missing/malformed files
+- Cache strategy: refresh every 5 minutes
+
+#### 2.2 Time Tracking Parser (Week 1)
+**Challenge:** Parse markdown logs into structured data
+
+**Source:** `memory/timelog/*.md` files  
+**Format:**
+```markdown
+# Time Log - Saturday, February 22, 2026
+- 00:00-09:30 | Sleep
+- 09:30-10:00 | Break | Morning routine
+- 10:00-14:00 | Work | Client proposals + BNI followups
+```
+
+**Implementation:**
+- Regex parser for time entries
+- Aggregate by day/week/month/category
+- Chart generation for trends
+- Weekly summary calculations
+
+#### 2.3 Google Calendar API (Week 2)
+**Challenge:** OAuth authentication + API integration
+
+**What to Fetch:**
+- Today's events
+- Next 7 days preview
+- 121 meeting count (for BNI tracking)
+- Filter: primary calendar (ben@purplecowbrands.com)
+
+**Implementation:**
+- Google Calendar API v3
+- Service account or OAuth flow (decide based on security needs)
+- Store credentials securely (Proton Pass)
+- Cache events for 15 minutes
+- Real-time "meeting happening now" detection
+
+#### 2.4 ClickUp API (Week 2-3)
+**Challenge:** Complex API, many endpoints needed
+
+**What to Fetch:**
+- All tasks across all lists
+- Task status (overdue, due today, upcoming)
+- Custom fields (for EOS scorecard, sales pipeline)
+- Comments/activity for recent updates
+- Filter by assignee (Ben)
+
+**API Endpoints:**
+- `/team/{team_id}/task` - Get all tasks
+- `/list/{list_id}/task` - Tasks by list
+- `/task/{task_id}` - Task details
+
+**Implementation:**
+- ClickUp API v2
+- API token from Proton Pass
+- Rate limit handling (100 requests/min)
+- Cache strategy: refresh every 10 minutes
+- Parse custom fields for pipeline stages, EOS metrics
+
+#### 2.5 Manual Data Entry Systems (Week 3)
+**For data sources without APIs:**
+
+| Data Type | Storage | Input Method |
+|-----------|---------|--------------|
+| EOS Scorecard | `data/eos-metrics.json` | Manual weekly update form |
+| Financial Revenue | `data/financial.json` | Manual monthly entry |
+| BNI Metrics | `data/bni-stats.json` | Manual weekly update |
+| Client MRR | `monitoring/sites.json` (add field) | Edit JSON or form |
+
+**Implementation:**
+- Simple forms in dashboard for data entry
+- JSON file writes (manual edit or save to file)
+- Eventually: integrate with accounting software (future)
+
+#### Feature Cards (Phase 2)
+
+| Feature | Priority | Complexity | Dependencies | Status |
+|---------|----------|------------|--------------|--------|
+| CRM file loader | P0 | Low | None | Not started |
+| Kitchen file loader | P0 | Low | None | Not started |
+| Monitoring file loader | P0 | Low | None | Not started |
+| Time log parser | P0 | Medium | None | Not started |
+| Google Calendar API | P0 | High | OAuth setup | Not started |
+| ClickUp API integration | P0 | High | API token | Not started |
+| Manual data entry forms | P1 | Medium | File write system | Not started |
+| Data caching layer | P0 | Medium | All loaders | Not started |
+| Error handling UI | P1 | Low | All loaders | Not started |
+
+---
+
+### Phase 3: The Focus Engine
+**Goal:** Build the "What Should I Be Doing Right Now?" core feature  
+**Timeline:** 2-3 weeks  
+**Priority:** CRITICAL (this is the whole point)
+
+#### 3.1 Priority Decision Engine
+**Backend logic (OpenClaw agent or frontend JS):**
+
+**Input:**
+- Current time
+- Calendar events (now, next 2 hours, rest of day)
+- ClickUp tasks (overdue, due today, upcoming)
+- CRM interactions (pending followups, 121 targets)
+- Monitoring alerts (sites down)
+- Email/notification count (future)
+- Time log gaps (missing entries)
+- Personal context (meal prep, chores)
+
+**Output:**
+- Single highest-priority item
+- Reason/context for why
+- Quick action buttons (complete, snooze, skip, dismiss)
+- Estimated time to complete
+- Next 3 items in queue
+
+**Priority Algorithm:**
+```
+1. IF meeting happening now AND not dismissed → Show meeting
+2. ELSE IF site monitoring alert → Show site down alert
+3. ELSE IF overdue task (sales category) → Show overdue sales task
+4. ELSE IF overdue task (client work) → Show overdue client task
+5. ELSE IF meeting in next 2 hours → Show meeting prep
+6. ELSE IF task due today (sales) → Show sales task
+7. ELSE IF task due today (client) → Show client task
+8. ELSE IF BNI 121s below target → Show 121 followup prompt
+9. ELSE IF time log gap (> 2 hours unlogged) → Show time log reminder
+10. ELSE IF unread important email → Show email triage
+11. ELSE → Show proactive work suggestion
+```
+
+#### 3.2 Focus View UI
+**Design principles:**
+- Full-screen takeover (like Task Randomizer)
+- Big, bold text - no squinting
+- Single card in center of screen
+- Minimal distractions
+- Quick action buttons prominent
+
+**Layout:**
+```
+┌─────────────────────────────────────────┐
+│                                         │
+│           🎯 RIGHT NOW                  │
+│                                         │
+│   [Big Bold Task Title]                 │
+│   Due: Today at 3:00 PM                 │
+│   Context: Sales followup for BNI       │
+│   Est. Time: 15 minutes                 │
+│                                         │
+│   [Mark Complete]  [Snooze]  [Skip]     │
+│                                         │
+│   Next up: Client call prep (2:00 PM)   │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+**Quick Actions:**
+- **Mark Complete** → Log time spent, archive task
+- **Snooze** → Remind in 30min/1hr/2hr/tomorrow
+- **Skip** → Move to next task (don't snooze)
+- **Dismiss** → Remove from queue (for meetings that were canceled)
+
+#### 3.3 Context Builder
+**Moo Intelligence Layer:**
+- Fetch all data sources
+- Apply priority algorithm
+- Generate natural language context
+- Example: "This is overdue by 2 days, and it's a sales followup - your highest revenue priority. You last contacted them on Feb 15."
+
+**Data enrichment:**
+- CRM lookups (last interaction, relationship strength)
+- Calendar context (time until next meeting)
+- Task history (how long has this been overdue?)
+- Personal context (meal prep day? Need to walk Tango?)
+
+#### Feature Cards (Phase 3)
+
+| Feature | Priority | Complexity | Dependencies | Status |
+|---------|----------|------------|--------------|--------|
+| Priority algorithm logic | P0 | High | Phase 2 data | Not started |
+| Focus view UI | P0 | Medium | None | Not started |
+| Meeting detection (now) | P0 | Medium | Calendar API | Not started |
+| Quick action handlers | P0 | Medium | None | Not started |
+| Context builder (Moo) | P0 | High | All data sources | Not started |
+| Snooze system | P1 | Medium | Local storage | Not started |
+| Next-in-queue display | P1 | Low | Priority engine | Not started |
+| Time estimation | P2 | Low | Historical data | Not started |
+
+---
+
+### Phase 4: Input & Feedback UI
+**Goal:** Allow Ben to log actions, complete tasks, and update data from the dashboard  
+**Timeline:** 2 weeks  
+**Priority:** HIGH
+
+#### 4.1 Task Completion Logging
+**What to capture:**
+- Time spent on task
+- Notes/outcome
+- Mark complete or defer
+- Create followup tasks
+
+**UI:**
+```
+Task: Follow up with Creating Community
+─────────────────────────────────────────
+Time spent: [15] minutes
+Outcome: 
+[Text area for notes]
+□ Create followup task
+─────────────────────────────────────────
+[Mark Complete]  [Cancel]
+```
+
+**Backend:**
+- Write to time log (`memory/timelog/YYYY-MM-DD.md`)
+- Update ClickUp task status (via API)
+- Optional: create new ClickUp task for followup
+
+#### 4.2 Time Entry Interface
+**Quick log from dashboard:**
+- Current time auto-filled
+- Category dropdown (Work, Personal, Break, Sleep)
+- Description field
+- Duration or start/end time
+
+**UI:**
+```
+Log Time Entry
+─────────────────────────────────────────
+Time: [14:00] - [15:30]
+Category: [Work ▼]
+Description: [Client proposal + followup calls]
+─────────────────────────────────────────
+[Save]  [Cancel]
+```
+
+**Backend:**
+- Append to today's time log file
+- Recalculate daily totals
+- Update time tracking dashboard
+
+#### 4.3 Meeting Feedback
+**After meeting ends:**
+- Rate the meeting (valuable/waste of time)
+- Log outcome/next steps
+- Create followup tasks
+
+**UI:**
+```
+Meeting: 121 with Aaron Hale
+─────────────────────────────────────────
+How was it? [⭐⭐⭐⭐⭐]
+Notes:
+[Text area]
+Next steps:
+[Create followup task]
+─────────────────────────────────────────
+[Done]
+```
+
+**Backend:**
+- Write to CRM interaction log
+- Create ClickUp tasks for followups
+- Update BNI 121 count
+
+#### 4.4 Quick Captures
+**Rapid task creation:**
+- Voice-to-text input (future)
+- Single-line task creation
+- Smart defaults (assign to Ben, today's date)
+
+**UI:**
+```
+Quick Add Task
+─────────────────────────────────────────
+[Text input: "Follow up with John about referrals"]
+Category: [BNI Followups ▼]
+Due: [Today ▼]
+─────────────────────────────────────────
+[Add]  [Cancel]
+```
+
+**Backend:**
+- Create ClickUp task via API
+- Add to CRM interaction log if contact mentioned
+- Refresh task list
+
+#### Feature Cards (Phase 4)
+
+| Feature | Priority | Complexity | Dependencies | Status |
+|---------|----------|------------|--------------|--------|
+| Task completion form | P0 | Medium | Phase 3 | Not started |
+| Time entry UI | P0 | Medium | Time log parser | Not started |
+| Write to time log file | P0 | Medium | File write system | Not started |
+| Meeting feedback form | P1 | Medium | Calendar API | Not started |
+| Quick task creation | P1 | Low | ClickUp API | Not started |
+| Voice input (future) | P2 | High | Speech-to-text | Not started |
+
+---
+
+### Phase 5: Write Capabilities
+**Goal:** Full read/write integration - create and update across all systems  
+**Timeline:** 3-4 weeks  
+**Priority:** MEDIUM
+
+#### 5.1 Calendar Event Creation
+**Use cases:**
+- Schedule 121 meetings from CRM
+- Block time for deep work
+- Create sales calls
+
+**UI:**
+```
+Create Calendar Event
+─────────────────────────────────────────
+Title: [121 with Aaron Hale]
+Date: [Feb 25, 2026]
+Time: [2:00 PM] - [3:00 PM]
+Calendar: [Primary ▼]
+Description: [Optional notes]
+─────────────────────────────────────────
+[Create]  [Cancel]
+```
+
+**Backend:**
+- Google Calendar API (create event)
+- Add to CRM interaction log
+- Increment BNI 121 count
+
+#### 5.2 ClickUp Task Management
+**Full CRUD:**
+- Create tasks
+- Update task status
+- Change due dates
+- Add comments
+- Assign to team members
+
+**UI:**
+```
+Edit Task: Follow up with Creating Community
+─────────────────────────────────────────
+Status: [Backlog ▼]
+Due Date: [Feb 25, 2026]
+Assignee: [Ben Porter]
+Description:
+[Text area]
+Comments:
+[Add comment...]
+─────────────────────────────────────────
+[Save]  [Cancel]
+```
+
+**Backend:**
+- ClickUp API (update task)
+- Sync changes back to dashboard
+- Optimistic UI updates
+
+#### 5.3 CRM Updates
+**What to update:**
+- Add new contacts
+- Log interactions
+- Update contact details
+- Track introductions
+
+**UI:**
+```
+Add Interaction
+─────────────────────────────────────────
+Contact: [Search contacts... ▼]
+Type: [Text ▼]  (Call, Email, Meeting, Text)
+Date: [Today]
+Notes:
+[Text area]
+─────────────────────────────────────────
+[Save]  [Cancel]
+```
+
+**Backend:**
+- Write to `crm/interactions.json`
+- Update last contact date in `crm/contacts.json`
+- Refresh CRM dashboard
+
+#### 5.4 File Write System
+**Challenge:** Cloudflare Pages is static hosting  
+**Solutions:**
+1. **Serverless API** (Cloudflare Workers + R2 storage)
+2. **GitHub API** (commit directly to repo)
+3. **OpenClaw relay** (send commands to agent, agent writes files)
+
+**Recommended:** OpenClaw relay
+- Agent already has file write access
+- No new infrastructure needed
+- Can leverage existing queue system
+- Agent can validate and enrich data before writing
+
+**Flow:**
+```
+Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to files → Commits to git → Auto-deploys
+```
+
+#### Feature Cards (Phase 5)
+
+| Feature | Priority | Complexity | Dependencies | Status |
+|---------|----------|------------|--------------|--------|
+| Calendar event creation | P0 | High | Calendar API | Not started |
+| ClickUp task creation | P0 | Medium | ClickUp API | Not started |
+| ClickUp task updates | P1 | Medium | ClickUp API | Not started |
+| CRM interaction logging | P1 | Medium | File write system | Not started |
+| CRM contact creation | P1 | Low | File write system | Not started |
+| OpenClaw relay setup | P0 | High | None | Not started |
+| File write validation | P1 | Medium | OpenClaw relay | Not started |
+| Git auto-commit on write | P1 | Low | OpenClaw relay | Not started |
+
+---
+
+### Phase 6: Polish & Advanced Features
+**Goal:** Make the app delightful and powerful  
+**Timeline:** Ongoing  
+**Priority:** LOW (nice-to-haves)
+
+#### 6.1 Notifications & Reminders
+- Browser notifications (with permission)
+- Push notifications (PWA)
+- Slack/Telegram notifications (via OpenClaw)
+- Meeting reminders (15 min before)
+
+#### 6.2 Keyboard Shortcuts
+- Focus view: `Space` = complete, `S` = snooze, `N` = next
+- Navigation: `Cmd+1-9` for dashboards
+- Quick capture: `Cmd+K` to open task creation
+- Search: `Cmd+F` for global search
+
+#### 6.3 Mobile Optimizations
+- PWA install prompt
+- Offline mode (cached data)
+- Touch gestures (swipe to complete/skip)
+- Home screen widget (iOS/Android)
+
+#### 6.4 Analytics & Insights
+- Time tracking trends (weekly/monthly comparisons)
+- Sales pipeline velocity (conversion rates, avg deal time)
+- BNI effectiveness (121s → referrals → closed deals)
+- Productivity patterns (best hours for deep work)
+
+#### 6.5 Voice Interface
+- Voice commands ("What should I do now?")
+- Voice task creation
+- Voice note transcription (already works via Whisper)
+- Read tasks aloud (accessibility)
+
+#### 6.6 AI Enhancements
+- Smart task prioritization (ML-based, learns from Ben's patterns)
+- Natural language queries ("Show me all overdue sales tasks")
+- Predictive scheduling (suggest best times for 121s)
+- Email auto-categorization (important vs. noise)
+
+#### 6.7 Integrations
+- Email (Gmail API for inbox triage)
+- Slack (team notifications)
+- Accounting software (QuickBooks, Xero)
+- SMS (Twilio for text followups)
+
+#### Feature Cards (Phase 6)
+
+| Feature | Priority | Complexity | Dependencies | Status |
+|---------|----------|------------|--------------|--------|
+| Browser notifications | P2 | Low | None | Not started |
+| Keyboard shortcuts | P2 | Low | None | Not started |
+| PWA install prompt | P2 | Low | None | Not started |
+| Offline mode | P2 | High | Service worker | Not started |
+| Time tracking analytics | P2 | Medium | Phase 2 | Not started |
+| Voice commands | P3 | High | Speech API | Not started |
+| Gmail integration | P2 | High | Gmail API | Not started |
+| Predictive scheduling | P3 | Very High | ML model | Not started |
+
+---
+
+## Ideas Backlog (Unsorted Future Ideas)
+
+**Random brainstorming - no priority assigned yet:**
+
+- **Habit tracking** - Daily push-ups, dog walks, meal prep, sleep quality
+- **Energy level tracking** - Correlate with productivity patterns
+- **Focus mode** - Block distracting websites during deep work sessions
+- **Pomodoro timer** - Integrated with time tracking
+- **Weekly review** - Automated summary of accomplishments, gaps, next week planning
+- **Delegation tracker** - Tasks assigned to team members, follow-up reminders
+- **Client satisfaction score** - Track NPS or simple ratings per client
+- **Referral source attribution** - Which BNI members send the best leads?
+- **Meeting cost calculator** - Show $ value of time spent in meetings
+- **Auto-decline low-value meetings** - Suggest declining based on patterns
+- **Smart batching** - Group similar tasks together (all sales calls, all admin work)
+- **Context switching penalty** - Warn when jumping between very different task types
+- **Personal OKRs** - Track quarterly goals (fitness, finance, family)
+- **Vacation mode** - Auto-snooze everything, OOO responders
+- **Emergency mode** - If sites down, override all priorities
+- **Team dashboard** - View for Leidy, Catherine, Paula (their tasks/workload)
+- **Client portal** - Let clients see their project status (future, maybe)
+- **Automated prospecting** - Scrape LinkedIn, send to CRM automatically
+- **Follow-up cadence automation** - Auto-schedule 3-touch sequences
+- **Meeting agenda templates** - Pre-fill agendas based on meeting type
+- **Post-meeting action items** - Auto-create tasks from meeting notes
+- **Weekly BNI prep** - Auto-generate talking points, visitor intros, 121 invites
+- **Gratitude journal** - Daily prompt, stored in memory
+- **Win logging** - Celebrate small wins, build positive momentum
+- **Family calendar integration** - Sheenah's schedule, date nights
+- **Dog care reminders** - Tango's vet appointments, grooming
+- **Book/podcast tracker** - What Ben's reading/listening to
+- **Recipe database** - Expand kitchen dashboard with full recipe library
+- **Grocery price tracker** - Compare stores, optimize shopping
+- **Meal prep automation** - Generate shopping lists from recipes
+- **Inventory expiration alerts** - Use-by dates for fridge items
+- **Fitness tracker integration** - Strava, Apple Health, Garmin
+- **Sleep quality correlation** - Sleep score vs. productivity next day
+- **Weather-based suggestions** - "Good day for a run with Tango"
+- **Church small group scheduler** - Track attendance, prayer requests
+- **Bible reading plan tracker** - Daily scripture, progress
+- **Oregon move timeline** - Countdown, tasks, planning
+- **Net worth dashboard** - Assets, liabilities, investment performance
+- **Retirement planning** - On track for goals?
+- **Tax deduction tracker** - Categorize expenses for tax season
+- **Contract renewal reminders** - Client contracts expiring soon
+- **Domain expiration alerts** - Renew before they lapse
+- **SSL certificate monitoring** - Auto-renew warnings
+- **Competitor monitoring** - Track rival agencies, learn from them
+- **Industry news aggregator** - Web design, SEO, local business trends
+- **Learning goals** - Courses, certifications, skill development
+- **Network map** - Visualize BNI connections, referral paths
+- **Power team tracker** - Who's sending referrals, who needs help?
+- **One-on-one themes** - Topics to discuss in 121s (avoid small talk)
+- **Client gifting tracker** - Birthdays, anniversaries, thank-you gifts
+- **Testimonial collector** - Request + store client reviews
+- **Case study builder** - Document wins for marketing
+- **Portfolio showcase** - Best sites, before/after comparisons
+- **Pricing calculator** - Quote generator for proposals
+- **Proposal templates** - Pre-filled based on project type
+- **Contract generator** - Fill-in-the-blank agreements
+- **Invoice automation** - Auto-send monthly invoices
+- **Payment reminders** - Overdue invoice alerts
+- **Cash flow forecasting** - Predict revenue 3-6 months out
+- **Burn rate monitor** - How long until runway runs out?
+- **Hiring pipeline** - When to hire next person, what role?
+- **Team performance** - Individual metrics, workload balance
+- **1-on-1s with team** - Scheduled check-ins, talking points
+- **Feedback tracker** - Document performance feedback over time
+- **Training plan** - Onboarding new hires, skill development
+- **Tool stack audit** - What software is worth the cost?
+- **Process documentation** - SOPs for recurring tasks
+- **Automation opportunities** - What can be scripted/delegated?
+- **Bottleneck analysis** - Where is work getting stuck?
+- **Client acquisition cost** - CAC by channel (BNI, referrals, etc.)
+- **Lifetime value** - LTV by client type, industry
+- **Churn analysis** - Why do clients leave?
+- **Upsell tracker** - Expansion revenue opportunities
+- **Retention campaigns** - Re-engage dormant clients
+- **Win-back sequences** - Automated outreach to lost clients
+- **Referral incentive program** - Track who refers, reward them
+- **Partner dashboard** - Kevin's view (CEO priorities)
+- **Board meeting prep** - Monthly review slides auto-generated
+- **Investor updates** - Quarterly performance summaries (if fundraising)
+- **Exit planning** - Valuation tracking, acquisition readiness (way future)
+
+---
+
+## Technical Debt & Infrastructure
+
+**Items to track for long-term health:**
+
+- **Authentication layer** - Add login before making dashboard public
+- **API rate limit handling** - Graceful degradation when limits hit
+- **Error logging** - Sentry or similar for production errors
+- **Performance monitoring** - Page load times, API response times
+- **Database migration** - Move from flat files to database (if needed at scale)
+- **Backup strategy** - Auto-backup CRM, kitchen data, time logs
+- **Version control** - Tag releases, maintain changelog
+- **Testing** - Unit tests, integration tests, E2E tests (currently zero)
+- **Documentation** - API docs, user guide, developer onboarding
+- **Security audit** - Third-party review before adding auth
+- **Accessibility compliance** - WCAG 2.1 AA standards
+- **Browser compatibility** - Test on Safari, Firefox, mobile browsers
+- **Dependency updates** - Keep libraries current, security patches
+- **Code refactoring** - Clean up tech debt as features stabilize
+- **Performance optimization** - Lazy loading, code splitting, caching
+
+---
+
+## Success Criteria (How We Know It's Working)
+
+**Quantitative Metrics:**
+- Ben opens the app daily (track usage)
+- Focus view used > 80% of the time (not individual dashboards)
+- Task completion rate increases by 30%
+- Time spent "figuring out what to work on" decreases by 80%
+- Missed meetings/deadlines drop to zero
+- BNI 121 target hit weekly (6+)
+- Sales followup response time < 24 hours
+
+**Qualitative Feedback:**
+- Ben reports feeling less overwhelmed
+- Decision fatigue reduced ("I just do what it tells me")
+- More time for high-value work (sales, relationships)
+- Less time on admin/maintenance
+- Confidence that nothing is slipping through cracks
+- Actually enjoys using the dashboard (not a chore)
+
+**Key Indicators of Failure:**
+- Ben stops using it after 2 weeks
+- "Too much clicking" to get to action
+- Data is stale/inaccurate (lost trust)
+- Doesn't save time vs. current workflow
+- Adds complexity instead of reducing it
+
+---
+
+## Open Questions & Decisions Needed
+
+**Architecture:**
+- [ ] File write system: Cloudflare Workers vs. GitHub API vs. OpenClaw relay? (Recommend: OpenClaw relay)
+- [ ] Authentication: Skip for MVP or add early?
+- [ ] Database: Stay with flat files or migrate to PostgreSQL/SQLite?
+
+**Data Sources:**
+- [ ] Email integration: Worth the complexity? Start with manual triage?
+- [ ] Financial data: Manual entry or connect to QuickBooks/Xero?
+- [ ] Team tasks: Track others' ClickUp tasks or just Ben's?
+
+**UX:**
+- [ ] Focus view: Full-screen takeover or embedded in dashboard?
+- [ ] Mobile: PWA install or web app only?
+- [ ] Voice: Worth building or use existing tools (Siri shortcuts)?
+
+**Scope:**
+- [ ] Multi-user: Just Ben or eventually for Kevin, Leidy, Catherine, Paula?
+- [ ] Client-facing: Could clients log in to see their project status?
+- [ ] White-label: Could this be productized for other agencies?
+
+**Priorities:**
+- [ ] What is the ABSOLUTE minimum for Phase 3 (Focus Engine) to be useful?
+- [ ] Can we ship Focus Engine before completing all of Phase 2 data connections?
+- [ ] Should we prioritize mobile or desktop first?
+
+---
+
+## Contributors & Credits
+
+**Built by:**
+- Moo (OpenClaw AI agent) - System design, development, roadmap
+- Ben Porter - Vision, requirements, UX feedback
+
+**Inspired by:**
+- Task Randomizer (Ben's previous app) - Minimalist focus design
+- EOS (Entrepreneurial Operating System) - Business metrics framework
+- BNI (Business Network International) - Networking methodology
+- Getting Things Done (GTD) - Task management philosophy
+
+**Tech Stack:**
+- Vanilla JavaScript (no heavy frameworks)
+- Chart.js (visualizations)
+- Lucide Icons (UI icons)
+- Cloudflare Pages (hosting)
+- GitHub (version control)
+- OpenClaw (AI orchestration)
+
+---
+
+## Changelog
+
+**2026-02-22:**
+- Initial roadmap created
+- Defined 6-phase implementation plan
+- Documented vision, architecture, and feature priorities
+- Backlog seeded with 100+ future ideas
+- Phase 1 marked complete (foundation built)

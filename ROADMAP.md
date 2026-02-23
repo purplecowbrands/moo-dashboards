@@ -206,21 +206,26 @@ Priority ranking (high to low):
 - Cache strategy: refresh every 10 minutes
 - Parse custom fields for pipeline stages, EOS metrics
 
-#### 2.5 Manual Data Entry Systems (Week 3)
+#### 2.5 Manual Data Entry Systems (Week 3) ✅ COMPLETE
 **For data sources without APIs:**
 
 | Data Type | Storage | Input Method | Status |
 |-----------|---------|--------------|--------|
-| BNI Metrics | `data/bni-metrics.json` | Manual weekly update form | ✅ Complete (2026-02-23) |
-| EOS Scorecard | `data/eos-metrics.json` | Manual weekly update form | Not started |
-| Financial Revenue | `data/financial.json` | Manual monthly entry | Not started |
+| BNI Metrics | `data/bni-metrics.json` | Manual weekly update form | ✅ Complete (2026-02-23 12:29 PM) |
+| EOS Scorecard | `data/eos-metrics.json` | Manual weekly update form | ✅ Complete (2026-02-23 3:29 PM) |
+| Financial Revenue | `data/financial.json` | Manual monthly entry | ✅ Complete (2026-02-23 2:29 PM) |
 | Client MRR | `data/client-mrr.json` | Edit JSON or form | ✅ Complete (via client health) |
 
-**Implementation:**
+**Implementation:** ✅ COMPLETE
 - Simple modal forms in dashboard for data entry ✅
 - JSON generation with copy-to-clipboard workflow ✅
 - Clear instructions for manual file updates ✅
 - Eventually: direct file write via OpenClaw relay or GitHub API (Phase 5)
+
+**All 3 manual entry dashboards now operational:**
+- BNI Metrics: Chapter data, 121s, referrals, attendance
+- Financial Overview: Revenue, MRR, expenses, monthly trends
+- EOS Scorecard: Dynamic metrics (add/remove), weekly tracking
 
 #### Feature Cards (Phase 2)
 
@@ -233,7 +238,7 @@ Priority ranking (high to low):
 | Client health integration | P0 | Low | Monitoring + MRR data | ✅ Complete (2026-02-23) |
 | Google Calendar API | P0 | High | OAuth setup | Not started |
 | ClickUp API integration | P0 | High | API token | Not started |
-| Manual data entry forms | P1 | Medium | File write system | ✅ BNI Complete (2026-02-23) |
+| Manual data entry forms | P1 | Medium | File write system | ✅ Complete (BNI, Financial, EOS - 2026-02-23) |
 | Data caching layer | P0 | Medium | All loaders | ✅ Complete (built-in 5min cache) |
 | Error handling UI | P1 | Low | All loaders | Not started |
 
@@ -828,6 +833,16 @@ Dashboard UI → WebSocket/HTTP to OpenClaw → Agent processes → Writes to fi
 ---
 
 ## Changelog
+
+**2026-02-23 (3:29 PM):**
+- EOS Scorecard manual data entry system complete (Phase 2.5 complete!)
+- Created eos-metrics.json with initial 6 metrics
+- Full-featured modal form with dynamic metric management (add/remove)
+- Generate JSON + copy-to-clipboard workflow
+- Live data loading with sample data fallback
+- Data status banner (Live Data vs Sample Data)
+- **Phase 2.5 milestone: All 3 manual entry systems complete (BNI, Financial, EOS)**
+- Ready to start Phase 2 API integrations (Google Calendar or ClickUp next)
 
 **2026-02-23 (1:29 PM):**
 - Home/Overview dashboard connected to live data (Phase 2 aggregation)

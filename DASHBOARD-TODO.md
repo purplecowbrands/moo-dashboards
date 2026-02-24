@@ -8,6 +8,25 @@ This file tracks implementation status of current work. ROADMAP.md is the master
 
 ## 🎯 Recent Improvements
 
+### 2026-02-24 3:29 AM - Time Tracking: Weekly Bar Chart Added ✅ Priority 2 IN PROGRESS
+**Implemented:** First piece of Time Tracking redesign - weekly bar chart showing daily breakdown
+- **Extended parse-time-logs.ps1:**
+  - Added dailyBreakdown generation (Mon-Sun with hours per category per day)
+  - Fixed regex to match actual time log format (markdown list: `- START-END | CATEGORY | DESCRIPTION (HOURS)`)
+  - Maps categories intelligently (Moo/Systems/Dev/Admin -> Work, etc.)
+  - Successfully parsing 184 time entries from 11 log files
+- **Added stacked bar chart to time.js:**
+  - Shows Sleep/Work/Personal/Break for each day of the week
+  - Scales to 24h max with 4h increments
+  - Custom color-coded legend below chart
+  - Tooltip shows hours per category + daily total
+  - Chart.js stacked bar configuration with responsive sizing
+- **Result:** Visual at-a-glance view of weekly time distribution by day (matches Ben's first request)
+
+**Why:** Ben requested bar chart showing time breakdown per day as the first step before the more complex timeline view. This ships that feature and validates the daily data structure for the timeline work ahead.
+**Next Step:** Continue Time Tracking Priority 2 redesign - timeline view (3am-3am daily blocks) + calendar overlay button
+**Deployed:** Committed a1ff4dd and pushed to main; Cloudflare Pages auto-deployed
+
 ### 2026-02-24 2:29 AM - Kitchen Reworked: No KPI Clutter + Prepped Food + Swap Actions ✅ Priority 2 IN PROGRESS
 **Implemented:** Reworked Kitchen page structure to match Ben feedback and prioritize planning plus inventory action
 - **Removed top KPI cards entirely** to reduce clutter

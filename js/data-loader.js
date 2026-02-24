@@ -1,6 +1,8 @@
 // Data Loader - Fetch real data from workspace files and APIs
 // This module provides live data loading for all dashboards
 
+import { showToast } from './app.js';
+
 // Use relative paths for data files (served from /data directory)
 const DATA_CACHE = new Map();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
@@ -31,6 +33,15 @@ async function fetchJSON(url) {
         return await response.json();
     } catch (error) {
         console.error(`Failed to fetch ${url}:`, error);
+        
+        // Show toast notification for failed data loads
+        const fileName = url.split('/').pop();
+        if (error.message.includes('404')) {
+            showToast(`Data file not found: ${fileName}`, 'warning', 3000);
+        } else {
+            showToast(`Failed to load ${fileName}. Using sample data.`, 'error', 5000);
+        }
+        
         return null;
     }
 }
@@ -39,12 +50,17 @@ async function fetchText(url) {
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            if (response.status === 404) return null; // File doesn't exist
+            if (response.status === 404) return null; // File doesn't exist (silent)
             throw new Error(`HTTP ${response.status}`);
         }
         return await response.text();
     } catch (error) {
         console.error(`Failed to fetch ${url}:`, error);
+        
+        // Show toast for non-404 errors
+        const fileName = url.split('/').pop();
+        showToast(`Failed to load ${fileName}`, 'error', 5000);
+        
         return null;
     }
 }

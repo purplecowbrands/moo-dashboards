@@ -28,6 +28,69 @@ const pages = {
     roadmap: renderRoadmap
 };
 
+// Toast notification system
+export function showToast(message, type = 'info', duration = 5000) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    
+    const icons = {
+        error: 'alert-circle',
+        warning: 'alert-triangle',
+        success: 'check-circle',
+        info: 'info'
+    };
+    
+    const titles = {
+        error: 'Error',
+        warning: 'Warning',
+        success: 'Success',
+        info: 'Info'
+    };
+    
+    toast.innerHTML = `
+        <div class="toast-icon ${type}">
+            <i data-lucide="${icons[type]}"></i>
+        </div>
+        <div class="toast-content">
+            <div class="toast-title">${titles[type]}</div>
+            <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close" aria-label="Close">
+            <i data-lucide="x"></i>
+        </button>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Initialize icons in toast
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+    
+    // Close button handler
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        removeToast(toast);
+    });
+    
+    // Auto-dismiss after duration
+    if (duration > 0) {
+        setTimeout(() => {
+            removeToast(toast);
+        }, duration);
+    }
+}
+
+function removeToast(toast) {
+    toast.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => {
+        toast.remove();
+    }, 300);
+}
+
 // Router
 async function router() {
     const hash = window.location.hash.slice(1) || '/';

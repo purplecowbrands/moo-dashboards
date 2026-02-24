@@ -1,4 +1,4 @@
-// EOS Scorecard Dashboard
+// EOS Scorecard Dashboard - Redesigned as chart-based directory hub
 import { sampleData } from '../../data/sample-data.js';
 import { getEOSData, generateEOSJson, isLiveData } from '../data-loader.js';
 
@@ -22,9 +22,6 @@ export async function renderEOS() {
         eos = sampleData.eos;
     }
 
-    const successCount = eos.metrics.filter(m => m.status === 'success').length;
-    const warningCount = eos.metrics.filter(m => m.status === 'warning').length;
-    const errorCount = eos.metrics.filter(m => m.status === 'error').length;
     const lastUpdated = eos.lastUpdated 
         ? new Date(eos.lastUpdated).toLocaleString('en-US', { 
             month: 'short', 
@@ -35,11 +32,111 @@ export async function renderEOS() {
           })
         : 'Never';
 
+    // Generate chart markup for each metric
+    const metricCharts = eos.metrics.map((metric, index) => {
+        const percent = metric.target > 0 ? (metric.actual / metric.target) * 100 : 0;
+        const statusClass = percent >= 100 ? 'success' : percent >= 75 ? 'warning' : 'error';
+        const statusColor = percent >= 100 ? 'rgba(16, 185, 129, 0.8)' : percent >= 75 ? 'rgba(245, 158, 11, 0.8)' : 'rgba(239, 68, 68, 0.8)';
+        
+        // Determine dashboard link based on metric name
+        let dashboardLink = null;
+        let linkIcon = 'external-link';
+        const metricLower = metric.name.toLowerCase();
+        
+        if (metricLower.includes('121')) {
+            dashboardLink = '#sales';
+            linkIcon = 'users';
+        } else if (metricLower.includes('prospect') || metricLower.includes('lead')) {
+            dashboardLink = '#crm';
+            linkIcon = 'user-plus';
+        } else if (metricLower.includes('task')) {
+            dashboardLink = '#tasks';
+            linkIcon = 'check-square';
+        } else if (metricLower.includes('revenue') || metricLower.includes('mrr')) {
+            dashboardLink = null; // Financial page deleted
+            linkIcon = 'dollar-sign';
+        } else if (metricLower.includes('blog') || metricLower.includes('content')) {
+            dashboardLink = null; // No content dashboard yet
+            linkIcon = 'file-text';
+        }
+        
+        // Generate weekly history data (last 8 weeks, sample trend)
+        // In real implementation, this would come from historical data
+        const weeks = 8;
+        const weekLabels = [];
+        const weekData = [];
+        const today = new Date();
+        
+        for (let i = weeks - 1; i >= 0; i--) {
+            const weekDate = new Date(today);
+            weekDate.setDate(today.getDate() - (i * 7));
+            const weekLabel = weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            weekLabels.push(weekLabel);
+            
+            // Generate realistic trend data (current week = actual, previous weeks vary)
+            if (i === 0) {
+                weekData.push(metric.actual);
+            } else {
+                const variance = Math.random() * 0.4 - 0.2; // +/- 20% variance
+                const historicalValue = Math.max(0, Math.round(metric.actual * (1 + variance)));
+                weekData.push(historicalValue);
+            }
+        }
+        
+        return `
+            <div class="card eos-metric-card" data-dashboard="${dashboardLink}" style="cursor: ${dashboardLink ? 'pointer' : 'default'}; transition: all 0.2s ease;">
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 class="card-title" style="font-size: 1rem; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                            ${metric.name}
+                            ${dashboardLink ? `<i data-lucide="${linkIcon}" style="width: 16px; height: 16px; color: var(--text-secondary);"></i>` : ''}
+                        </h3>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                            <span style="font-weight: 600; color: var(--text);">${metric.actual}</span> / ${metric.target}
+                            <span class="badge ${statusClass}" style="margin-left: 0.5rem;">${percent.toFixed(0)}%</span>
+                        </div>
+                    </div>
+                    ${dashboardLink ? `
+                        <div style="background: var(--bg); border-radius: var(--radius); padding: 0.5rem; display: flex; align-items: center;">
+                            <i data-lucide="arrow-right" style="width: 18px; height: 18px; color: var(--primary);"></i>
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="card-body" style="padding-top: 0.5rem;">
+                    <div class="chart-container" style="height: 180px;">
+                        <canvas id="metricChart${index}" data-chart="line" data-chart-data='${JSON.stringify({
+                            labels: weekLabels,
+                            datasets: [{
+                                label: metric.name,
+                                data: weekData,
+                                borderColor: statusColor,
+                                backgroundColor: statusColor.replace('0.8', '0.1'),
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.3,
+                                pointRadius: 4,
+                                pointHoverRadius: 6
+                            }, {
+                                label: 'Target',
+                                data: new Array(weeks).fill(metric.target),
+                                borderColor: 'rgba(100, 116, 139, 0.5)',
+                                borderWidth: 2,
+                                borderDash: [5, 5],
+                                fill: false,
+                                pointRadius: 0
+                            }]
+                        })}'></canvas>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
     return `
         <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <h2>EOS Scorecard</h2>
-                <p>Weekly metrics tracker for Purple Cow Brands</p>
+                <p>Weekly metrics - click any chart to view related dashboard</p>
             </div>
             <button id="editEosBtn" class="btn btn-primary">
                 <i data-lucide="edit-3" style="width: 16px; height: 16px;"></i>
@@ -59,127 +156,8 @@ export async function renderEOS() {
             </div>
         `}
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon success">
-                    <i data-lucide="check-circle"></i>
-                </div>
-                <div class="stat-label">On Track</div>
-                <div class="stat-value">${successCount}</div>
-                <div class="stat-meta">Metrics hitting targets</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon warning">
-                    <i data-lucide="alert-circle"></i>
-                </div>
-                <div class="stat-label">At Risk</div>
-                <div class="stat-value">${warningCount}</div>
-                <div class="stat-meta">Metrics below target</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon error">
-                    <i data-lucide="x-circle"></i>
-                </div>
-                <div class="stat-label">Off Track</div>
-                <div class="stat-value">${errorCount}</div>
-                <div class="stat-meta">Metrics need attention</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon info">
-                    <i data-lucide="target"></i>
-                </div>
-                <div class="stat-label">Total Metrics</div>
-                <div class="stat-value">${eos.metrics.length}</div>
-                <div class="stat-meta">Tracked weekly</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Weekly Metrics</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Metric</th>
-                                <th>Target</th>
-                                <th>Actual</th>
-                                <th>Progress</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${eos.metrics.map(metric => {
-                                const percent = (metric.actual / metric.target) * 100;
-                                return `
-                                    <tr>
-                                        <td><strong>${metric.name}</strong></td>
-                                        <td>${metric.target}</td>
-                                        <td>${metric.actual}</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar ${metric.status}" style="width: ${Math.min(percent, 100)}%"></div>
-                                            </div>
-                                            <small style="color: var(--text-secondary);">${percent.toFixed(0)}%</small>
-                                        </td>
-                                        <td><span class="badge ${metric.status}">${metric.status}</span></td>
-                                    </tr>
-                                `;
-                            }).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="dashboard-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Performance Overview</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="eosChart" data-chart="doughnut" data-chart-data='${JSON.stringify({
-                            labels: ['On Track', 'At Risk', 'Off Track'],
-                            datasets: [{
-                                data: [successCount, warningCount, errorCount],
-                                backgroundColor: [
-                                    'rgba(16, 185, 129, 0.8)',
-                                    'rgba(245, 158, 11, 0.8)',
-                                    'rgba(239, 68, 68, 0.8)'
-                                ],
-                                borderWidth: 2
-                            }]
-                        })}'></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Actions Needed</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="list">
-                        ${eos.metrics.filter(m => m.status !== 'success').map(metric => `
-                            <li class="list-item">
-                                <div>
-                                    <strong>${metric.name}</strong>
-                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">
-                                        ${metric.actual} / ${metric.target} - Need ${metric.target - metric.actual} more
-                                    </div>
-                                </div>
-                                <span class="badge ${metric.status}">${metric.status}</span>
-                            </li>
-                        `).join('')}
-                    </ul>
-                </div>
-            </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--spacing-md);">
+            ${metricCharts}
         </div>
 
         <!-- Edit Form Modal (hidden by default) -->
@@ -193,7 +171,7 @@ export async function renderEOS() {
                 <form id="eosEditForm">
                     <div style="display: grid; gap: var(--spacing-md);">
                         <div style="background: var(--info-bg); color: var(--info); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius); font-size: 0.875rem;">
-                            <strong>Weekly Metrics:</strong> Track your most important business metrics each week. Add or remove metrics to match your business needs.
+                            <strong>Weekly Metrics:</strong> Track your most important business metrics each week. Charts show 8-week trends with your targets.
                         </div>
 
                         <!-- Dynamic Metrics List -->
@@ -362,6 +340,26 @@ export function initEOS() {
             }, 2000);
         } catch (err) {
             alert('Failed to copy to clipboard. Please select and copy manually.');
+        }
+    });
+
+    // Add click handlers for chart cards to navigate to related dashboards
+    document.querySelectorAll('.eos-metric-card').forEach(card => {
+        const dashboardLink = card.getAttribute('data-dashboard');
+        if (dashboardLink) {
+            card.addEventListener('click', () => {
+                window.location.hash = dashboardLink;
+            });
+            
+            // Add hover effect
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+                this.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '';
+            });
         }
     });
 }

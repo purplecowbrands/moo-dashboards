@@ -28,6 +28,36 @@ All 3-hour dashboard automation runs must check the backend queue first:
 
 ## 🎯 Recent Improvements
 
+### 2026-02-24 3:29 PM - Contact Triage Dashboard Added ✅ Priority 2 IN PROGRESS
+**Implemented:** New separate dashboard page for CRM contact triage - 6-tier wizard for cleanup
+- **Created triage.js dashboard module:**
+  - Recreates localhost triage UI Ben referenced in feedback
+  - 6-tier classification system: Most Likely Valid, Quick Confirm, Pipedrive Rescue, Shared & Built, Untagged, Junk Cleanup
+  - Contact classification logic based on tags (BNI, Kloudly, Pipedrive, Shared, Built, untagged)
+  - Junk pattern detection (MB2 dental, email-as-name, generic names)
+- **Features:**
+  - Three decision actions per contact: Recognize (keep), Don't Recognize (delete), Important
+  - Running tally shows decisions made (keep/delete/important/remaining)
+  - Global search across all contacts
+  - Sample mode for large tiers (2% sample when tier has 100+ contacts)
+  - Company grouping for bulk decisions (not fully implemented yet)
+  - Export functions: Save Progress (contacts-triage.json), Apply & Clean (contacts-clean.json + flagged-important.json)
+- **UI integration:**
+  - Added "Contact Triage" nav link after CRM (filter icon)
+  - Added route in app.js
+  - Comprehensive CSS styles for triage-specific components
+  - Mobile-responsive design
+  - Decision state tracking persists in memory
+- **Data integration:**
+  - Reads from CRM contacts via data-loader.js
+  - Restores saved triage decisions from contact.triage field
+  - Graceful error handling with toast notifications
+- **Result:** Ben now has a dedicated triage dashboard for CRM cleanup, separate from main CRM view, matching the 6-tier wizard he used on localhost
+
+**Why:** Ben's explicit feedback: "SEPARATE PAGE NEEDED: Contact Triage dashboard - recreate the localhost triage UI that grouped contacts into categories (Pipedrive imports etc). Search workspace files for the old triage groupings/code." This is Priority 2 redesign work per the strict order (DELETE > REDESIGN > BUILD > DATA).
+**Next Step:** Continue Priority 2 redesigns - Roadmap Kanban board redesign OR Time Tracking calendar overlay integration
+**Deployed:** Committed 2f9c5b7 and pushed to main; Cloudflare Pages auto-deploying
+
 ### 2026-02-24 12:29 PM - Time Tracking: Timeline View Data Generation ✅ Priority 2 IN PROGRESS
 **Implemented:** Enhanced time log parser to generate timeline data structure for weekly view
 - **Script enhancements (parse-time-logs.ps1):**

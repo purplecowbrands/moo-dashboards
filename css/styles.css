@@ -589,6 +589,66 @@ body {
     color: var(--text-secondary);
 }
 
+/* Focus Loading State */
+.focus-card.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.focus-card.loading p {
+    margin-top: var(--spacing-lg);
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Focus External Link */
+.focus-link {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border);
+}
+
+.external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 6px;
+}
+
+.external-link:hover {
+    background: var(--bg-secondary);
+    color: var(--accent-hover);
+    transform: translateX(2px);
+}
+
+.external-link i {
+    width: 14px;
+    height: 14px;
+}
+
 /* Focus View Mobile Responsive */
 @media (max-width: 768px) {
     .focus-container {

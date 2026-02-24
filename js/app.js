@@ -1,5 +1,4 @@
 // Main App - Router & Navigation
-import { renderHome } from './dashboards/home.js';
 import { renderFocusAsync } from './dashboards/focus.js';
 import { renderSalesAsync, initSales } from './dashboards/sales.js';
 import { renderEOS, initEOS } from './dashboards/eos.js';
@@ -11,9 +10,9 @@ import { renderKitchen } from './dashboards/kitchen.js';
 import { renderRoadmap } from './dashboards/roadmap.js';
 
 // Page renderers map
+// Note: Home page IS the Focus Engine per Ben's feedback
 const pages = {
-    home: renderHome,
-    focus: renderFocusAsync,
+    home: renderFocusAsync,  // Home page replaced with Focus Engine
     sales: renderSalesAsync,
     eos: renderEOS,
     crm: renderCRM,

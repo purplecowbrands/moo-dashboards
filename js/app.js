@@ -4,7 +4,7 @@ import { renderSalesAsync, initSales } from './dashboards/sales.js';
 import { renderEOS, initEOS } from './dashboards/eos.js';
 import { renderCRM } from './dashboards/crm.js';
 import { renderMonitoring } from './dashboards/monitoring.js';
-import { renderTime } from './dashboards/time.js';
+import { renderTime, initTime } from './dashboards/time.js';
 import { renderTasksAsync } from './dashboards/tasks.js';
 import { renderKitchen } from './dashboards/kitchen.js';
 import { renderRoadmap } from './dashboards/roadmap.js';
@@ -126,6 +126,10 @@ async function router() {
 
     if (page === 'sales') {
         initSales();
+    }
+
+    if (page === 'time') {
+        initTime();
     }
 }
 

@@ -2,6 +2,63 @@
 import { sampleData } from '../../data/sample-data.js';
 import { loadData } from '../data-loader.js';
 
+// Helper function to render timeline view
+function renderTimeline(timelineData) {
+    const days = timelineData.days || [];
+    const hours = Array.from({length: 24}, (_, i) => (i + 3) % 24); // 3am to 2am next day
+    
+    // Category colors matching the bar chart
+    const categoryColors = {
+        'Sleep': 'rgba(16, 185, 129, 0.8)',
+        'Work': 'rgba(99, 102, 241, 0.8)',
+        'Personal': 'rgba(245, 158, 11, 0.8)',
+        'Break': 'rgba(236, 72, 153, 0.8)',
+        'Untracked': 'rgba(156, 163, 175, 0.3)'
+    };
+    
+    return `
+        <div class="timeline-grid">
+            <!-- Header row with day names -->
+            <div class="timeline-header">
+                <div class="timeline-time-label"></div>
+                ${days.map(day => `
+                    <div class="timeline-day-header">
+                        <strong>${day.dayName}</strong>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary);">${day.date}</div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <!-- Hour rows -->
+            ${hours.map(hour => `
+                <div class="timeline-row">
+                    <div class="timeline-time-label">
+                        ${hour === 0 ? '12am' : hour < 12 ? hour + 'am' : hour === 12 ? '12pm' : (hour - 12) + 'pm'}
+                    </div>
+                    ${days.map(day => {
+                        const blocks = (day.blocks || []).filter(b => {
+                            const blockHour = parseInt(b.startTime.split(':')[0]);
+                            return blockHour === hour;
+                        });
+                        
+                        return `
+                            <div class="timeline-cell">
+                                ${blocks.map(block => `
+                                    <div class="timeline-block" 
+                                         style="background: ${categoryColors[block.category] || categoryColors['Untracked']}; 
+                                                height: ${(block.durationMinutes / 60) * 100}%;"
+                                         title="${block.category}: ${block.description || ''} (${block.startTime} - ${block.endTime})">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
 export async function renderTime() {
     // Try to load live data, fallback to sample data
     const liveData = await loadData('/data/time-data.json');
@@ -168,6 +225,30 @@ export async function renderTime() {
             </script>
         ` : ''}
 
+        <!-- NEW: Weekly Timeline View (3am-3am blocks) -->
+        ${time.timeline ? `
+            <div class="card" style="margin-top: var(--spacing-lg);">
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 class="card-title">Weekly Timeline</h3>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <button id="prevWeek" class="btn btn-sm" style="padding: 0.25rem 0.75rem;">← Prev</button>
+                        <span id="currentWeekLabel" style="font-size: 0.875rem; min-width: 140px; text-align: center;">This Week</span>
+                        <button id="nextWeek" class="btn btn-sm" style="padding: 0.25rem 0.75rem;">Next →</button>
+                        <div style="border-left: 1px solid var(--border-color); height: 24px; margin: 0 0.5rem;"></div>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; cursor: pointer;">
+                            <input type="checkbox" id="showCalendarOverlay" style="cursor: pointer;">
+                            <span>Show Calendar Events</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="card-body" style="overflow-x: auto;">
+                    <div id="timelineView" style="min-width: 900px;">
+                        ${renderTimeline(time.timeline)}
+                    </div>
+                </div>
+            </div>
+        ` : ''}
+
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card-header">
@@ -278,4 +359,46 @@ export async function renderTime() {
             </div>
         </div>
     `;
+}
+
+// Initialize time tracking page interactions
+export function initTime() {
+    const prevWeekBtn = document.getElementById('prevWeek');
+    const nextWeekBtn = document.getElementById('nextWeek');
+    const calendarOverlayCheckbox = document.getElementById('showCalendarOverlay');
+    const currentWeekLabel = document.getElementById('currentWeekLabel');
+    
+    // Week navigation (placeholder - will connect to real data later)
+    if (prevWeekBtn) {
+        prevWeekBtn.addEventListener('click', () => {
+            console.log('Navigate to previous week');
+            // TODO: Fetch previous week's time data
+            alert('Previous week navigation - will load historical time data when connected to real data source');
+        });
+    }
+    
+    if (nextWeekBtn) {
+        nextWeekBtn.addEventListener('click', () => {
+            console.log('Navigate to next week');
+            // TODO: Check if future week or fetch next historical week
+            alert('Next week navigation - will show future calendar events or next historical week');
+        });
+    }
+    
+    // Calendar overlay toggle
+    if (calendarOverlayCheckbox) {
+        calendarOverlayCheckbox.addEventListener('change', (e) => {
+            const timelineView = document.getElementById('timelineView');
+            if (e.target.checked) {
+                console.log('Show calendar events overlay');
+                // TODO: Fetch calendar events and overlay them on timeline
+                alert('Calendar overlay - will fetch Google Calendar events and display them on the timeline when API is connected');
+            } else {
+                console.log('Hide calendar events overlay');
+                // Remove calendar overlay elements if any
+                const overlays = timelineView?.querySelectorAll('.calendar-event-overlay');
+                overlays?.forEach(el => el.remove());
+            }
+        });
+    }
 }

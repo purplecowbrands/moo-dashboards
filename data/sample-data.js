@@ -121,7 +121,96 @@ export const sampleData = {
             { date: '2026-02-22', category: 'Work', description: 'Client calls + proposals', hours: 4.5 },
             { date: '2026-02-22', category: 'Personal', description: 'Meal prep + dog walk', hours: 3.0 },
             { date: '2026-02-21', category: 'Work', description: 'BNI meeting + followups', hours: 6.0 }
-        ]
+        ],
+        timeline: {
+            weekLabel: 'Feb 18 - Feb 24, 2026',
+            days: [
+                {
+                    dayName: 'Mon',
+                    date: 'Feb 18',
+                    blocks: [
+                        { startTime: '03:00', endTime: '09:30', category: 'Sleep', description: '', durationMinutes: 390 },
+                        { startTime: '09:30', endTime: '10:00', category: 'Break', description: 'Morning routine', durationMinutes: 30 },
+                        { startTime: '10:00', endTime: '14:00', category: 'Work', description: 'Client work', durationMinutes: 240 },
+                        { startTime: '14:00', endTime: '15:00', category: 'Break', description: 'Lunch + walk', durationMinutes: 60 },
+                        { startTime: '15:00', endTime: '18:00', category: 'Work', description: 'Sales calls', durationMinutes: 180 },
+                        { startTime: '18:00', endTime: '20:00', category: 'Personal', description: 'Dinner + family', durationMinutes: 120 },
+                        { startTime: '20:00', endTime: '22:00', category: 'Personal', description: 'Reading', durationMinutes: 120 }
+                    ]
+                },
+                {
+                    dayName: 'Tue',
+                    date: 'Feb 19',
+                    blocks: [
+                        { startTime: '03:00', endTime: '09:00', category: 'Sleep', description: '', durationMinutes: 360 },
+                        { startTime: '09:00', endTime: '10:00', category: 'Break', description: 'Morning routine', durationMinutes: 60 },
+                        { startTime: '10:00', endTime: '13:00', category: 'Work', description: 'Development', durationMinutes: 180 },
+                        { startTime: '13:00', endTime: '14:00', category: 'Break', description: 'Lunch', durationMinutes: 60 },
+                        { startTime: '14:00', endTime: '17:00', category: 'Work', description: '121 meetings', durationMinutes: 180 },
+                        { startTime: '17:00', endTime: '19:00', category: 'Personal', description: 'Gym + shower', durationMinutes: 120 },
+                        { startTime: '19:00', endTime: '21:00', category: 'Personal', description: 'Meal prep', durationMinutes: 120 }
+                    ]
+                },
+                {
+                    dayName: 'Wed',
+                    date: 'Feb 20',
+                    blocks: [
+                        { startTime: '03:00', endTime: '09:30', category: 'Sleep', description: '', durationMinutes: 390 },
+                        { startTime: '09:30', endTime: '10:00', category: 'Break', description: 'Morning', durationMinutes: 30 },
+                        { startTime: '10:00', endTime: '12:00', category: 'Work', description: 'BNI meeting', durationMinutes: 120 },
+                        { startTime: '12:00', endTime: '13:00', category: 'Break', description: 'Lunch', durationMinutes: 60 },
+                        { startTime: '13:00', endTime: '17:00', category: 'Work', description: 'Project work', durationMinutes: 240 },
+                        { startTime: '17:00', endTime: '20:00', category: 'Personal', description: 'Errands + dinner', durationMinutes: 180 }
+                    ]
+                },
+                {
+                    dayName: 'Thu',
+                    date: 'Feb 21',
+                    blocks: [
+                        { startTime: '03:00', endTime: '09:00', category: 'Sleep', description: '', durationMinutes: 360 },
+                        { startTime: '09:00', endTime: '10:00', category: 'Break', description: 'Morning', durationMinutes: 60 },
+                        { startTime: '10:00', endTime: '14:00', category: 'Work', description: 'Proposals', durationMinutes: 240 },
+                        { startTime: '14:00', endTime: '15:00', category: 'Break', description: 'Lunch', durationMinutes: 60 },
+                        { startTime: '15:00', endTime: '18:00', category: 'Work', description: 'Client calls', durationMinutes: 180 },
+                        { startTime: '18:00', endTime: '21:00', category: 'Personal', description: 'Church event', durationMinutes: 180 }
+                    ]
+                },
+                {
+                    dayName: 'Fri',
+                    date: 'Feb 22',
+                    blocks: [
+                        { startTime: '03:00', endTime: '10:00', category: 'Sleep', description: '', durationMinutes: 420 },
+                        { startTime: '10:00', endTime: '11:00', category: 'Break', description: 'Morning', durationMinutes: 60 },
+                        { startTime: '11:00', endTime: '14:00', category: 'Work', description: 'Admin work', durationMinutes: 180 },
+                        { startTime: '14:00', endTime: '15:00', category: 'Break', description: 'Lunch', durationMinutes: 60 },
+                        { startTime: '15:00', endTime: '17:00', category: 'Work', description: 'Email + followups', durationMinutes: 120 },
+                        { startTime: '17:00', endTime: '22:00', category: 'Personal', description: 'Date night', durationMinutes: 300 }
+                    ]
+                },
+                {
+                    dayName: 'Sat',
+                    date: 'Feb 23',
+                    blocks: [
+                        { startTime: '03:00', endTime: '11:00', category: 'Sleep', description: '', durationMinutes: 480 },
+                        { startTime: '11:00', endTime: '13:00', category: 'Personal', description: 'Breakfast + relax', durationMinutes: 120 },
+                        { startTime: '13:00', endTime: '16:00', category: 'Personal', description: 'Yard work', durationMinutes: 180 },
+                        { startTime: '16:00', endTime: '19:00', category: 'Personal', description: 'Meal prep', durationMinutes: 180 },
+                        { startTime: '19:00', endTime: '22:00', category: 'Personal', description: 'Family time', durationMinutes: 180 }
+                    ]
+                },
+                {
+                    dayName: 'Sun',
+                    date: 'Feb 24',
+                    blocks: [
+                        { startTime: '03:00', endTime: '10:00', category: 'Sleep', description: '', durationMinutes: 420 },
+                        { startTime: '10:00', endTime: '13:00', category: 'Personal', description: 'Church', durationMinutes: 180 },
+                        { startTime: '13:00', endTime: '14:00', category: 'Break', description: 'Lunch', durationMinutes: 60 },
+                        { startTime: '14:00', endTime: '17:00', category: 'Personal', description: 'Relaxing', durationMinutes: 180 },
+                        { startTime: '17:00', endTime: '20:00', category: 'Personal', description: 'Meal prep', durationMinutes: 180 }
+                    ]
+                }
+            ]
+        }
     },
 
     // BNI Metrics

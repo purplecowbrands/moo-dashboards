@@ -32,6 +32,22 @@ Ben should be able to:
 4. Never miss a meeting, deadline, or high-value followup
 5. Reduce time spent "figuring out what to work on" by 80%
 
+### Roadmap Workflow Contract (Used by Dashboard + Cron Automation)
+
+- Roadmap statuses are the source of truth for what gets built next.
+- Build queue order must be derived from roadmap state, not ad-hoc picks.
+- Queue priority order:
+  1. Features marked Build Now (in Building)
+  2. Other features in Building
+  3. Planned/Backlog features
+- Required lifecycle before done:
+  - Idea -> Planned/Backlog -> Building -> Review -> Complete
+- Review is mandatory post-launch:
+  - Launch/build completion moves feature to Review
+  - Ben can add comments then either Approve or Request Changes
+  - Request Changes returns feature to Planned/Backlog queue for another pass
+- Any cron-driven dashboard improvement cycle should select implementation targets from this roadmap queue first.
+
 ---
 
 ## Architecture Overview

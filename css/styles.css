@@ -672,3 +672,104 @@ body {
         justify-content: center;
     }
 }
+
+/* ===== Timeline View (Time Tracking) ===== */
+.timeline-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: 0.875rem;
+}
+
+.timeline-header {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 1px;
+}
+
+.timeline-day-header {
+    background: var(--bg-secondary);
+    padding: var(--spacing-sm);
+    text-align: center;
+    border-bottom: 2px solid var(--accent);
+}
+
+.timeline-time-label {
+    width: 60px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.timeline-row {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    gap: 1px;
+    background: var(--border);
+    min-height: 40px;
+}
+
+.timeline-cell {
+    background: var(--bg-primary);
+    position: relative;
+    min-height: 40px;
+    border-right: 1px solid var(--border);
+}
+
+.timeline-cell:hover {
+    background: var(--bg-secondary);
+}
+
+.timeline-block {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.timeline-block:hover {
+    opacity: 0.85;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Calendar overlay styles */
+.calendar-event-overlay {
+    position: absolute;
+    width: 100%;
+    background: rgba(99, 102, 241, 0.2);
+    border-left: 3px solid var(--accent);
+    font-size: 0.7rem;
+    padding: 2px 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.calendar-event-overlay:hover {
+    background: rgba(99, 102, 241, 0.3);
+    z-index: 10;
+}
+
+/* Timeline responsive */
+@media (max-width: 1024px) {
+    .timeline-row,
+    .timeline-header {
+        grid-template-columns: 50px repeat(7, minmax(100px, 1fr));
+    }
+    
+    .timeline-time-label {
+        width: 50px;
+        font-size: 0.7rem;
+    }
+}

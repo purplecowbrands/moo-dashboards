@@ -1,5 +1,6 @@
 // Roadmap Data - Kanban Board Structure
 // Features organized by status (column) with architecture categories as tags
+// Status flow: idea -> backlog/planned -> buildingNext -> review -> complete (blocked optional)
 
 export const architectureCategories = {
     foundation: 'Foundation',

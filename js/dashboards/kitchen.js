@@ -1,112 +1,115 @@
-// Kitchen/Meal Prep Dashboard
+// Kitchen Dashboard - redesigned per Ben feedback
 import { sampleData } from '../../data/sample-data.js';
-import { getKitchenData, isLiveData } from '../data-loader.js';
+import { getKitchenData } from '../data-loader.js';
+
+function normalizeRecipeName(recipe) {
+    if (!recipe) return '';
+    if (typeof recipe === 'string') return recipe;
+    return recipe.name || recipe.meal || '';
+}
+
+function buildSwapOptions(currentRecipes, nextRecipes) {
+    const seen = new Set();
+    const options = [];
+
+    [...currentRecipes, ...nextRecipes].forEach(recipe => {
+        const name = normalizeRecipeName(recipe);
+        if (!name) return;
+        if (seen.has(name.toLowerCase())) return;
+        seen.add(name.toLowerCase());
+        options.push(name);
+    });
+
+    return options;
+}
 
 export async function renderKitchen() {
-    // Try to load live data, fallback to sample
-    let kitchenData = await getKitchenData();
-    let isLive = false;
-    
-    if (!kitchenData) {
-        kitchenData = sampleData.kitchen;
-    } else {
-        isLive = true;
-    }
+    const kitchenData = await getKitchenData();
+    const isLive = !!kitchenData;
 
-    // Transform live data to match expected structure
     let kitchen;
     if (isLive) {
-        const mealPlan = kitchenData.mealPlan;
-        const inventory = kitchenData.inventory;
-        
+        const mealPlan = kitchenData.mealPlan || {};
+        const inventory = kitchenData.inventory || {};
+
+        const thisWeekRecipes = mealPlan.thisWeekPicks || [];
+        const nextWeekRecipes = mealPlan.tentativeNextWeek || [];
+
+        const preppedFood = [
+            ...(inventory.preparedMeals || []),
+            ...(inventory.freezerTop?.preparedMeals || [])
+        ];
+
         kitchen = {
             currentWeek: {
                 prepDate: mealPlan.lastUpdated || 'This Week',
-                recipes: (mealPlan.thisWeekPicks || []).map(r => ({
-                    name: r.name,
+                recipes: thisWeekRecipes.map(r => ({
+                    name: normalizeRecipeName(r),
                     effort: r.effort || 'normal'
                 }))
             },
             nextWeek: {
-                recipes: (mealPlan.tentativeNextWeek || []).map(r => ({
-                    name: r.name,
+                recipes: nextWeekRecipes.map(r => ({
+                    name: normalizeRecipeName(r),
                     effort: r.effort || 'normal'
                 }))
             },
-            shoppingList: [], // Would need to pull from ClickUp or separate file
+            shoppingList: inventory.shoppingList || [],
             inventory: {
-                proteins: inventory.proteins || [],
-                pantry: (inventory.pantry || []).slice(0, 10), // Top 10 items
-                fridge: inventory.fridge || []
+                preppedFood,
+                proteins: [
+                    ...(inventory.freezerTop?.proteins || []),
+                    ...(inventory.freezerChest?.proteins || [])
+                ],
+                pantry: inventory.pantry || [],
+                fridge: inventory.fridge || [],
+                freezer: [
+                    ...(inventory.freezerTop?.fats || []),
+                    ...(inventory.freezerTop?.vegetables || []),
+                    ...(inventory.freezerTop?.fruit || []),
+                    ...(inventory.freezerTop?.other || []),
+                    ...(inventory.freezerChest?.bones || []),
+                    ...(inventory.freezerChest?.vegetables || [])
+                ]
             }
         };
     } else {
-        kitchen = kitchenData;
+        kitchen = {
+            ...sampleData.kitchen,
+            inventory: {
+                ...(sampleData.kitchen.inventory || {}),
+                preppedFood: []
+            }
+        };
     }
 
+    const swapOptions = buildSwapOptions(kitchen.currentWeek.recipes, kitchen.nextWeek.recipes);
+
     const dataStatusBanner = isLive ? `
-        <div class="alert success" style="margin-bottom: var(--spacing-lg);">
+        <div class="alert success" style="margin-bottom: var(--spacing-md);">
             <i data-lucide="wifi"></i>
             <div>
                 <strong>Live Data</strong>
-                <p>Connected to workspace files (last updated: ${kitchen.currentWeek.prepDate})</p>
+                <p>Connected to kitchen inventory and meal plan files</p>
             </div>
         </div>
     ` : `
-        <div class="alert warning" style="margin-bottom: var(--spacing-lg);">
+        <div class="alert warning" style="margin-bottom: var(--spacing-md);">
             <i data-lucide="wifi-off"></i>
             <div>
                 <strong>Sample Data</strong>
-                <p>Live data not available - showing sample data</p>
+                <p>Live kitchen files unavailable</p>
             </div>
         </div>
     `;
 
     return `
         <div class="page-header">
-            <h2>Kitchen & Meal Prep</h2>
-            <p>Current inventory, week's plan, shopping list</p>
+            <h2>Kitchen</h2>
+            <p>Meal plan, recipe swaps, shopping list, and inventory</p>
         </div>
 
         ${dataStatusBanner}
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon success">
-                    <i data-lucide="calendar"></i>
-                </div>
-                <div class="stat-label">This Week's Meals</div>
-                <div class="stat-value">${kitchen.currentWeek.recipes.length}</div>
-                <div class="stat-meta">Prep: ${kitchen.currentWeek.prepDate}</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon info">
-                    <i data-lucide="chef-hat"></i>
-                </div>
-                <div class="stat-label">Next Week's Meals</div>
-                <div class="stat-value">${kitchen.nextWeek.recipes.length}</div>
-                <div class="stat-meta">Planned recipes</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon ${kitchen.shoppingList.length > 0 ? 'warning' : 'success'}">
-                    <i data-lucide="shopping-cart"></i>
-                </div>
-                <div class="stat-label">Shopping List Items</div>
-                <div class="stat-value">${kitchen.shoppingList.length}</div>
-                <div class="stat-meta">${kitchen.shoppingList.length > 0 ? 'Need to buy' : 'All set'}</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon info">
-                    <i data-lucide="package"></i>
-                </div>
-                <div class="stat-label">Inventory Items</div>
-                <div class="stat-value">${(kitchen.inventory.proteins?.length || 0) + (kitchen.inventory.pantry?.length || 0) + (kitchen.inventory.fridge?.length || 0)}</div>
-                <div class="stat-meta">Tracked items</div>
-            </div>
-        </div>
 
         <div class="dashboard-grid">
             <div class="card">
@@ -120,20 +123,15 @@ export async function renderKitchen() {
                                 <li class="list-item">
                                     <div>
                                         <strong>${recipe.name}</strong>
-                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
-                                            Effort: ${recipe.effort}
-                                        </div>
+                                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Effort: ${recipe.effort}</div>
                                     </div>
-                                    <span class="badge ${recipe.effort === 'easy' ? 'success' : 'info'}">${recipe.effort}</span>
+                                    <button class="btn btn-sm btn-secondary recipe-swap-btn" data-current="${recipe.name.replace(/"/g, '&quot;')}">
+                                        Swap
+                                    </button>
                                 </li>
                             `).join('')}
                         </ul>
-                    ` : `
-                        <div class="empty-state">
-                            <i data-lucide="calendar-x"></i>
-                            <p>No meals planned for this week</p>
-                        </div>
-                    `}
+                    ` : '<p>No meals planned for this week</p>'}
                 </div>
             </div>
 
@@ -148,110 +146,131 @@ export async function renderKitchen() {
                                 <li class="list-item">
                                     <div>
                                         <strong>${recipe.name}</strong>
-                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
-                                            Effort: ${recipe.effort}
-                                        </div>
+                                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Effort: ${recipe.effort}</div>
                                     </div>
-                                    <span class="badge ${recipe.effort === 'easy' ? 'success' : 'info'}">${recipe.effort}</span>
+                                    <button class="btn btn-sm btn-secondary recipe-swap-btn" data-current="${recipe.name.replace(/"/g, '&quot;')}">
+                                        Swap
+                                    </button>
                                 </li>
                             `).join('')}
                         </ul>
-                    ` : `
-                        <div class="empty-state">
-                            <i data-lucide="calendar-x"></i>
-                            <p>No meals planned for next week yet</p>
-                        </div>
-                    `}
+                    ` : '<p>No meals planned for next week</p>'}
                 </div>
             </div>
         </div>
 
-        ${kitchen.shoppingList.length > 0 ? `
-            <div class="card" style="margin-top: var(--spacing-lg);">
-                <div class="card-header">
-                    <h3 class="card-title">Shopping List</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="list">
-                        ${kitchen.shoppingList.map(item => `
-                            <li class="list-item">
-                                <span>${item}</span>
-                                <i data-lucide="circle"></i>
-                            </li>
-                        `).join('')}
-                    </ul>
-                </div>
+        <div class="card" style="margin-top: var(--spacing-md);">
+            <div class="card-header">
+                <h3 class="card-title">Shopping List</h3>
             </div>
-        ` : ''}
+            <div class="card-body">
+                ${kitchen.shoppingList.length > 0 ? `
+                    <ul class="list">
+                        ${kitchen.shoppingList.map(item => `<li class="list-item"><span>${item}</span></li>`).join('')}
+                    </ul>
+                ` : '<p>No shopping items right now</p>'}
+            </div>
+        </div>
 
-        <div class="dashboard-grid" style="margin-top: var(--spacing-lg);">
-            ${kitchen.inventory.proteins && kitchen.inventory.proteins.length > 0 ? `
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Proteins (Freezer)</h3>
-                    </div>
-                    <div class="card-body">
+        <div class="dashboard-grid" style="margin-top: var(--spacing-md);">
+            <div class="card">
+                <div class="card-header"><h3 class="card-title">Prepped Food</h3></div>
+                <div class="card-body">
+                    ${kitchen.inventory.preppedFood.length > 0 ? `
                         <ul class="list">
-                            ${kitchen.inventory.proteins.map(protein => `
+                            ${kitchen.inventory.preppedFood.map(item => `
                                 <li class="list-item">
-                                    <span>${protein.item}</span>
-                                    <strong>${protein.quantity}</strong>
+                                    <div>
+                                        <strong>${item.meal || item.item}</strong>
+                                        ${item.note ? `<div style="font-size: 0.8rem; color: var(--text-secondary);">${item.note}</div>` : ''}
+                                    </div>
+                                    <span class="badge info">${item.servings || item.quantity || 'On hand'}</span>
                                 </li>
                             `).join('')}
                         </ul>
-                    </div>
+                    ` : '<p>No prepped food tracked</p>'}
                 </div>
-            ` : ''}
+            </div>
 
-            ${kitchen.inventory.pantry && kitchen.inventory.pantry.length > 0 ? `
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Pantry Staples</h3>
-                    </div>
-                    <div class="card-body">
+            <div class="card">
+                <div class="card-header"><h3 class="card-title">Proteins</h3></div>
+                <div class="card-body">
+                    ${kitchen.inventory.proteins.length > 0 ? `
+                        <ul class="list">
+                            ${kitchen.inventory.proteins.map(item => `
+                                <li class="list-item"><span>${item.item}</span><strong>${item.quantity || 'On hand'}</strong></li>
+                            `).join('')}
+                        </ul>
+                    ` : '<p>No proteins tracked</p>'}
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid" style="margin-top: var(--spacing-md);">
+            <div class="card">
+                <div class="card-header"><h3 class="card-title">Pantry</h3></div>
+                <div class="card-body" style="max-height: 320px; overflow:auto;">
+                    ${kitchen.inventory.pantry.length > 0 ? `
                         <ul class="list">
                             ${kitchen.inventory.pantry.map(item => `
                                 <li class="list-item">
                                     <div>
                                         <span>${item.item}</span>
-                                        ${item.note ? `<div style="color: var(--text-secondary); font-size: 0.875rem;">${item.note}</div>` : ''}
-                                        ${item.quantity && item.quantity.includes('need restock') ? '<div style="color: var(--error); font-size: 0.875rem;">Need restock</div>' : ''}
+                                        ${item.note ? `<div style="font-size: 0.8rem; color: var(--text-secondary);">${item.note}</div>` : ''}
                                     </div>
                                     <strong>${item.quantity || 'On hand'}</strong>
                                 </li>
                             `).join('')}
                         </ul>
-                    </div>
-                </div>
-            ` : ''}
-        </div>
-
-        ${kitchen.inventory.fridge && kitchen.inventory.fridge.length > 0 ? `
-            <div class="card" style="margin-top: var(--spacing-lg);">
-                <div class="card-header">
-                    <h3 class="card-title">Fridge</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${kitchen.inventory.fridge.map(item => `
-                                    <tr>
-                                        <td>${item.item}</td>
-                                        <td><strong>${item.quantity || 'On hand'}</strong></td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
+                    ` : '<p>No pantry items tracked</p>'}
                 </div>
             </div>
-        ` : ''}
+
+            <div class="card">
+                <div class="card-header"><h3 class="card-title">Fridge</h3></div>
+                <div class="card-body" style="max-height: 320px; overflow:auto;">
+                    ${kitchen.inventory.fridge.length > 0 ? `
+                        <ul class="list">
+                            ${kitchen.inventory.fridge.map(item => `
+                                <li class="list-item"><span>${item.item}</span><strong>${item.quantity || 'On hand'}</strong></li>
+                            `).join('')}
+                        </ul>
+                    ` : '<p>No fridge items tracked</p>'}
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: var(--spacing-md);">
+            <div class="card-header"><h3 class="card-title">Freezer</h3></div>
+            <div class="card-body" style="max-height: 320px; overflow:auto;">
+                ${kitchen.inventory.freezer.length > 0 ? `
+                    <ul class="list">
+                        ${kitchen.inventory.freezer.map(item => `
+                            <li class="list-item">
+                                <div>
+                                    <span>${item.item || item.meal}</span>
+                                    ${item.note ? `<div style="font-size: 0.8rem; color: var(--text-secondary);">${item.note}</div>` : ''}
+                                </div>
+                                <strong>${item.quantity || item.servings || 'On hand'}</strong>
+                            </li>
+                        `).join('')}
+                    </ul>
+                ` : '<p>No freezer items tracked</p>'}
+            </div>
+        </div>
+
+        <script>
+            (function() {
+                const options = ${JSON.stringify(swapOptions)};
+                document.querySelectorAll('.recipe-swap-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const current = btn.getAttribute('data-current');
+                        const suggestionPool = options.filter(name => name !== current);
+                        const suggestion = suggestionPool[0] || 'No alternatives yet';
+                        alert('Swap helper\n\nCurrent: ' + current + '\nSuggested: ' + suggestion + '\n\nNext step: connect write-back to meal-plan-state.json.');
+                    });
+                });
+            })();
+        </script>
     `;
 }

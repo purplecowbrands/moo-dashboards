@@ -8,6 +8,29 @@ This file tracks implementation status of current work. ROADMAP.md is the master
 
 ## 🎯 Recent Improvements
 
+### 2026-02-24 2:29 AM - Kitchen Reworked: No KPI Clutter + Prepped Food + Swap Actions ✅ Priority 2 IN PROGRESS
+**Implemented:** Reworked Kitchen page structure to match Ben feedback and prioritize planning plus inventory action
+- **Removed top KPI cards entirely** to reduce clutter
+- **Kept meal planning core views:** This Week and Next Week recipe lists
+- **Added recipe-level Swap buttons** for quick replacement flow
+  - Each recipe now has a one-click Swap action
+  - Current behavior suggests an alternative from existing plan data
+  - Clear note in UI for next step: wire write-back to meal-plan-state.json
+- **Kept shopping list section** as a dedicated block below meal plans
+- **Added Prepped Food as a top inventory category**
+  - Combines `inventory.preparedMeals` and `inventory.freezerTop.preparedMeals`
+  - Shows servings/quantity with notes for fast meal decisions
+- **Expanded inventory coverage to match inventory.json structure better**
+  - Proteins now include freezer-top and chest freezer proteins
+  - Added full Freezer section (fats, vegetables, fruit, other, bones)
+  - Pantry and Fridge retained with denser scrolling lists
+- **Result:** Kitchen now centers on weekly planning, practical swaps, and real inventory visibility instead of summary metrics
+
+**Why:** Ben asked to remove KPI cards, keep weekly recipes + shopping list, add easy recipe swapping, and add a dedicated Prepped Food category while aligning inventory sections with the real kitchen inventory file.
+**Next Step:** Continue Priority 2 redesigns (Roadmap Kanban + architecture view, Time Tracking weekly timeline + calendar overlay, Contact Triage page)
+**Deployed:** Committed and pushed to main; Cloudflare Pages auto-deploy triggered
+
+
 ### 2026-02-24 1:29 AM - CRM Redesigned for Follow-Up Workflow + Contact Browsing ✅ Priority 2 IN PROGRESS
 **Implemented:** Reworked CRM dashboard to match Ben's requested structure and remove KPI clutter
 - **Removed CRM KPI cards entirely** (total contacts, recent count, pending intros, top connections)

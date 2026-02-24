@@ -9,24 +9,22 @@ param(
 function Parse-TimeEntry {
     param([string]$Line)
     
-    # Parse table row: | Start | End | Duration | Activity | Category |
-    # Example: | 12:00 AM | 7:30 AM | 7.5h | Sleep | sleep |
-    if ($Line -match '\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|') {
-        $start = $matches[1].Trim()
-        $end = $matches[2].Trim()
-        $duration = $matches[3].Trim()
-        $activity = $matches[4].Trim()
-        $category = $matches[5].Trim()
+    # Parse list format: - START-END | CATEGORY | DESCRIPTION (DURATIONh)
+    # Example: - 12:00-8:30 AM | Sleep | Night sleep (8.5h)
+    if ($Line -match '^-\s+([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^(]+)\s*\(([^)]+)\)') {
+        $timeRange = $matches[1].Trim()
+        $category = $matches[2].Trim()
+        $description = $matches[3].Trim()
+        $duration = $matches[4].Trim()
         
-        # Extract numeric hours from duration (e.g., "7.5h" -> 7.5)
+        # Extract numeric hours from duration (e.g., "8.5h" -> 8.5)
         if ($duration -match '(\d+\.?\d*)h?') {
             $hours = [double]$matches[1]
             
             return @{
-                Start = $start
-                End = $end
+                TimeRange = $timeRange
                 Hours = $hours
-                Activity = $activity
+                Activity = $description
                 Category = $category
             }
         }
@@ -38,12 +36,28 @@ function Parse-TimeEntry {
 function Get-TopLevelCategory {
     param([string]$Category)
     
-    # Map detailed categories to top-level (e.g., "personal/morning" -> "personal")
-    if ($Category -match '^([^/]+)') {
-        return $matches[1].ToLower()
+    # Map detailed categories to top-level (e.g., "Personal" -> "personal", "Moo/Systems" -> "work")
+    $cat = $Category.ToLower()
+    
+    # Handle special categories
+    if ($cat -match 'moo|systems|dev|admin|finance|work') {
+        return 'work'
     }
     
-    return $Category.ToLower()
+    if ($cat -match 'personal') {
+        return 'personal'
+    }
+    
+    if ($cat -match 'sleep') {
+        return 'sleep'
+    }
+    
+    if ($cat -match 'break') {
+        return 'break'
+    }
+    
+    # Default
+    return $cat
 }
 
 # Find all time log files
@@ -63,8 +77,12 @@ foreach ($file in $logFiles) {
     $content = Get-Content $file.FullName -Raw
     $lines = $content -split "`n"
     
-    # Extract date from filename (YYYY-MM-DD.md)
-    $dateStr = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+    # Extract date from filename or header (YYYY-MM-DD)
+    if ($file.Name -match '(\d{4}-\d{2}-\d{2})') {
+        $dateStr = $matches[1]
+    } else {
+        continue
+    }
     
     $dateEntries = @()
     
@@ -103,6 +121,7 @@ if ($thisWeekEntries.Count -eq 0) {
     $thisWeekEntries = $allEntries | Where-Object {
         $_.Date -ge $lastWeekStart -and $_.Date -le $lastWeekEnd
     }
+    $weekStart = $lastWeekStart
 }
 
 # Aggregate by top-level category for the week
@@ -157,6 +176,41 @@ $recentEntries = $allEntries | Select-Object -First 20 | ForEach-Object {
     }
 }
 
+# NEW: Build daily breakdown for this week (Mon-Sun)
+$weekStartDate = [DateTime]::ParseExact($weekStart, "yyyy-MM-dd", $null)
+$dailyBreakdown = @()
+$dayNames = @('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
+
+for ($i = 0; $i -lt 7; $i++) {
+    $date = $weekStartDate.AddDays($i).ToString("yyyy-MM-dd")
+    $dayName = $dayNames[$i]
+    
+    # Get entries for this day
+    $dayEntries = $allEntries | Where-Object { $_.Date -eq $date }
+    
+    # Aggregate by top-level category
+    $dayCategories = @{}
+    foreach ($entry in $dayEntries) {
+        $topCategory = Get-TopLevelCategory $entry.Category
+        if (-not $dayCategories.ContainsKey($topCategory)) {
+            $dayCategories[$topCategory] = 0
+        }
+        $dayCategories[$topCategory] += $entry.Hours
+    }
+    
+    # Build day object
+    $dayData = @{
+        date = $date
+        dayName = $dayName
+        sleep = [math]::Round($(if ($dayCategories.ContainsKey('sleep')) { $dayCategories['sleep'] } else { 0 }), 1)
+        work = [math]::Round($(if ($dayCategories.ContainsKey('work')) { $dayCategories['work'] } else { 0 }), 1)
+        personal = [math]::Round($(if ($dayCategories.ContainsKey('personal')) { $dayCategories['personal'] } else { 0 }), 1)
+        break = [math]::Round($(if ($dayCategories.ContainsKey('break')) { $dayCategories['break'] } else { 0 }), 1)
+    }
+    
+    $dailyBreakdown += $dayData
+}
+
 # Build output structure
 $output = @{
     week = @{
@@ -174,6 +228,7 @@ $output = @{
         break = [math]::Round($(if ($todayByCategory.ContainsKey('break')) { $todayByCategory['break'] } else { 0 }), 1)
     }
     recentEntries = $recentEntries
+    dailyBreakdown = $dailyBreakdown
 }
 
 # Convert to JSON and save
@@ -182,4 +237,5 @@ Set-Content -Path $OutputPath -Value $json -NoNewline
 
 Write-Host "Parsed $($allEntries.Count) time entries from $($logFiles.Count) log files"
 Write-Host "This week: Work $($output.week.totalWork)h | Sleep $($output.week.totalSleep)h | Personal $($output.week.totalPersonal)h"
+Write-Host "Daily breakdown: $($dailyBreakdown.Count) days"
 Write-Host "Saved to: $OutputPath"

@@ -11,7 +11,7 @@ export async function renderTime() {
     return `
         <div class="page-header">
             <h2>Time Tracking</h2>
-            <p>Daily logs visualized by category, trends</p>
+            <p>Daily logs visualized by category, weekly breakdown, and trends</p>
             ${isLive ? '<div class="badge success">Live Data</div>' : '<div class="badge warning">Sample Data</div>'}
         </div>
 
@@ -53,10 +53,125 @@ export async function renderTime() {
             </div>
         </div>
 
+        <!-- NEW: Weekly Bar Chart -->
+        ${time.dailyBreakdown ? `
+            <div class="card" style="margin-top: var(--spacing-lg);">
+                <div class="card-header">
+                    <h3 class="card-title">Weekly Time Breakdown (by Day)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative; height: 320px;">
+                        <canvas id="weeklyBarChart"></canvas>
+                    </div>
+                    <div class="chart-legend" style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 16px; height: 16px; background: rgba(16, 185, 129, 0.8); border-radius: 3px;"></div>
+                            <span style="font-size: 0.875rem;">Sleep</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 16px; height: 16px; background: rgba(99, 102, 241, 0.8); border-radius: 3px;"></div>
+                            <span style="font-size: 0.875rem;">Work</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 16px; height: 16px; background: rgba(245, 158, 11, 0.8); border-radius: 3px;"></div>
+                            <span style="font-size: 0.875rem;">Personal</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 16px; height: 16px; background: rgba(236, 72, 153, 0.8); border-radius: 3px;"></div>
+                            <span style="font-size: 0.875rem;">Break</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                (function() {
+                    const ctx = document.getElementById('weeklyBarChart');
+                    if (ctx && window.Chart) {
+                        const dailyData = ${JSON.stringify(time.dailyBreakdown)};
+                        
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: dailyData.map(d => d.dayName),
+                                datasets: [
+                                    {
+                                        label: 'Sleep',
+                                        data: dailyData.map(d => d.sleep),
+                                        backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                                        borderWidth: 0
+                                    },
+                                    {
+                                        label: 'Work',
+                                        data: dailyData.map(d => d.work),
+                                        backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                                        borderWidth: 0
+                                    },
+                                    {
+                                        label: 'Personal',
+                                        data: dailyData.map(d => d.personal),
+                                        backgroundColor: 'rgba(245, 158, 11, 0.8)',
+                                        borderWidth: 0
+                                    },
+                                    {
+                                        label: 'Break',
+                                        data: dailyData.map(d => d.break),
+                                        backgroundColor: 'rgba(236, 72, 153, 0.8)',
+                                        borderWidth: 0
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    x: {
+                                        stacked: true,
+                                        grid: {
+                                            display: false
+                                        }
+                                    },
+                                    y: {
+                                        stacked: true,
+                                        beginAtZero: true,
+                                        max: 24,
+                                        ticks: {
+                                            stepSize: 4,
+                                            callback: function(value) {
+                                                return value + 'h';
+                                            }
+                                        },
+                                        grid: {
+                                            color: 'rgba(107, 114, 128, 0.1)'
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                return context.dataset.label + ': ' + context.parsed.y + 'h';
+                                            },
+                                            footer: function(items) {
+                                                const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
+                                                return 'Total: ' + total.toFixed(1) + 'h';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                })();
+            </script>
+        ` : ''}
+
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Time Distribution</h3>
+                    <h3 class="card-title">Time Distribution (This Week)</h3>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">

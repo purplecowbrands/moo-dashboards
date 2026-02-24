@@ -4,11 +4,8 @@ import { renderFocusAsync } from './dashboards/focus.js';
 import { renderSalesAsync } from './dashboards/sales.js';
 import { renderEOS, initEOS } from './dashboards/eos.js';
 import { renderCRM } from './dashboards/crm.js';
-import { renderClients } from './dashboards/clients.js';
 import { renderMonitoring } from './dashboards/monitoring.js';
 import { renderTime } from './dashboards/time.js';
-import { renderBNI, initBNI } from './dashboards/bni.js';
-import { renderFinancial, initFinancial } from './dashboards/financial.js';
 import { renderTasksAsync } from './dashboards/tasks.js';
 import { renderKitchen } from './dashboards/kitchen.js';
 import { renderRoadmap } from './dashboards/roadmap.js';
@@ -20,11 +17,8 @@ const pages = {
     sales: renderSalesAsync,
     eos: renderEOS,
     crm: renderCRM,
-    clients: renderClients,
     monitoring: renderMonitoring,
     time: renderTime,
-    bni: renderBNI,
-    financial: renderFinancial,
     tasks: renderTasksAsync,
     kitchen: renderKitchen,
     roadmap: renderRoadmap
@@ -127,12 +121,6 @@ async function router() {
     }
     
     // Initialize page-specific features
-    if (page === 'bni') {
-        initBNI();
-    }
-    if (page === 'financial') {
-        initFinancial();
-    }
     if (page === 'eos') {
         initEOS();
     }

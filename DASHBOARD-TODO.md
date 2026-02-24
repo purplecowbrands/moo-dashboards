@@ -4,6 +4,26 @@
 
 This file tracks implementation status of current work. ROADMAP.md is the master plan.
 
+## Feedback Queue Priority (2026-02-24)
+
+All 3-hour dashboard automation runs must check the backend queue first:
+
+1. Fetch pending queue from `/api/feedback/queue` (or `npm run feedback:queue`)
+2. Process Ben feedback items before non-critical dashboard polish work
+3. ACK handled items via `/api/feedback/ack/:id`
+4. Only then continue regular dashboard backlog
+
+## Roadmap Workflow Guardrails (Source of Truth)
+
+- The Roadmap board is the source of truth for build sequencing.
+- Build queue order must be derived from roadmap statuses, then Build Now overrides.
+- Required feature lifecycle: Idea -> Planned/Backlog -> Building -> Review -> Complete.
+- After launch, every shipped feature must enter Review before Complete.
+- Review outcomes:
+  - Approve -> Complete
+  - Request changes/comments -> return to Planned/Backlog queue for another build pass
+- Dashboard automation and cron-driven improvement cycles should choose next implementation targets from the roadmap queue, not ad-hoc TODO picking.
+
 ---
 
 ## 🎯 Recent Improvements

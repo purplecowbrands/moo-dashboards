@@ -1,0 +1,14 @@
+name = "moo-feedback-api"
+main = "src/index.js"
+compatibility_date = "2026-02-24"
+workers_dev = true
+
+[[d1_databases]]
+binding = "FEEDBACK_DB"
+database_name = "moo_feedback"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[vars]
+ALLOWED_ORIGIN = "*"
+# Optional. If set, /api/feedback/queue and /api/feedback/ack/:id require Bearer token.
+# CRON_API_TOKEN = ""

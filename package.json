@@ -1,0 +1,11 @@
+{
+  "name": "moo-dashboards",
+  "version": "1.0.0",
+  "description": "Unified productivity dashboard for Ben Porter",
+  "scripts": {
+    "fetch-calendar": "node scripts/fetch-calendar.js"
+  },
+  "dependencies": {
+    "googleapis": "^134.0.0"
+  }
+}

@@ -1,0 +1,534 @@
+{
+  "lastUpdated": "2026-02-24T00:30:27.131Z",
+  "summary": {
+    "overdue": 16,
+    "dueToday": 0,
+    "upcoming": 67,
+    "noDueDate": 1,
+    "total": 84
+  },
+  "byCategory": [
+    {
+      "category": "Personal Tasks",
+      "count": 34
+    },
+    {
+      "category": "Overhead Work",
+      "count": 22
+    },
+    {
+      "category": "Private Tasks",
+      "count": 9
+    },
+    {
+      "category": "Admin",
+      "count": 5
+    },
+    {
+      "category": "Sales Deals",
+      "count": 4
+    },
+    {
+      "category": "Moo Inbox",
+      "count": 4
+    },
+    {
+      "category": "Sales & BNI Followups",
+      "count": 2
+    },
+    {
+      "category": "Task Templates",
+      "count": 1
+    },
+    {
+      "category": "SMC",
+      "count": 1
+    },
+    {
+      "category": "Tasks Hat Daddy",
+      "count": 1
+    },
+    {
+      "category": "Tasks Home Energy",
+      "count": 1
+    }
+  ],
+  "tasks": {
+    "overdue": [
+      {
+        "id": "86b8m232e",
+        "name": "Follow up with accountant",
+        "status": "do next",
+        "priority": null,
+        "dueDate": 1771840800000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8m232e",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8kvja5",
+        "name": "Cook: Rice (10 cups for chili + curry)",
+        "status": "in progress",
+        "priority": null,
+        "dueDate": 1771840800000,
+        "list": "Moo Inbox",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8kvja5",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8gg5tv",
+        "name": "BNI VP Quarter 1",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1770717600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8gg5tv",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8eahxv",
+        "name": "Check in on Projects",
+        "status": "do next",
+        "priority": null,
+        "dueDate": 1771840800000,
+        "list": "Private Tasks",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8eahxv",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8eahx2",
+        "name": "Clear email, text, and ClickUp inboxes",
+        "status": "do next",
+        "priority": null,
+        "dueDate": 1771840800000,
+        "list": "Private Tasks",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8eahx2",
+        "tags": [],
+        "timeEstimate": 9000000
+      },
+      {
+        "id": "86b8cqa9z",
+        "name": "Admin Reporting (Feb)",
+        "status": "in progress",
+        "priority": null,
+        "dueDate": 1769853600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8cqa9z",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8bruc6",
+        "name": "Implement Operating System Process",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1769767200000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8bruc6",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8ahe14",
+        "name": "Update Sales Collateral",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1769940000000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8ahe14",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b88jjdu",
+        "name": "2025 Taxes",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1769421600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b88jjdu",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b86y8gk",
+        "name": "List top 8 clients and brainstorm a fun activity with each",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1771840800000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b86y8gk",
+        "tags": [],
+        "timeEstimate": 2700000
+      },
+      {
+        "id": "86b86r3wu",
+        "name": "Fill supplement jars",
+        "status": "in progress",
+        "priority": null,
+        "dueDate": 1771840800000,
+        "list": "Personal Tasks",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b86r3wu",
+        "tags": [],
+        "timeEstimate": 600000
+      },
+      {
+        "id": "86b86r3wd",
+        "name": "Shower and Shave",
+        "status": "in progress",
+        "priority": null,
+        "dueDate": 1771840800000,
+        "list": "Personal Tasks",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b86r3wd",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b85nvjt",
+        "name": "Engage with top 8 clients as friends",
+        "status": "do next",
+        "priority": null,
+        "dueDate": 1769421600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b85nvjt",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b7qubva",
+        "name": "Offboard old clients",
+        "status": "in progress",
+        "priority": {
+          "color": "#d8d8d8",
+          "id": "4",
+          "orderindex": "4",
+          "priority": "low"
+        },
+        "dueDate": 1771495200000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b7qubva",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b7nq05y",
+        "name": "Document Processes: People, Sales, and Client Lifecycle",
+        "status": "do next",
+        "priority": {
+          "color": "#f8ae00",
+          "id": "2",
+          "orderindex": "2",
+          "priority": "high"
+        },
+        "dueDate": 1769421600000,
+        "list": "Admin",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b7nq05y",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b6k557z",
+        "name": "Add Key Man Insurance",
+        "status": "backlog",
+        "priority": {
+          "color": "#6fddff",
+          "id": "3",
+          "orderindex": "3",
+          "priority": "normal"
+        },
+        "dueDate": 1769421600000,
+        "list": "Admin",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b6k557z",
+        "tags": [],
+        "timeEstimate": null
+      }
+    ],
+    "dueToday": [],
+    "upcoming": [
+      {
+        "id": "86b8mez4p",
+        "name": "Roll City Painting | Dennis Yudich - Call Followup",
+        "status": "backlog",
+        "priority": {
+          "color": "#6fddff",
+          "id": "3",
+          "orderindex": "3",
+          "priority": "normal"
+        },
+        "dueDate": 1772186400000,
+        "list": "Sales & BNI Followups",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8mez4p",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8mez14",
+        "name": "Roll City Painting | Dennis Yudich",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1771927200000,
+        "list": "Sales Deals",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8mez14",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8md2ej",
+        "name": "MC-Tamara: Educate Mayada and Joseph about substitute policy",
+        "status": "coming up",
+        "priority": null,
+        "dueDate": 1772445600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8md2ej",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8m6uwr",
+        "name": "[Schedule 121] Allen Gillis - 121 next week",
+        "status": "coming up",
+        "priority": null,
+        "dueDate": 1772532000000,
+        "list": "Sales & BNI Followups",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8m6uwr",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8jq811",
+        "name": "BNI Submit PALMS report",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1772013600000,
+        "list": "Private Tasks",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8jq811",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8jc7hh",
+        "name": "Check rankings of all leaders on Power of One",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1772791200000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8jc7hh",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8j992d",
+        "name": "VP-Justin to help Jon pay Charles to get Passports to Success printed out",
+        "status": "coming up",
+        "priority": null,
+        "dueDate": 1772445600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8j992d",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8j3w9e",
+        "name": "Get membership dues list from Justin at ELT",
+        "status": "coming up",
+        "priority": null,
+        "dueDate": 1772445600000,
+        "list": "Moo Inbox",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8j3w9e",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8j2dqc",
+        "name": "Delegate Client & Overhead Tasks",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1772186400000,
+        "list": "Moo Inbox",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8j2dqc",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8hu9qx",
+        "name": "Write BNI weekly presentation & assign Membership Moment",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1772445600000,
+        "list": "Private Tasks",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8hu9qx",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8hnfyr",
+        "name": "Ben reviews pre-sorted CRM categories",
+        "status": "backlog",
+        "priority": {
+          "color": "#6fddff",
+          "id": "3",
+          "orderindex": "3",
+          "priority": "normal"
+        },
+        "dueDate": 1772186400000,
+        "list": "Moo Inbox",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8hnfyr",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8ggerp",
+        "name": "MC-Erin: Send placemat directory design to Charles",
+        "status": "coming up",
+        "priority": null,
+        "dueDate": 1772445600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8ggerp",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8gg8ex",
+        "name": "Read full 87-page operations manual + take notes",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1771927200000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8gg8ex",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8gg6ay",
+        "name": "MC-Erin: Remind reds of non-renewal",
+        "status": "coming up",
+        "priority": null,
+        "dueDate": 1772445600000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8gg6ay",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8gg633",
+        "name": "Announce that Adrian is not allowed to Substitute",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1772618400000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8gg633",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8g0tx1",
+        "name": "4-Week Check In",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1773306000000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8g0tx1",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8fxgpg",
+        "name": "Visit 29%",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1772100000000,
+        "list": "Overhead Work",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8fxgpg",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8fbch4",
+        "name": "MI Remodelers | Gary Muehling",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1771927200000,
+        "list": "Sales Deals",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8fbch4",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8fa33a",
+        "name": "Call Sebastian to patch things up",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1771927200000,
+        "list": "SMC",
+        "folder": "SMC Worldwide",
+        "url": "https://app.clickup.com/t/86b8fa33a",
+        "tags": [],
+        "timeEstimate": null
+      },
+      {
+        "id": "86b8eywrr",
+        "name": "BNI fill out GAINS profile and chart an intentional 121 strategy of who to meet with",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": 1772445600000,
+        "list": "Private Tasks",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8eywrr",
+        "tags": [],
+        "timeEstimate": null
+      }
+    ],
+    "noDueDate": [
+      {
+        "id": "86b8fh7ac",
+        "name": "Admin Reporting (Monthly)",
+        "status": "backlog",
+        "priority": null,
+        "dueDate": null,
+        "list": "Task Templates",
+        "folder": "Shared with me",
+        "url": "https://app.clickup.com/t/86b8fh7ac",
+        "tags": [],
+        "timeEstimate": null
+      }
+    ]
+  }
+}

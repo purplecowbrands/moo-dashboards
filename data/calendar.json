@@ -1,0 +1,935 @@
+{
+  "lastFetched": "2026-02-23T22:32:06.040Z",
+  "today": {
+    "date": "2026-02-23T06:00:00.000Z",
+    "events": [
+      {
+        "id": "qsd08ec32mce2bstojv6oimj6k_20260223T133000Z",
+        "title": "Review tasks, emails, and sales",
+        "start": "2026-02-23T07:30:00-06:00",
+        "end": "2026-02-23T08:00:00-06:00",
+        "location": "sowork",
+        "description": null,
+        "attendees": [
+          {
+            "email": "leidy@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=cXNkMDhlYzMybWNlMmJzdG9qdjZvaW1qNmtfMjAyNjAyMjNUMTMzMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "nph9iuqi7bs365icjqe3vvib7b_20260223T140000Z",
+        "title": "Daily Standup",
+        "start": "2026-02-23T08:00:00-06:00",
+        "end": "2026-02-23T08:30:00-06:00",
+        "location": "app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057",
+        "description": "<div><p>Daily Standup</p><p><b>Join the meeting:</b> <a href=\"app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057\">app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057</a></p></div>",
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "team@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "german@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=bnBoOWl1cWk3YnMzNjVpY2pxZTN2dmliN2JfMjAyNjAyMjNUMTQwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "1ovujf416vedjcei6hn9dvu1ph_20260223T170000Z",
+        "title": "Level 10 Weekly Meeting",
+        "start": "2026-02-23T11:00:00-06:00",
+        "end": "2026-02-23T12:30:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MW92dWpmNDE2dmVkamNlaTZobjlkdnUxcGhfMjAyNjAyMjNUMTcwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "10emse3mibh6di59qhvrhkj289_20260223T203000Z",
+        "title": "BNI ELT Meeting",
+        "start": "2026-02-23T14:30:00-06:00",
+        "end": "2026-02-23T15:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [
+          {
+            "email": "andrewwebb@kw.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "justin.lamb@qualisgc.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MTBlbXNlM21pYmg2ZGk1OXFodnJoa2oyODlfMjAyNjAyMjNUMjAzMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "5saut7uug5e8knqk7ok0s1bkdt_20260223T204500Z",
+        "title": "Commute Home",
+        "start": "2026-02-23T14:45:00-06:00",
+        "end": "2026-02-23T16:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXNhdXQ3dXVnNWU4a25xazdvazBzMWJrZHRfMjAyNjAyMjNUMjA0NTAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "4t26rcml9kks4gj5dl4vlre9mh_20260223T190000Z",
+        "title": "BNI Prep",
+        "start": "2026-02-23T15:00:00-06:00",
+        "end": "2026-02-23T16:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NHQyNnJjbWw5a2tzNGdqNWRsNHZscmU5bWhfMjAyNjAyMjNUMTkwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      }
+    ],
+    "count": 6
+  },
+  "currentMeeting": null,
+  "upcoming": {
+    "nextSevenDays": [
+      {
+        "id": "qsd08ec32mce2bstojv6oimj6k_20260224T133000Z",
+        "title": "Review tasks, emails, and sales",
+        "start": "2026-02-24T07:30:00-06:00",
+        "end": "2026-02-24T08:00:00-06:00",
+        "location": "sowork",
+        "description": null,
+        "attendees": [
+          {
+            "email": "leidy@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=cXNkMDhlYzMybWNlMmJzdG9qdjZvaW1qNmtfMjAyNjAyMjRUMTMzMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "nph9iuqi7bs365icjqe3vvib7b_20260224T140000Z",
+        "title": "Daily Standup",
+        "start": "2026-02-24T08:00:00-06:00",
+        "end": "2026-02-24T08:30:00-06:00",
+        "location": "app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057",
+        "description": "<div><p>Daily Standup</p><p><b>Join the meeting:</b> <a href=\"app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057\">app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057</a></p></div>",
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "team@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "german@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=bnBoOWl1cWk3YnMzNjVpY2pxZTN2dmliN2JfMjAyNjAyMjRUMTQwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "ejjqmh26eko7j712688jlk71hc",
+        "title": "New BNI info | Abel Gomez Gotcha Covered and Ben Porter",
+        "start": "2026-02-24T09:00:00-06:00",
+        "end": "2026-02-24T10:00:00-06:00",
+        "location": null,
+        "description": "Meet with Ben online or in person\n\nPhone number: +1 214 395 0425\nSubject:\nNew BNI info\n\n📆 Reschedule or cancel this event: https://zcal.co/e/6997628b1e9ef860d930b272\n",
+        "attendees": [
+          {
+            "email": "abelgomez@gotchacovered.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZWpqcW1oMjZla283ajcxMjY4OGpsazcxaGMgYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "20a3v2ak3nh5ddlbdtr366oo89",
+        "title": "Networking Lunch | Purple Cow x AMAX",
+        "start": "2026-02-24T12:00:00-06:00",
+        "end": "2026-02-24T13:30:00-06:00",
+        "location": "Rodeo Goat, 1926 Market Center Blvd, Dallas, TX 75207, USA",
+        "description": null,
+        "attendees": [
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "jcollins@amaxinsurance.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "rsankaran@amaxinsurance.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MjBhM3YyYWszbmg1ZGRsYmR0cjM2Nm9vODkgYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "5saut7uug5e8knqk7ok0s1bkdt_20260224T204500Z",
+        "title": "Commute Home",
+        "start": "2026-02-24T14:45:00-06:00",
+        "end": "2026-02-24T16:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXNhdXQ3dXVnNWU4a25xazdvazBzMWJrZHRfMjAyNjAyMjRUMjA0NTAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "e9im6r31d5miqs35e9pmurj1dgmn6ubecct66db96os68cb7cdhn6qhic8smmor7ecr3cohpddhmus3ac5h64cb36ljmkc3275kjecb8dkq6acpm6pk6kcr5cdk70dj778pg_20260225T003000Z",
+        "title": "🏠 Personal Commitment",
+        "start": "2026-02-24T18:30:00-06:00",
+        "end": "2026-02-24T20:30:00-06:00",
+        "location": null,
+        "description": "<i>This event was created by <a href=\"https://app.reclaim.ai/signup?utm_source=calendar&utm_campaign=calendar-referral&utm_medium=calendar-sync-event&utm_term=u8Ps7\">Reclaim</a>.</i><p>Ben has a personal commitment and is busy at this time. Please find another time to avoid scheduling conflicts.</p>",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZTlpbTZyMzFkNW1pcXMzNWU5cG11cmoxZGdtbjZ1YmVjY3Q2NmRiOTZvczY4Y2I3Y2RobjZxaGljOHNtbW9yN2VjcjNjb2hwZGRobXVzM2FjNWg2NGNiMzZsam1rYzMyNzVramVjYjhka3E2YWNwbTZwazZrY3I1Y2RrNzBkajc3OHBnXzIwMjYwMjI1VDAwMzAwMFogYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "e9im6r31d5miqs35e9pmurj1dgmn6ubecct6kojd6spmorrmedhjcc9m65pn8p1ndpj30cr7d1in6ehj",
+        "title": "✈ Flight",
+        "start": "2026-02-25T06:30:00-06:00",
+        "end": "2026-02-25T09:15:00-06:00",
+        "location": null,
+        "description": "<i>This event was created by <a href=\"https://app.reclaim.ai/signup?utm_source=calendar&utm_campaign=calendar-referral&utm_medium=calendar-sync-event&utm_term=u8Ps7\">Reclaim</a>.</i><p>Ben is on a flight and is busy at this time. Please find another time to avoid scheduling conflicts.</p>",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZTlpbTZyMzFkNW1pcXMzNWU5cG11cmoxZGdtbjZ1YmVjY3Q2a29qZDZzcG1vcnJtZWRoamNjOW02NXBuOHAxbmRwajMwY3I3ZDFpbjZlaGogYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "f3qkv6sj9prbhubhsdlkcbvm4a_20260225T130000Z",
+        "title": "BNI Block",
+        "start": "2026-02-25T07:00:00-06:00",
+        "end": "2026-02-25T11:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZjNxa3Y2c2o5cHJiaHViaHNkbGtjYnZtNGFfMjAyNjAyMjVUMTMwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "5vqmrufevcb8apnqib18l8qc6j_20260225T140000Z",
+        "title": "BNI Preston Highlands",
+        "start": "2026-02-25T08:00:00-06:00",
+        "end": "2026-02-25T09:30:00-06:00",
+        "location": "12 Cuts Brazilian Steakhouse, 18010 Dallas Pkwy, Dallas, TX 75287, USA",
+        "description": null,
+        "attendees": [
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "texaswatering@gmail.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "sophie.e.tabe@gmail.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "nhickman@habunconsulting.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "adrmunoz20@gmail.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXZxbXJ1ZmV2Y2I4YXBucWliMThsOHFjNmpfMjAyNjAyMjVUMTQwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "e9im6r31d5miqs35e9pmurj1dgmn6ubecct6ktbde1p6qrrecpn6ot34dto6is3id8sjgqj2ctkj8ehj",
+        "title": "✈ Flight",
+        "start": "2026-02-25T10:15:00-06:00",
+        "end": "2026-02-25T12:20:00-06:00",
+        "location": null,
+        "description": "<i>This event was created by <a href=\"https://app.reclaim.ai/signup?utm_source=calendar&utm_campaign=calendar-referral&utm_medium=calendar-sync-event&utm_term=u8Ps7\">Reclaim</a>.</i><p>Ben is on a flight and is busy at this time. Please find another time to avoid scheduling conflicts.</p>",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZTlpbTZyMzFkNW1pcXMzNWU5cG11cmoxZGdtbjZ1YmVjY3Q2a3RiZGUxcDZxcnJlY3BuNm90MzRkdG82aXMzaWQ4c2pncWoyY3RrajhlaGogYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "dbsrfn24mrcp8au7pvvh35djkc",
+        "title": "Lunch | deMoville Trey and Ben Porter",
+        "start": "2026-02-25T12:30:00-06:00",
+        "end": "2026-02-25T13:30:00-06:00",
+        "location": "Central Dallas",
+        "description": "Meet with Ben online or in person\n\nPhone number: +1 904 495 2927\nSubject:\nLunch\n\n📆 Reschedule or cancel this event: https://zcal.co/e/6997bed01e9ef860d93ae261\n",
+        "attendees": [
+          {
+            "email": "trey@demovillejax.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZGJzcmZuMjRtcmNwOGF1N3B2dmgzNWRqa2MgYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "1ms6bq6ida3rbnbi1nd7b38fa0",
+        "title": "Discovery: Allen Gilliss and Purple Cow Team",
+        "start": "2026-02-25T13:45:00-06:00",
+        "end": "2026-02-25T14:30:00-06:00",
+        "location": null,
+        "description": "Join a call to discover the power your brand could have! It's preferred to have this meeting in person so we can go deep to explore your business's potential\n\n📆 Reschedule or cancel this event: https://zcal.co/e/699cb6bf1e9ef860d9aa4827\n",
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "allen@lytflo.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MW1zNmJxNmlkYTNyYm5iaTFuZDdiMzhmYTAgYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "5saut7uug5e8knqk7ok0s1bkdt_20260225T204500Z",
+        "title": "Commute Home",
+        "start": "2026-02-25T14:45:00-06:00",
+        "end": "2026-02-25T16:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXNhdXQ3dXVnNWU4a25xazdvazBzMWJrZHRfMjAyNjAyMjVUMjA0NTAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "qpf6mr9mf6v0ffl519fspj9jr4",
+        "title": "BNI 1-1 | Tommy McGuire and Ben Porter",
+        "start": "2026-02-25T16:30:00-06:00",
+        "end": "2026-02-25T17:30:00-06:00",
+        "location": null,
+        "description": "Meet with Ben online or in person\n\nPhone number: +1 330 518 4105\nSubject:\nBNI 1-1\n\n📆 Reschedule or cancel this event: https://zcal.co/e/699782451e9ef860d935cb87\n",
+        "attendees": [
+          {
+            "email": "tommy@modernmcguire.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=cXBmNm1yOW1mNnYwZmZsNTE5ZnNwajlqcjQgYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "3822dg8ghrcn32g3ard78c5bd8",
+        "title": "Master Networks Business SOHiP Free Range Networking Mixer",
+        "start": "2026-02-25T17:00:00-06:00",
+        "end": "2026-02-25T20:00:00-06:00",
+        "location": "The Rustic - 3656 Howell Street - Dallas, TX, US",
+        "description": "For full details, including the address, and to RSVP see: https://www.meetup.com/master-networks-sohip/events/313269402\n\nJoin us for an evening of free-range, professional networking and business growth with Master Networ...",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MzgyMmRnOGdocmNuMzJnM2FyZDc4YzViZDggYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "qsd08ec32mce2bstojv6oimj6k_20260226T133000Z",
+        "title": "Review tasks, emails, and sales",
+        "start": "2026-02-26T07:30:00-06:00",
+        "end": "2026-02-26T08:00:00-06:00",
+        "location": "sowork",
+        "description": null,
+        "attendees": [
+          {
+            "email": "leidy@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=cXNkMDhlYzMybWNlMmJzdG9qdjZvaW1qNmtfMjAyNjAyMjZUMTMzMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "15jhk8t9r743079mdq73b50d6j",
+        "title": "BNI 29% meeting",
+        "start": "2026-02-26T08:00:00-06:00",
+        "end": "2026-02-26T09:30:00-06:00",
+        "location": "Tower Club Dallas",
+        "description": "BNI%2029%%20Tower%20Club%20Dallas%20%201601%20Elm%20Street%20Dallas,%20Dallas%20%20Texas%20%20https://bnionline.zoom.us/j/5849846806",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MTVqaGs4dDlyNzQzMDc5bWRxNzNiNTBkNmogYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "nph9iuqi7bs365icjqe3vvib7b_20260226T140000Z",
+        "title": "Daily Standup",
+        "start": "2026-02-26T08:00:00-06:00",
+        "end": "2026-02-26T08:30:00-06:00",
+        "location": "app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057",
+        "description": "<div><p>Daily Standup</p><p><b>Join the meeting:</b> <a href=\"app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057\">app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057</a></p></div>",
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "team@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "german@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=bnBoOWl1cWk3YnMzNjVpY2pxZTN2dmliN2JfMjAyNjAyMjZUMTQwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "16v0kcd6uhd16pqosabk9a55pg",
+        "title": "BeLocal & Purple Cow intro  | Tanner Hobbs and Ben Porter",
+        "start": "2026-02-26T10:00:00-06:00",
+        "end": "2026-02-26T11:00:00-06:00",
+        "location": "Contact me to coordinate a location",
+        "description": "Meet with Ben online or in person\n\nPhone number: +1 972 265 9876\nSubject:\nBeLocal & Purple Cow intro \n\n📆 Reschedule or cancel this event: https://zcal.co/e/6997dff11e9ef860d93c9a9d\n",
+        "attendees": [
+          {
+            "email": "tanner.hobbs@belocalpub.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MTZ2MGtjZDZ1aGQxNnBxb3NhYms5YTU1cGcgYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "6oknd5fvbvpiu2tl9f8qt5vq4n",
+        "title": "Team Networking Las Colinas",
+        "start": "2026-02-26T11:30:00-06:00",
+        "end": "2026-02-26T13:00:00-06:00",
+        "location": "7701 N MacArthur Blvd Irving, TX 75063",
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=Nm9rbmQ1ZnZidnBpdTJ0bDlmOHF0NXZxNG4gYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "5saut7uug5e8knqk7ok0s1bkdt_20260226T204500Z",
+        "title": "Commute Home",
+        "start": "2026-02-26T14:45:00-06:00",
+        "end": "2026-02-26T16:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXNhdXQ3dXVnNWU4a25xazdvazBzMWJrZHRfMjAyNjAyMjZUMjA0NTAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "t264tis6q4m4cbr72qp564m5a8",
+        "title": "Touchbase and Schedule follow up 1 on 1 - phone call ",
+        "start": "2026-02-27",
+        "end": "2026-02-28",
+        "location": null,
+        "description": null,
+        "attendees": [
+          {
+            "email": "ts@adazondigital.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=dDI2NHRpczZxNG00Y2JyNzJxcDU2NG01YTggYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": true
+      },
+      {
+        "id": "nph9iuqi7bs365icjqe3vvib7b_20260227T140000Z",
+        "title": "Daily Standup",
+        "start": "2026-02-27T08:00:00-06:00",
+        "end": "2026-02-27T08:30:00-06:00",
+        "location": "app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057",
+        "description": "<div><p>Daily Standup</p><p><b>Join the meeting:</b> <a href=\"app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057\">app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057</a></p></div>",
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "team@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "german@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=bnBoOWl1cWk3YnMzNjVpY2pxZTN2dmliN2JfMjAyNjAyMjdUMTQwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "698b74h82mmsnvohh8kh9ci673_20260227T143000Z",
+        "title": "Admin Team | Level 10 Weekly Meeting",
+        "start": "2026-02-27T08:30:00-06:00",
+        "end": "2026-02-27T09:30:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [
+          {
+            "email": "leidy@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=Njk4Yjc0aDgybW1zbnZvaGg4a2g5Y2k2NzNfMjAyNjAyMjdUMTQzMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "4e40fjemhel5lgb4vqejfaule8",
+        "title": "Purple cow contract | Don Lyons and Ben Porter",
+        "start": "2026-02-27T11:30:00-06:00",
+        "end": "2026-02-27T12:00:00-06:00",
+        "location": null,
+        "description": "Meet with Ben online or in person\n\nSubject:\nPurple cow contract\n\n📆 Reschedule or cancel this event: https://zcal.co/e/699cb63c1e9ef860d9aa23b6\n",
+        "attendees": [
+          {
+            "email": "jstarkey@lyonsinvestmentgroup.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "dlyons@lyonsinvestmentgroup.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NGU0MGZqZW1oZWw1bGdiNHZxZWpmYXVsZTggYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "_60q30c1g60o30e1i60o4ac1g60rj8gpl88rj2c1h84s34h9g60s30c1g60o30c1g6ooj6d218go44dq464o48gpg64o30c1g60o30c1g60o30c1g60o32c1g60o30c1g8gqj2c1g8h2k4c236kojigpk8d136hi370r30e1p6gp34chn8grg_20260227T190000Z",
+        "title": "Regional Ambassador Call",
+        "start": "2026-02-27T13:00:00-06:00",
+        "end": "2026-02-27T14:00:00-06:00",
+        "location": "https://bnionline.zoom.us/j/7534292424?omn=97802561449",
+        "description": "This call is a monthly call for all the Ambassadors of DFW to connect and network together. The goal of this call is to share best practices, Discuss what you are seeing in the chapters of the region, and to connect via Speed Networking, 1:2:1s or other strategies. This is 100% volunteer but I hope you all can make it. Key Links are below.\n\n\nAmbassador Roster<https://docs.google.com/spreadsheets/d/1wxTXw2tF0O7-goPJ-sZKCvRsOckk96RS7Ebo9eDqVGQ/edit?gid=634347005#gid=634347005> (fill in your own information)\n\nFW Ambassador Schedule<https://docs.google.com/spreadsheets/d/1nZbHPXhJlvNPrWt8AZAewMMrqzf11PfFBnXWnPjTzZI/edit?gid=0#gid=0>\n\nDallas Ambassador Schedule<https://docs.google.com/spreadsheets/d/1u_aeJK09mayrv8zV451VRQtEyzY3K-OybqyUY2lVTEk/edit?gid=0#gid=0>\n\nFW Ambassador Visit Form<https://docs.google.com/forms/d/e/1FAIpQLSceuy6m9y73V0Q2q93xnnCTEsvDgGezIDS4SZMr87ZyesOIcA/viewform>\n\nDallas Ambassador Visit Form<https://docs.google.com/forms/d/e/1FAIpQLSdVwMdSrAFpzYe27aJfKlHuUdMtXyq7URJFYcHBvRE_IVMtOA/viewform>\n\n\n\n\n──────────\nBeau Palmer is inviting you to a scheduled Zoom meeting.\nJoin Zoom Meeting\nhttps://bnionline.zoom.us/j/7534292424?omn=97802561449\n\nMeeting ID: 753 429 2424\n\n---\n\nOne tap mobile\n+13462487799,,7534292424# US (Houston)\n+12532158782,,7534292424# US (Tacoma)\n\nJoin instructions\nhttps://bnionline.zoom.us/meetings/97802561449/invitations?signature=qkAxHjBpHMgDkOIX7wVf6_nDCzPFzejm0CpBox-2n1c\n\n──────────\n\nThe information contained in this e-mail is strictly confidential and for the use of the addressee only. Notice is hereby given that any disclosure, use or copying of the information by anyone other than the intended recipient is prohibited and may be illegal. If you have received this message in error please notify the sender immediately by return e-mail. The sender and BNI does not accept liability for any damage sustained as a result of software viruses and advises that you carry out your own virus checks before opening any attachment.\n",
+        "attendees": [
+          {
+            "email": "tommy@modernmcguire.com",
+            "responseStatus": "needsAction",
+            "displayName": "Tommy McGuire"
+          },
+          {
+            "email": "stevencash@kw.com",
+            "responseStatus": "needsAction",
+            "displayName": "Steven Cash"
+          },
+          {
+            "email": "pryce@preproperties.com",
+            "responseStatus": "needsAction",
+            "displayName": "Pryce Marshall"
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "swapna.jayachandran@gmail.com",
+            "responseStatus": "needsAction",
+            "displayName": "swapna Jayachandran"
+          },
+          {
+            "email": "will@thehustlemad.com",
+            "responseStatus": "needsAction",
+            "displayName": "Will Harris"
+          },
+          {
+            "email": "vivek@uspackouts.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "authenticallyalphonso@gmail.com",
+            "responseStatus": "needsAction",
+            "displayName": "Alphonso Dennis"
+          },
+          {
+            "email": "aj@preventpro.net",
+            "responseStatus": "needsAction",
+            "displayName": "AJ Stevenson"
+          },
+          {
+            "email": "brandon@lcmarketing.net",
+            "responseStatus": "needsAction",
+            "displayName": "Brandon Oshel"
+          },
+          {
+            "email": "cristisliter@bni.com",
+            "responseStatus": "needsAction",
+            "displayName": "Cristi Sliter"
+          },
+          {
+            "email": "ctran06@ft.newyorklife.com",
+            "responseStatus": "needsAction",
+            "displayName": "Curtis Tran - BNI Ambassador Talk (BNI Preston Center)"
+          },
+          {
+            "email": "dalewolter@actioncoach.com",
+            "responseStatus": "needsAction",
+            "displayName": "Dale Wolter"
+          },
+          {
+            "email": "doug@pbk.services",
+            "responseStatus": "needsAction",
+            "displayName": "Doug Pratt"
+          },
+          {
+            "email": "joshua_596@yahoo.com",
+            "responseStatus": "needsAction",
+            "displayName": "Joshua Mccool"
+          },
+          {
+            "email": "leonpalmer@bni.com",
+            "responseStatus": "accepted",
+            "displayName": "Leon Palmer"
+          },
+          {
+            "email": "renelle.roesler@coloniallifesales.com",
+            "responseStatus": "needsAction",
+            "displayName": "Renelle Roesler"
+          },
+          {
+            "email": "twysk@hallettperrin.com",
+            "responseStatus": "needsAction",
+            "displayName": "Tina Wysk"
+          },
+          {
+            "email": "david.boyd@insperity.com",
+            "responseStatus": "needsAction",
+            "displayName": "David Boyd"
+          },
+          {
+            "email": "susana@gibbagency.net",
+            "responseStatus": "needsAction",
+            "displayName": "Susana Gibb"
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=XzYwcTMwYzFnNjBvMzBlMWk2MG80YWMxZzYwcmo4Z3BsODhyajJjMWg4NHMzNGg5ZzYwczMwYzFnNjBvMzBjMWc2b29qNmQyMThnbzQ0ZHE0NjRvNDhncGc2NG8zMGMxZzYwbzMwYzFnNjBvMzBjMWc2MG8zMmMxZzYwbzMwYzFnOGdxajJjMWc4aDJrNGMyMzZrb2ppZ3BrOGQxMzZoaTM3MHIzMGUxcDZncDM0Y2huOGdyZ18yMDI2MDIyN1QxOTAwMDBaIGJlbkBwdXJwbGVjb3dicmFuZHMuY29t",
+        "isAllDay": false
+      },
+      {
+        "id": "5saut7uug5e8knqk7ok0s1bkdt_20260227T204500Z",
+        "title": "Commute Home",
+        "start": "2026-02-27T14:45:00-06:00",
+        "end": "2026-02-27T16:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXNhdXQ3dXVnNWU4a25xazdvazBzMWJrZHRfMjAyNjAyMjdUMjA0NTAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "e9im6r31d5miqs35e9pmurj1dgmn6ubecct76qr5elo6opbd65n6irpj6po3ctbfelon8cb9d5p38ehj",
+        "title": "✈ Flight",
+        "start": "2026-02-28T19:30:00-06:00",
+        "end": "2026-02-28T22:45:00-06:00",
+        "location": null,
+        "description": "<i>This event was created by <a href=\"https://app.reclaim.ai/signup?utm_source=calendar&utm_campaign=calendar-referral&utm_medium=calendar-sync-event&utm_term=u8Ps7\">Reclaim</a>.</i><p>Ben is on a flight and is busy at this time. Please find another time to avoid scheduling conflicts.</p>",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZTlpbTZyMzFkNW1pcXMzNWU5cG11cmoxZGdtbjZ1YmVjY3Q3NnFyNWVsbzZvcGJkNjVuNmlycGo2cG8zY3RiZmVsb244Y2I5ZDVwMzhlaGogYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "e9im6r31d5miqs35e9pmurj1dgmn6ubecct3apjbdco68tjfdlq3gqppdssmkprgcsp74ojl6kqn8nqi68o34d9g6co3il1h6ko30c1g78pg_20260301T160000Z",
+        "title": "🏠 Personal Commitment",
+        "start": "2026-03-01T10:00:00-06:00",
+        "end": "2026-03-01T11:00:00-06:00",
+        "location": null,
+        "description": "<i>This event was created by <a href=\"https://app.reclaim.ai/signup?utm_source=calendar&utm_campaign=calendar-referral&utm_medium=calendar-sync-event&utm_term=u8Ps7\">Reclaim</a>.</i><p>Ben has a personal commitment and is busy at this time. Please find another time to avoid scheduling conflicts.</p>",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZTlpbTZyMzFkNW1pcXMzNWU5cG11cmoxZGdtbjZ1YmVjY3QzYXBqYmRjbzY4dGpmZGxxM2dxcHBkc3Nta3ByZ2NzcDc0b2psNmtxbjhucWk2OG8zNGQ5ZzZjbzNpbDFoNmtvMzBjMWc3OHBnXzIwMjYwMzAxVDE2MDAwMFogYmVuQHB1cnBsZWNvd2JyYW5kcy5jb20",
+        "isAllDay": false
+      },
+      {
+        "id": "e9im6r31d5miqs35e9pmurj1dgmn6ubecct3ce3hdlhm6q3ccdi6gr9ic9h34dpld1l38ohpddhmusjdc5h3is1m6lkj6pb275njcorj6dim6ebd6pm6gcpkcdo6kdhg78pg",
+        "title": "🏠 Personal Commitment",
+        "start": "2026-03-01T12:00:00-06:00",
+        "end": "2026-03-01T15:00:00-06:00",
+        "location": null,
+        "description": "<i>This event was created by <a href=\"https://app.reclaim.ai/signup?utm_source=calendar&utm_campaign=calendar-referral&utm_medium=calendar-sync-event&utm_term=u8Ps7\">Reclaim</a>.</i><p>Ben has a personal commitment and is busy at this time. Please find another time to avoid scheduling conflicts.</p>",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZTlpbTZyMzFkNW1pcXMzNWU5cG11cmoxZGdtbjZ1YmVjY3QzY2UzaGRsaG02cTNjY2RpNmdyOWljOWgzNGRwbGQxbDM4b2hwZGRobXVzamRjNWgzaXMxbTZsa2o2cGIyNzVuamNvcmo2ZGltNmViZDZwbTZnY3BrY2RvNmtkaGc3OHBnIGJlbkBwdXJwbGVjb3dicmFuZHMuY29t",
+        "isAllDay": false
+      },
+      {
+        "id": "e9im6r31d5miqs35e9pmurj1dgmn6ubecct66d3j6dhmuqhkcdnn4qj9c9h38or8d1l6aohpddhjgsra71h64c9m6ho3ce3275l66orhdlgm8s386oq72qj9dtk6mdpg78pg",
+        "title": "🏠 Personal Commitment",
+        "start": "2026-03-01T13:30:00-06:00",
+        "end": "2026-03-01T18:30:00-06:00",
+        "location": null,
+        "description": "<i>This event was created by <a href=\"https://app.reclaim.ai/signup?utm_source=calendar&utm_campaign=calendar-referral&utm_medium=calendar-sync-event&utm_term=u8Ps7\">Reclaim</a>.</i><p>Ben has a personal commitment and is busy at this time. Please find another time to avoid scheduling conflicts.</p>",
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=ZTlpbTZyMzFkNW1pcXMzNWU5cG11cmoxZGdtbjZ1YmVjY3Q2NmQzajZkaG11cWhrY2RubjRxajljOWgzOG9yOGQxbDZhb2hwZGRoamdzcmE3MWg2NGM5bTZobzNjZTMyNzVsNjZvcmhkbGdtOHMzODZvcTcycWo5ZHRrNm1kcGc3OHBnIGJlbkBwdXJwbGVjb3dicmFuZHMuY29t",
+        "isAllDay": false
+      },
+      {
+        "id": "qsd08ec32mce2bstojv6oimj6k_20260302T133000Z",
+        "title": "Review tasks, emails, and sales",
+        "start": "2026-03-02T07:30:00-06:00",
+        "end": "2026-03-02T08:00:00-06:00",
+        "location": "sowork",
+        "description": null,
+        "attendees": [
+          {
+            "email": "leidy@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=cXNkMDhlYzMybWNlMmJzdG9qdjZvaW1qNmtfMjAyNjAzMDJUMTMzMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "nph9iuqi7bs365icjqe3vvib7b_20260302T140000Z",
+        "title": "Daily Standup",
+        "start": "2026-03-02T08:00:00-06:00",
+        "end": "2026-03-02T08:30:00-06:00",
+        "location": "app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057",
+        "description": "<div><p>Daily Standup</p><p><b>Join the meeting:</b> <a href=\"app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057\">app.sowork.com/s/f1gUi4nFJbAYbAmWmfQA/tinystartupgarage?user=gI9CZrqQ5bW7RGjoRbQodKCbbdA2&spawnId=6PrLtHE5O3oic55IvDm3&ts=1759977382057</a></p></div>",
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "team@purplecowbrands.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "german@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=bnBoOWl1cWk3YnMzNjVpY2pxZTN2dmliN2JfMjAyNjAzMDJUMTQwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "1ovujf416vedjcei6hn9dvu1ph_20260302T170000Z",
+        "title": "Level 10 Weekly Meeting",
+        "start": "2026-03-02T11:00:00-06:00",
+        "end": "2026-03-02T12:30:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [
+          {
+            "email": "kevin@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MW92dWpmNDE2dmVkamNlaTZobjlkdnUxcGhfMjAyNjAzMDJUMTcwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "4t26rcml9kks4gj5dl4vlre9mh_20260302T190000Z",
+        "title": "BNI Prep",
+        "start": "2026-03-02T13:00:00-06:00",
+        "end": "2026-03-02T14:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NHQyNnJjbWw5a2tzNGdqNWRsNHZscmU5bWhfMjAyNjAzMDJUMTkwMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "10emse3mibh6di59qhvrhkj289_20260302T203000Z",
+        "title": "BNI ELT Meeting",
+        "start": "2026-03-02T14:30:00-06:00",
+        "end": "2026-03-02T15:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [
+          {
+            "email": "andrewwebb@kw.com",
+            "responseStatus": "needsAction",
+            "displayName": null
+          },
+          {
+            "email": "justin.lamb@qualisgc.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          },
+          {
+            "email": "ben@purplecowbrands.com",
+            "responseStatus": "accepted",
+            "displayName": null
+          }
+        ],
+        "htmlLink": "https://www.google.com/calendar/event?eid=MTBlbXNlM21pYmg2ZGk1OXFodnJoa2oyODlfMjAyNjAzMDJUMjAzMDAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      },
+      {
+        "id": "5saut7uug5e8knqk7ok0s1bkdt_20260302T204500Z",
+        "title": "Commute Home",
+        "start": "2026-03-02T14:45:00-06:00",
+        "end": "2026-03-02T16:00:00-06:00",
+        "location": null,
+        "description": null,
+        "attendees": [],
+        "htmlLink": "https://www.google.com/calendar/event?eid=NXNhdXQ3dXVnNWU4a25xazdvazBzMWJrZHRfMjAyNjAzMDJUMjA0NTAwWiBiZW5AcHVycGxlY293YnJhbmRzLmNvbQ",
+        "isAllDay": false
+      }
+    ],
+    "count": 37
+  },
+  "metrics": {
+    "oneOnOneMeetingsThisWeek": 0
+  }
+}

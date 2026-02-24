@@ -6,6 +6,7 @@ import {
     getClientHealthData, 
     getKitchenData,
     getBNIData,
+    getCalendarData,
     isLiveData 
 } from '../data-loader.js';
 
@@ -22,13 +23,14 @@ async function getTimeData() {
 
 export async function renderHome() {
     // Fetch all available data sources in parallel
-    const [crmData, monitoringData, clientHealthData, kitchenData, bniData, timeData] = await Promise.all([
+    const [crmData, monitoringData, clientHealthData, kitchenData, bniData, timeData, calendarData] = await Promise.all([
         getCRMData(),
         getMonitoringData(),
         getClientHealthData(),
         getKitchenData(),
         getBNIData(),
-        getTimeData()
+        getTimeData(),
+        getCalendarData()
     ]);
 
     // Determine which data sources are live
@@ -38,7 +40,8 @@ export async function renderHome() {
         clients: isLiveData(clientHealthData),
         kitchen: isLiveData(kitchenData),
         bni: isLiveData(bniData),
-        time: !!timeData
+        time: !!timeData,
+        calendar: isLiveData(calendarData)
     };
 
     // Use live data where available, fallback to sample data
@@ -82,6 +85,13 @@ export async function renderHome() {
     const firstMeal = liveSources.kitchen
         ? (kitchen.thisWeek?.dinner?.[0]?.name || kitchen.thisWeek?.lunch?.[0]?.name || kitchen.thisWeek?.breakfast?.[0]?.name || 'No meals planned')
         : kitchen.currentWeek.recipes[0].name;
+
+    // Calendar metrics
+    const calendar = calendarData || { today: { count: 0 }, currentMeeting: null, upcoming: { count: 0 }, metrics: { oneOnOneMeetingsThisWeek: 0 } };
+    const todayEventCount = liveSources.calendar ? calendar.today.count : sampleData.calendar?.todayEvents || 0;
+    const currentMeeting = liveSources.calendar ? calendar.currentMeeting : null;
+    const upcomingCount = liveSources.calendar ? calendar.upcoming.count : 0;
+    const calendar121Count = liveSources.calendar ? calendar.metrics.oneOnOneMeetingsThisWeek : 0;
 
     // Recent interactions (top 3)
     const recentInteractions = liveSources.crm
@@ -201,6 +211,17 @@ export async function renderHome() {
                 <div class="stat-value">${workHours}h</div>
                 <div class="stat-meta">Time tracking overview ${liveSources.time ? '(Live)' : '(Sample)'}</div>
             </a>
+
+            <div class="stat-card ${currentMeeting ? 'highlight' : ''}">
+                <div class="stat-header">
+                    <div class="stat-icon ${currentMeeting ? 'warning' : 'info'}">
+                        <i data-lucide="calendar"></i>
+                    </div>
+                    <div class="stat-label">${currentMeeting ? 'In Meeting Now' : "Today's Calendar"}</div>
+                </div>
+                <div class="stat-value">${currentMeeting ? '🔴 Live' : todayEventCount}</div>
+                <div class="stat-meta">${currentMeeting ? currentMeeting.title : `${upcomingCount} events next 7 days`} ${liveSources.calendar ? '(Live)' : '(Sample)'}</div>
+            </div>
 
             <a href="#/kitchen" class="stat-card clickable">
                 <div class="stat-header">

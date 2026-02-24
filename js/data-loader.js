@@ -428,6 +428,46 @@ export function generateEOSJson(formData) {
 }
 
 // =========================
+// CALENDAR DATA
+// =========================
+
+export async function getCalendarData() {
+    const cached = getCached('calendar');
+    if (cached) return cached;
+
+    const calendarData = await fetchJSON('/data/calendar.json');
+    if (!calendarData) return null;
+
+    const data = {
+        ...calendarData,
+        isLive: true
+    };
+
+    setCache('calendar', data);
+    return data;
+}
+
+// =========================
+// CLICKUP TASKS DATA
+// =========================
+
+export async function getClickUpData() {
+    const cached = getCached('clickup');
+    if (cached) return cached;
+
+    const clickupData = await fetchJSON('/data/clickup-tasks.json');
+    if (!clickupData) return null;
+
+    const data = {
+        ...clickupData,
+        isLive: true
+    };
+
+    setCache('clickup', data);
+    return data;
+}
+
+// =========================
 // HELPER: Check if data is live
 // =========================
 

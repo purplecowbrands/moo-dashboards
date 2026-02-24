@@ -8,6 +8,34 @@ This file tracks implementation status of current work. ROADMAP.md is the master
 
 ## 🎯 Recent Improvements
 
+### 2026-02-23 11:29 PM - Tasks Page Redesigned to Status Table ✅ Priority 2 IN PROGRESS
+**Implemented:** Reworked Tasks dashboard to match Ben's request for a clean status-grouped task table
+- **Removed clutter:**
+  - Removed all KPI cards at top
+  - Removed category chart and category breakdown panels
+  - Removed progress bar summary section
+- **New status-grouped layout:**
+  - Tasks are now grouped into status sections: Do Next, In Progress, Coming Up, Backlog
+  - Each status section shows task count and total time estimate in header
+  - Tables show real tasks instead of aggregate summaries
+- **Table columns aligned to feedback:**
+  - Name (clickable task link)
+  - Location breadcrumb (folder/list context)
+  - Time estimate
+  - Due date
+  - Comments count (shows n/a when unavailable)
+  - Task type (Sales, Admin, Inbox, Task)
+- **Additional UX improvements:**
+  - Sorted by due date inside each status group
+  - External links open directly to ClickUp task details
+  - Subtask visual styling added (auto-indents when parent metadata is present)
+  - Preserved Live Data vs Sample Data banner
+- **Rationale:** Ben asked for "just actual tasks organized by status" with a clean table layout and no charts. This redesign removes noise and puts real actionable tasks front and center.
+
+**Why:** Following strict priority order - Priority 2 redesign work after page deletions were completed. Tasks was explicitly marked for significant rework.
+**Next Step:** Continue Priority 2 redesigns (CRM, Sales Pipeline, Site Monitoring, Time Tracking, Kitchen, Roadmap) before Priority 3 Focus Engine replacement for Home
+**Deployed:** Committed and pushed to main; Cloudflare Pages auto-deploy triggered
+
 ### 2026-02-23 10:29 PM - EOS Scorecard Redesigned ✅ Priority 2 IN PROGRESS
 **Implemented:** Total redesign of EOS Scorecard from cards to chart-based directory hub
 - **Visual transformation:**

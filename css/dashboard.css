@@ -183,6 +183,32 @@ tr:hover {
     background: var(--bg-secondary);
 }
 
+.task-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.task-name-cell.subtask {
+    padding-left: 14px;
+}
+
+.task-indent {
+    color: var(--text-tertiary);
+    font-size: 0.8rem;
+}
+
+.task-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.task-link:hover {
+    text-decoration: underline;
+    color: var(--accent);
+}
+
 /* Badge */
 .badge {
     display: inline-block;

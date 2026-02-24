@@ -3,6 +3,7 @@ import { renderFocusAsync } from './dashboards/focus.js';
 import { renderSalesAsync, initSales } from './dashboards/sales.js';
 import { renderEOS, initEOS } from './dashboards/eos.js';
 import { renderCRM } from './dashboards/crm.js';
+import { renderTriageAsync } from './dashboards/triage.js';
 import { renderMonitoring } from './dashboards/monitoring.js';
 import { renderTime, initTime } from './dashboards/time.js';
 import { renderTasksAsync } from './dashboards/tasks.js';
@@ -16,6 +17,7 @@ const pages = {
     sales: renderSalesAsync,
     eos: renderEOS,
     crm: renderCRM,
+    triage: renderTriageAsync,
     monitoring: renderMonitoring,
     time: renderTime,
     tasks: renderTasksAsync,

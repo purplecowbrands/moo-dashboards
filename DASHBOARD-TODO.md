@@ -8,6 +8,27 @@ This file tracks implementation status of current work. ROADMAP.md is the master
 
 ## 🎯 Recent Improvements
 
+### 2026-02-24 1:29 AM - CRM Redesigned for Follow-Up Workflow + Contact Browsing ✅ Priority 2 IN PROGRESS
+**Implemented:** Reworked CRM dashboard to match Ben's requested structure and remove KPI clutter
+- **Removed CRM KPI cards entirely** (total contacts, recent count, pending intros, top connections)
+- **Kept and tightened recent interactions** to a focused "Last 5" table
+- **Added Next Follow-Ups (Top 5)** panel:
+  - Auto-ranks contacts by stale/no contact recency plus relationship weight
+  - Surfaces best contact method (email/phone) for immediate action
+  - Designed for quick "who should I reach out to next" decisions
+- **Added Contact Browser section for easier management:**
+  - Search by name/company/email
+  - Triage filter (follow-up, later, watch, untriaged, delete)
+  - Condensed table with triage, relationship, last touch, and contact method
+  - Supports fast scanning without KPI noise
+- **Layout update:**
+  - Two-card priority row (Recent Interactions + Next Follow-Ups)
+  - Full-width searchable browser below for high-density contact management
+
+**Why:** Ben explicitly requested no KPI cards on CRM, keep recent interactions, add next follow-ups, and make contacts easy to browse/manage. This ships that core workflow in one focused redesign pass.
+**Next Step:** Continue Priority 2 redesigns, especially Time Tracking weekly timeline + overlay and Roadmap Kanban architecture view.
+**Deployed:** Committed and pushed to main; Cloudflare Pages auto-deploy triggered
+
 ### 2026-02-24 12:29 AM - Sales Pipeline Reworked for Weekly Calendar Correction ✅ Priority 2 IN PROGRESS
 **Implemented:** Reworked Sales Pipeline around weekly event calendar correction flow
 - **Removed pipeline value clutter:**

@@ -382,6 +382,97 @@ select:focus, input:focus {
 }
 
 /* Mobile Responsive */
+/* Sales Pipeline redesign */
+.week-score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.week-score-btn {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.week-score-btn:hover {
+    border-color: var(--accent);
+}
+
+.week-score-btn.active {
+    background: rgba(99, 102, 241, 0.12);
+    border-color: var(--accent);
+}
+
+.week-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.week-count {
+    font-weight: 700;
+}
+
+.sales-type-chip {
+    border: none;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.sales-type-chip.\31 21 {
+    background: rgba(16, 185, 129, 0.16);
+    color: #047857;
+}
+
+.sales-type-chip.event {
+    background: rgba(59, 130, 246, 0.16);
+    color: #1d4ed8;
+}
+
+.sales-type-chip.other {
+    background: rgba(107, 114, 128, 0.16);
+    color: #374151;
+}
+
+.sales-type-legend {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sales-type-dot {
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.sales-type-dot.type-121 {
+    background: rgba(16, 185, 129, 0.16);
+    color: #047857;
+}
+
+.sales-type-dot.type-event {
+    background: rgba(59, 130, 246, 0.16);
+    color: #1d4ed8;
+}
+
+.sales-type-dot.type-other {
+    background: rgba(107, 114, 128, 0.16);
+    color: #374151;
+}
+
 @media (max-width: 768px) {
     .stats-grid {
         grid-template-columns: 1fr;

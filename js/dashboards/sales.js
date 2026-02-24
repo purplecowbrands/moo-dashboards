@@ -2,52 +2,212 @@
 import { sampleData } from '../../data/sample-data.js';
 import { getCalendarData } from '../data-loader.js';
 
+let salesViewState = null;
+
+const EVENT_TYPES = ['121', 'event', 'other'];
+
+function getWeekStart(dateInput) {
+    const date = new Date(dateInput);
+    const day = date.getDay();
+    const diffToMonday = day === 0 ? -6 : 1 - day;
+    date.setDate(date.getDate() + diffToMonday);
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+
+function formatWeekLabel(weekStart) {
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+
+    const startLabel = weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const endLabel = weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return `${startLabel} - ${endLabel}`;
+}
+
+function detectEventType(title) {
+    const normalized = title.toLowerCase();
+
+    const is121 = normalized.includes('121') ||
+        normalized.includes('1:1') ||
+        normalized.includes('1-1') ||
+        normalized.includes('one-on-one') ||
+        normalized.includes('bni 1-1') ||
+        normalized.includes('1 on 1');
+
+    if (is121) return '121';
+
+    if (
+        normalized.includes('network') ||
+        normalized.includes('bni') ||
+        normalized.includes('mixer') ||
+        normalized.includes('lunch') ||
+        normalized.includes('discovery') ||
+        normalized.includes('meeting')
+    ) {
+        return 'event';
+    }
+
+    return 'other';
+}
+
+function cycleType(type) {
+    const index = EVENT_TYPES.indexOf(type);
+    return EVENT_TYPES[(index + 1) % EVENT_TYPES.length];
+}
+
+function buildWeekData(calendarData, sales) {
+    if (!calendarData?.upcoming?.nextSevenDays?.length) {
+        return sales.weeklyScorecard.map((week, index) => ({
+            id: `sample-${index}`,
+            label: week.week,
+            oneOnOnes: week.count,
+            events: []
+        }));
+    }
+
+    const weeksMap = new Map();
+
+    calendarData.upcoming.nextSevenDays.forEach((event) => {
+        const weekStart = getWeekStart(event.start);
+        const weekId = weekStart.toISOString().split('T')[0];
+
+        if (!weeksMap.has(weekId)) {
+            weeksMap.set(weekId, {
+                id: weekId,
+                label: formatWeekLabel(weekStart),
+                weekStart,
+                events: []
+            });
+        }
+
+        weeksMap.get(weekId).events.push({
+            id: event.id,
+            title: event.title,
+            start: event.start,
+            end: event.end,
+            htmlLink: event.htmlLink,
+            type: detectEventType(event.title)
+        });
+    });
+
+    return Array.from(weeksMap.values())
+        .sort((a, b) => a.weekStart - b.weekStart)
+        .map((week) => ({
+            ...week,
+            oneOnOnes: week.events.filter((event) => event.type === '121').length
+        }));
+}
+
+function renderCalendarRows() {
+    const rowsContainer = document.getElementById('sales-calendar-rows');
+    const weekTitle = document.getElementById('sales-selected-week-title');
+    if (!rowsContainer || !salesViewState) return;
+
+    const selectedWeek = salesViewState.weeks[salesViewState.selectedWeekIndex];
+    if (!selectedWeek) {
+        rowsContainer.innerHTML = '<tr><td colspan="4">No events found for this week.</td></tr>';
+        return;
+    }
+
+    weekTitle.textContent = `Week of ${selectedWeek.label}`;
+
+    if (!selectedWeek.events.length) {
+        rowsContainer.innerHTML = '<tr><td colspan="4">No calendar events in this week yet.</td></tr>';
+        return;
+    }
+
+    rowsContainer.innerHTML = selectedWeek.events
+        .sort((a, b) => new Date(a.start) - new Date(b.start))
+        .map((event, index) => {
+            const start = new Date(event.start);
+            const day = start.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            const time = event.start.includes('T')
+                ? start.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+                : 'All day';
+
+            return `
+                <tr>
+                    <td>${day}</td>
+                    <td>${time}</td>
+                    <td>
+                        ${event.htmlLink ? `<a href="${event.htmlLink}" target="_blank" rel="noopener" class="task-link">${event.title}</a>` : event.title}
+                    </td>
+                    <td>
+                        <button class="sales-type-chip ${event.type}" data-event-index="${index}">
+                            ${event.type.toUpperCase()}
+                        </button>
+                    </td>
+                </tr>
+            `;
+        })
+        .join('');
+
+    rowsContainer.querySelectorAll('.sales-type-chip').forEach((button) => {
+        button.addEventListener('click', () => {
+            const eventIndex = Number(button.dataset.eventIndex);
+            const currentType = selectedWeek.events[eventIndex].type;
+            selectedWeek.events[eventIndex].type = cycleType(currentType);
+            selectedWeek.oneOnOnes = selectedWeek.events.filter((event) => event.type === '121').length;
+
+            renderScorecardButtons();
+            renderCalendarRows();
+        });
+    });
+}
+
+function renderScorecardButtons() {
+    const scorecard = document.getElementById('sales-week-scorecard');
+    if (!scorecard || !salesViewState) return;
+
+    scorecard.innerHTML = salesViewState.weeks.map((week, index) => `
+        <button class="week-score-btn ${index === salesViewState.selectedWeekIndex ? 'active' : ''}" data-week-index="${index}">
+            <span class="week-label">${week.label}</span>
+            <span class="week-count">${week.oneOnOnes} / ${salesViewState.weeklyTarget}</span>
+        </button>
+    `).join('');
+
+    scorecard.querySelectorAll('.week-score-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+            salesViewState.selectedWeekIndex = Number(button.dataset.weekIndex);
+            renderScorecardButtons();
+            renderCalendarRows();
+        });
+    });
+}
+
+export function initSales() {
+    if (!salesViewState) return;
+    renderScorecardButtons();
+    renderCalendarRows();
+}
+
 // Async rendering function for calendar integration
 export async function renderSalesAsync() {
     const calendarData = await getCalendarData();
     const { sales } = sampleData;
-    
-    // Count 121 meetings from calendar
-    const isOneOnOneMeeting = (title) => {
-        const normalized = title.toLowerCase();
-        return normalized.includes('121') || 
-               normalized.includes('1:1') || 
-               normalized.includes('1-1') ||
-               normalized.includes('one-on-one') ||
-               normalized.includes('bni 1-1') ||
-               (normalized.includes('bni') && normalized.includes('1'));
-    };
 
-    const oneOnOneMeetingsThisWeek = calendarData ? 
-        calendarData.upcoming.nextSevenDays.filter(event => isOneOnOneMeeting(event.title)).length : 
-        sales.currentWeek;
+    const hasCalendarData = calendarData !== null;
+    const weeks = buildWeekData(calendarData, sales);
+    const selectedWeekIndex = weeks.length > 0 ? 0 : -1;
+    const selectedWeek = selectedWeekIndex >= 0 ? weeks[selectedWeekIndex] : null;
 
+    const oneOnOneMeetingsThisWeek = selectedWeek ? selectedWeek.oneOnOnes : sales.currentWeek;
     const weeklyTarget = sales.weeklyTarget;
     const progressPercent = (oneOnOneMeetingsThisWeek / weeklyTarget) * 100;
 
-    // Get upcoming sales-relevant meetings (121s, discovery calls, proposals)
-    const upcomingSalesMeetings = calendarData ? 
-        calendarData.upcoming.nextSevenDays
-            .filter(event => {
-                const title = event.title.toLowerCase();
-                return isOneOnOneMeeting(title) || 
-                       title.includes('discovery') || 
-                       title.includes('proposal') ||
-                       title.includes('networking');
-            })
-            .slice(0, 5) : [];
-
-    // Data status indicator
-    const hasCalendarData = calendarData !== null;
-    const dataStatus = hasCalendarData ? 'Live Data' : 'Sample Data';
+    salesViewState = {
+        weeklyTarget,
+        selectedWeekIndex,
+        weeks
+    };
 
     return `
         <div class="page-header">
             <h2>Sales Pipeline</h2>
-            <p>121 tracking, prospect pipeline stages, weekly scorecard</p>
+            <p>Weekly 121 tracking with calendar-level event correction</p>
             <div class="data-status" style="margin-top: 10px;">
-                <span class="badge ${hasCalendarData ? 'success' : 'warning'}">${dataStatus}</span>
-                ${hasCalendarData ? '<span style="margin-left: 10px; font-size: 0.9em; color: var(--text-secondary);">Calendar connected: tracking 121s automatically</span>' : ''}
+                <span class="badge ${hasCalendarData ? 'success' : 'warning'}">${hasCalendarData ? 'Live Data' : 'Sample Data'}</span>
+                ${hasCalendarData ? '<span style="margin-left: 10px; font-size: 0.9em; color: var(--text-secondary);">Click week cards, then re-tag events as 121/Event/Other</span>' : ''}
             </div>
         </div>
 
@@ -57,7 +217,7 @@ export async function renderSalesAsync() {
                     <div class="stat-icon ${oneOnOneMeetingsThisWeek >= weeklyTarget ? 'success' : 'warning'}">
                         <i data-lucide="phone-call"></i>
                     </div>
-                    <div class="stat-label">121s This Week ${hasCalendarData ? '(Live)' : '(Sample)'}</div>
+                    <div class="stat-label">121s in Selected Week</div>
                 </div>
                 <div class="stat-value">${oneOnOneMeetingsThisWeek}</div>
                 <div class="stat-meta">Target: ${weeklyTarget}/week</div>
@@ -68,24 +228,15 @@ export async function renderSalesAsync() {
 
             <div class="stat-card">
                 <div class="stat-icon info">
-                    <i data-lucide="users"></i>
+                    <i data-lucide="calendar-days"></i>
                 </div>
-                <div class="stat-label">Active Pipeline</div>
-                <div class="stat-value">${sales.pipeline.reduce((sum, stage) => sum + stage.count, 0)}</div>
-                <div class="stat-meta">Total prospects</div>
+                <div class="stat-label">Events in Selected Week</div>
+                <div class="stat-value">${selectedWeek?.events.length || 0}</div>
+                <div class="stat-meta">Color coded by type</div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-icon success">
-                    <i data-lucide="dollar-sign"></i>
-                </div>
-                <div class="stat-label">Pipeline Value</div>
-                <div class="stat-value">$${(sales.pipeline.reduce((sum, stage) => sum + stage.value, 0) / 1000).toFixed(0)}k</div>
-                <div class="stat-meta">Total potential</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon info">
                     <i data-lucide="trophy"></i>
                 </div>
                 <div class="stat-label">Closed Won</div>
@@ -94,103 +245,39 @@ export async function renderSalesAsync() {
             </div>
         </div>
 
-        <div class="dashboard-grid">
-            ${hasCalendarData && upcomingSalesMeetings.length > 0 ? `
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Upcoming Sales Meetings</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Meeting</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${upcomingSalesMeetings.map(meeting => {
-                                    const start = new Date(meeting.start);
-                                    const dateStr = start.toLocaleDateString('en-US', { 
-                                        month: 'short', 
-                                        day: 'numeric' 
-                                    });
-                                    const timeStr = start.toLocaleTimeString('en-US', { 
-                                        hour: 'numeric', 
-                                        minute: '2-digit',
-                                        hour12: true 
-                                    });
-                                    return `
-                                        <tr>
-                                            <td><strong>${meeting.title}</strong></td>
-                                            <td>${dateStr}</td>
-                                            <td>${timeStr}</td>
-                                        </tr>
-                                    `;
-                                }).join('')}
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="card" style="margin-bottom: var(--spacing-lg);">
+            <div class="card-header">
+                <h3 class="card-title">Weekly 121 Scorecard</h3>
+            </div>
+            <div class="card-body">
+                <div id="sales-week-scorecard" class="week-score-grid"></div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: var(--spacing-lg);">
+            <div class="card-header">
+                <h3 class="card-title" id="sales-selected-week-title">Weekly Calendar</h3>
+                <div class="sales-type-legend">
+                    <span class="sales-type-dot type-121">121</span>
+                    <span class="sales-type-dot type-event">Event</span>
+                    <span class="sales-type-dot type-other">Other</span>
                 </div>
             </div>
-            ` : ''}
-
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Weekly 121 Scorecard</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container">
-                        <canvas id="weeklyChart" data-chart="bar" data-chart-data='${JSON.stringify({
-                            labels: sales.weeklyScorecard.map(w => w.week),
-                            datasets: [{
-                                label: '121 Meetings',
-                                data: sales.weeklyScorecard.map(w => w.count),
-                                backgroundColor: 'rgba(99, 102, 241, 0.5)',
-                                borderColor: 'rgb(99, 102, 241)',
-                                borderWidth: 2
-                            }, {
-                                label: 'Target',
-                                data: sales.weeklyScorecard.map(w => w.target),
-                                backgroundColor: 'rgba(16, 185, 129, 0.2)',
-                                borderColor: 'rgb(16, 185, 129)',
-                                borderWidth: 2,
-                                borderDash: [5, 5]
-                            }]
-                        })}'></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Pipeline Stages</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Stage</th>
-                                    <th>Count</th>
-                                    <th>Value</th>
-                                    <th>Avg Deal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${sales.pipeline.map(stage => `
-                                    <tr>
-                                        <td><strong>${stage.stage}</strong></td>
-                                        <td>${stage.count}</td>
-                                        <td>$${(stage.value / 1000).toFixed(1)}k</td>
-                                        <td>$${stage.count > 0 ? (stage.value / stage.count / 1000).toFixed(1) : '0'}k</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Time</th>
+                                <th>Event</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sales-calendar-rows">
+                            <tr><td colspan="4">Loading week events...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -213,7 +300,7 @@ export async function renderSalesAsync() {
                             ${sales.recentDeals.map(deal => `
                                 <tr>
                                     <td>${deal.name}</td>
-                                    <td><span class="badge ${deal.status.toLowerCase() === 'closed' ? 'error' : 'info'}">${deal.status}</span></td>
+                                    <td><span class="badge ${deal.status.toLowerCase() === 'closed' ? 'success' : 'info'}">${deal.status}</span></td>
                                     <td>${deal.lastActivity}</td>
                                 </tr>
                             `).join('')}

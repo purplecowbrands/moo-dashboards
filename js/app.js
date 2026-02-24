@@ -1,7 +1,7 @@
 // Main App - Router & Navigation
 import { renderHome } from './dashboards/home.js';
 import { renderFocusAsync } from './dashboards/focus.js';
-import { renderSalesAsync } from './dashboards/sales.js';
+import { renderSalesAsync, initSales } from './dashboards/sales.js';
 import { renderEOS, initEOS } from './dashboards/eos.js';
 import { renderCRM } from './dashboards/crm.js';
 import { renderMonitoring } from './dashboards/monitoring.js';
@@ -123,6 +123,10 @@ async function router() {
     // Initialize page-specific features
     if (page === 'eos') {
         initEOS();
+    }
+
+    if (page === 'sales') {
+        initSales();
     }
 }
 

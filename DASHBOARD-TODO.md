@@ -8,6 +8,30 @@ This file tracks implementation status of current work. ROADMAP.md is the master
 
 ## 🎯 Recent Improvements
 
+### 2026-02-24 12:29 AM - Sales Pipeline Reworked for Weekly Calendar Correction ✅ Priority 2 IN PROGRESS
+**Implemented:** Reworked Sales Pipeline around weekly event calendar correction flow
+- **Removed pipeline value clutter:**
+  - Removed "Pipeline Value" KPI card
+  - Removed full "Pipeline Stages" value table (count/value/avg deal)
+  - Kept outcome-oriented metric (Closed Won) and week activity stats
+- **Added weekly scorecard interaction:**
+  - Replaced static chart with clickable weekly scorecard buttons
+  - Each week card shows `121 count / weekly target`
+  - Clicking a week instantly switches the detailed weekly calendar below
+- **Added weekly calendar view with actual event names:**
+  - Shows calendar events for selected week with day/time/name
+  - Event title links out to the actual Google Calendar event
+  - Better visibility for mismatch correction between scorecard and real calendar
+- **Added color-coded event types + one-click type change:**
+  - Event types: 121 (green), Event (blue), Other (gray)
+  - Type chip is clickable and cycles 121 -> Event -> Other
+  - Updating type immediately recalculates that week's 121 total
+- **Rationale:** Ben requested weekly calendar visibility, color-coded event types, and one-click correction workflow from scorecard into calendar. This ships the full UI loop and removes low-value pipeline dollar tracking.
+
+**Why:** This is Priority 2 redesign work after page deletions. Sales Pipeline was explicitly flagged for significant rework and removal of pipeline value tracking.
+**Next Step:** Continue Priority 2 redesigns (CRM, Time Tracking, Kitchen, Roadmap, Site Monitoring refinements) before moving to Focus Engine home replacement.
+**Deployed:** Committed and pushed to main; Cloudflare Pages auto-deploy triggered
+
 ### 2026-02-23 11:29 PM - Tasks Page Redesigned to Status Table ✅ Priority 2 IN PROGRESS
 **Implemented:** Reworked Tasks dashboard to match Ben's request for a clean status-grouped task table
 - **Removed clutter:**

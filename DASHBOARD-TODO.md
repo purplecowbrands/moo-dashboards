@@ -8,6 +8,24 @@ This file tracks implementation status of current work. ROADMAP.md is the master
 
 ## 🎯 Recent Improvements
 
+### 2026-02-23 9:29 PM - Deleted Low-Value Pages ✅ Priority 1 COMPLETE
+**Implemented:** Removed Client Health, BNI Metrics, and Financial Overview pages per Ben's direct feedback
+- **Pages deleted:**
+  - Client Health (clients.js) - wasn't adding value, MRR tracking can live elsewhere
+  - BNI Metrics (bni.js) - manual entry burden, metrics tracked in calendar/CRM anyway
+  - Financial Overview (financial.js) - redundant with other tracking, low utility
+- **Cleanup performed:**
+  - Removed dashboard JS files from `js/dashboards/`
+  - Removed navigation links from sidebar in `index.html`
+  - Removed imports and route mappings from `app.js`
+  - Removed page-specific init functions (`initBNI`, `initFinancial`)
+  - Deleted related data files: `bni-metrics.json`, `financial.json`, `client-mrr.json`
+- **Rationale:** These pages were low-value clutter that didn't align with the Focus Engine vision. Ben's feedback was clear - delete first, before working on other improvements. This streamlines the dashboard and removes maintenance burden for features that weren't being used.
+
+**Why:** Following Ben's strict priority order from feedback: DELETE > REDESIGN > BUILD > DATA. These pages were explicitly marked for deletion and needed to go before any other work.
+**Next Step:** Follow priority order - REDESIGN existing pages per Ben's feedback (layout, content, structure changes), then continue with Focus Engine development
+**Deployed:** Pushed to GitHub main branch (commit f07920f), Cloudflare Pages auto-deploying
+
 ### 2026-02-23 8:29 PM - Focus Engine UI Shell ✅ Phase 3 STARTED
 **Implemented:** Initial Focus View UI - the "What Should I Be Doing Right Now?" interface
 - **Created focus.js dashboard module:**
